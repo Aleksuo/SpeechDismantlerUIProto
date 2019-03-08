@@ -2,12 +2,20 @@ import React, { Component } from 'react';
 import { Button, Dropdown, Navbar } from 'react-bootstrap';
 import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-
-recognition.continous = true
-recognition.interimResults = true
-recognition.lang = 'en-US'
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioContext = new AudioContext();
+navigator.mediaDevices.getUserMedia(
+  {
+    audio: {
+      mandatory: {
+        googEchoCancellation: 'false',
+        googAutoGainControl: 'false',
+        googNoiseSuppression: 'false',
+        googHighpassFilter: 'false',
+      },
+    },
+  }
+).catch(e => { console.log(e);})
 
 class SpeechDismantler extends Component {
 
@@ -37,64 +45,32 @@ class SpeechDismantler extends Component {
       isAnalyzing: !state.isAnalyzing
     }));
   }
-
-  handleListen() {
-
-   
-
-    if (this.state.isRecording) {
-      recognition.start()
-      recognition.onend = () => {
-        console.log("...continue listening...")
-        recognition.start()
-      }
-
-    } else {
-      recognition.stop()
-      recognition.onend = () => {
-        console.log("Stopped listening per click")
-      }
+  
+  handleListen(stream, callback) {
+    if(!audioContext){
+      console.log("Oh no!")
+      return;
     }
 
-    recognition.onstart = () => {
-      console.log("Listening!")
-    }
+    var myStream = stream;
 
-    let finalTranscript = ''
-    recognition.onresult = event => {
-      let interimTranscript = ''
+    const inputPoint = audioContext.createGain();
+    const microphone = audioContext.createMediaStreamSource(myStream);
+    const analyzer = audioContext();
+    var scriptProcessor = inputPoint.context.createScriptProcessor(2048, 2, 2);
 
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const transcript = event.results[i][0].transcript;
-        if (event.results[i].isFinal) finalTranscript += transcript + ' ';
-        else interimTranscript += transcript;
-      }
-      document.getElementById('interim').innerHTML = interimTranscript
-      document.getElementById('final').innerHTML = finalTranscript
-
-      //-------------------------COMMANDS------------------------------------
-
-      const transcriptArr = finalTranscript.split(' ')
-      const stopCmd = transcriptArr.slice(-3, -1)
-      console.log('stopCmd', stopCmd)
-
-      if (stopCmd[0] === 'stop' && stopCmd[1] === 'listening') {
-        recognition.stop()
-        recognition.onend = () => {
-          console.log('Stopped listening per command')
-          const finalText = transcriptArr.slice(0, -3).join(' ')
-          document.getElementById('final').innerHTML = finalText
-        }
-      }
-    }
-
-    //-----------------------------------------------------------------------
-
-    recognition.onerror = event => {
-      console.log("Error occurred in recognition: " + event.error)
-    }
-
+    microphone.connect(inputPoint);
+    inputPoint.connect(analyzer);
+    inputPoint.connect(scriptProcessor);
+    scriptProcessor.connect(inputPoint.context.destination);
+    scriptProcessor.addEventListener('audioprocess', this.streamAudioData);
   }
+
+  streamAudioData(e){
+    const floatSamples = e.inputBuffer.getChannelData();
+    console.log(e);
+  }
+  
 
 
 
@@ -121,33 +97,33 @@ class SpeechDismantler extends Component {
     };
 
     const container = {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center'
-      }
-      const button = {
-        width: '60px',
-        height: '60px',
-        background: 'lightblue',
-        borderRadius: '50%',
-        margin: '6em 0 2em 0'
-      }
-      const interim = {
-        color: 'gray',
-        border: '#ccc 1px solid',
-        padding: '1em',
-        margin: '1em',
-        width: '300px'
-      }
-      const final =  {
-        color: 'black',
-        border: '#ccc 1px solid',
-        padding: '1em',
-        margin: '1em',
-        width: '300px'
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      textAlign: 'center'
     }
-    
+    const button = {
+      width: '60px',
+      height: '60px',
+      background: 'lightblue',
+      borderRadius: '50%',
+      margin: '6em 0 2em 0'
+    }
+    const interim = {
+      color: 'gray',
+      border: '#ccc 1px solid',
+      padding: '1em',
+      margin: '1em',
+      width: '300px'
+    }
+    const final = {
+      color: 'black',
+      border: '#ccc 1px solid',
+      padding: '1em',
+      margin: '1em',
+      width: '300px'
+    }
+
 
     if (this.state.isAnalyzing) {
       return (
@@ -184,13 +160,13 @@ class SpeechDismantler extends Component {
     return (
       <div style={parentContainerStyles}>
         <div style={subContainerStyles}>
-        <div className="center-block text-center">
-          <h2>WPM: 100</h2>
-          <br></br>
-          <h2>Filler words per 100: 10</h2>
-          <br></br>
-          <h2>Volume: Okay</h2>
-        </div>
+          <div className="center-block text-center">
+            <h2>WPM: 100</h2>
+            <br></br>
+            <h2>Filler words per 100: 10</h2>
+            <br></br>
+            <h2>Volume: Okay</h2>
+          </div>
 
           <div className="center-block text-center">
             <img src={"https://image.flaticon.com/icons/svg/149/149046.svg"} width="100" className="center-block text-center" />
@@ -201,7 +177,7 @@ class SpeechDismantler extends Component {
               <div id='interim' style={interim}></div>
               <div id='final' style={final}></div>
             </div>
-            
+
             <br></br>
             <br></br>
             <Button variant="warning" onClick={this.startAnalyze}>Analyze</Button>

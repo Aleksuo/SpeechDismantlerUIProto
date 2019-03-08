@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { Button, Dropdown, Navbar } from 'react-bootstrap';
 import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
+import openSocket from 'socket.io-client';
 
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
+
+const socket = openSocket('http://localhost:8080');
+
+socket.on('analysis',(data)=>{
+  console.log(data)
+})
+
 navigator.mediaDevices.getUserMedia(
   {
     audio: {
@@ -15,7 +23,7 @@ navigator.mediaDevices.getUserMedia(
       },
     },
   }
-).catch(e => { console.log(e);})
+).catch(e => { console.log(e); })
 
 class SpeechDismantler extends Component {
 
@@ -45,32 +53,37 @@ class SpeechDismantler extends Component {
       isAnalyzing: !state.isAnalyzing
     }));
   }
-  
+
   handleListen(stream, callback) {
-    if(!audioContext){
+    if (!audioContext) {
       console.log("Oh no!")
       return;
     }
 
-    var myStream = stream;
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false }).catch(e => { console.log(e) }).then((value) => {
+      const myStream = value;
+      const inputPoint = audioContext.createGain();
+      console.log (value)
+      const microphone = audioContext.createMediaStreamSource(myStream);
+      const analyzer = audioContext.createAnalyser();
+      var scriptProcessor = inputPoint.context.createScriptProcessor(2048, 2, 2);
 
-    const inputPoint = audioContext.createGain();
-    const microphone = audioContext.createMediaStreamSource(myStream);
-    const analyzer = audioContext();
-    var scriptProcessor = inputPoint.context.createScriptProcessor(2048, 2, 2);
-
-    microphone.connect(inputPoint);
-    inputPoint.connect(analyzer);
-    inputPoint.connect(scriptProcessor);
-    scriptProcessor.connect(inputPoint.context.destination);
-    scriptProcessor.addEventListener('audioprocess', this.streamAudioData);
+      microphone.connect(inputPoint);
+      inputPoint.connect(analyzer);
+      inputPoint.connect(scriptProcessor);
+      scriptProcessor.connect(inputPoint.context.destination);
+      scriptProcessor.addEventListener('audioprocess', this.streamAudioData);
+    });
   }
 
-  streamAudioData(e){
-    const floatSamples = e.inputBuffer.getChannelData();
-    console.log(e);
+  streamAudioData(e) {
+    //console.log(e);
+    const floatSamples = e.inputBuffer.getChannelData(0);
+    if(socket){
+      socket.emit('audio', Int16Array.from(floatSamples.map(n => n)));
+    }
   }
-  
+
 
 
 

@@ -1,0 +1,3 @@
+python-socketio
+flask-socketio
+google-cloud-speech

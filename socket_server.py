@@ -1,35 +1,45 @@
-from aiohttp import web
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
-import socketio
+from flask import Flask, render_template
+from flask_socketio import SocketIO
+import pprint
+import os
+import pdb
+import queue
 
-sio = socketio.AsyncServer()
-app = web.Application()
-sio.attach(app)
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = './auth.json'
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
 
 client = speech.SpeechClient()
+
+responses = queue.Queue()
 
 config = types.RecognitionConfig(
     encoding=enums.RecognitionConfig.AudioEncoding.LINEAR16,
     sample_rate_hertz=16000,
-    language_code='en-US')
+    language_code='en-US'
+    )
 streaming_config = types.StreamingRecognitionConfig(
         config=config,
-        interim_results=True)
-requests = []
-response = client.streaming_recognize(streaming_config, requests)
-print(response)
+        interim_results=True,)
 
+@socketio.on('audio')
+def connect(data):
+    #pdb.set_trace()
+    print(1)
+    request = [types.StreamingRecognizeRequest(audio_content=data)]
+    responses.put(client.streaming_recognize(streaming_config, request))     
+    handle = responses.get_nowait()
+    for response in handle:
+        print(response)
 
-@sio.on('audio')
-async def connect(sid, data):
-    request = types.StreamingRecognizeRequest(audio_content=data)
-    response = client.streaming_recognize(streaming_config, request)
-    print(response)
-    await sio.emit('analysis', response)
 
 
 if __name__ == '__main__':
-    web.run_app(app)
+    socketio.run(app)
         

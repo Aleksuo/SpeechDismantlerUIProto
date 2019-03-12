@@ -13,45 +13,52 @@ let bufferSize = 2048,
 //const socket = new WebSocket("ws://localhost:8000");
 const socket = openSocket('http://localhost:3001');
 
-socket.on('connect', function (data) {
-  socket.emit('join', 'Server Connected to Client');
-});
 
 
-socket.on('messages', function (data) {
-  console.log(data);
-});
 
-window.onbeforeunload = function () {
-  if (streamStreaming) { socket.emit('endGoogleCloudStream', ''); }
-};
+
+
+
+
 
 class SpeechDismantler extends Component {
 
   constructor(props) {
     super(props);
     this.bufferSize = 4096;
+    this.socket = openSocket('http://localhost:3001');
     this.state = {
       isRecording: false,
       isAnalyzing: false
-    };
+    }
 
-    this.toggleRecord = this.toggleRecord.bind(this)
-    this.startAnalyze = this.startAnalyze.bind(this)
-    //this.handleListen = this.handleListen.bind(this)
-    this.streamAudioData = this.streamAudioData.bind(this)
-    this.float32To16BitPCM = this.float32To16BitPCM.bind(this)
+    this.socket.on('connect', (data) => {
+      this.socket.emit('join', 'Server Connected to Client');
+    });
+    
+    this.socket.on('messages', (data) => {
+      console.log(data);
+    });
+
+    this.socket.on('speechData', (data) => {
+      console.log(data.results[0].alternatives[0].transcript);
+    })
+
+    window.onbeforeunload = () =>{
+      if (streamStreaming) { this.socket.emit('endGoogleCloudStream', ''); }
+    };
+    
   }
 
 
-  toggleRecord() {
+  toggleRecord = () => {
     console.log("p")
     this.setState({
       isRecording: !this.state.isRecording
     }, this.handleListen);
   }
 
-  startAnalyze() {
+  startAnalyze = () => {
     this.setState(state => ({
       isAnalyzing: !state.isAnalyzing
     }));
@@ -62,11 +69,11 @@ class SpeechDismantler extends Component {
     var left = e.inputBuffer.getChannelData(0);
     // var left16 = convertFloat32ToInt16(left); // old 32 to 16 function
     var left16 = this.downsampleBuffer(left, 44100, 16000)
-    socket.emit('binaryData', left16);
+    this.socket.emit('binaryData', left16);
   }
 
   handleListen = () => {
-    socket.emit('startGoogleCloudStream', ''); //init socket Google Speech Connection
+    this.socket.emit('startGoogleCloudStream', ''); //init socket Google Speech Connection
     streamStreaming = true;
     AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
@@ -89,7 +96,7 @@ class SpeechDismantler extends Component {
       .then(handleSuccess)
   }
 
-  stopRecording() {
+  stopRecording = () => {
     // waited for FinalWord
     /*
     startButton.disabled = false;
@@ -97,7 +104,7 @@ class SpeechDismantler extends Component {
     recordingStatus.style.visibility = "hidden";
     */
     streamStreaming = false;
-    socket.emit('endGoogleCloudStream', '');
+    this.socket.emit('endGoogleCloudStream', '');
 
 
     let track = globalStream.getTracks()[0];
@@ -110,22 +117,22 @@ class SpeechDismantler extends Component {
       processor = null;
       context = null;
       AudioContext = null;
-      //startButton.disabled = false;
     })
   }
 
-  float32To16BitPCM(float32Arr) {
-    var pcm16bit = new Int16Array(float32Arr.length);
-    for (var i = 0; i < float32Arr.length; ++i) {
-      var s = Math.max(-1, Math.min(1, float32Arr[i]));
-      /**
-           * convert 32 bit float to 16 bit int pcm audio
-           * 0x8000 = minimum int16 value, 0x7fff = maximum int16 value
-           */
-      pcm16bit[i] = s < 0 ? s * 0x800 : s * 0x7FFF;
+  /*
+  convertFloat32ToInt16 = (buffer) =>{
+    let l = buffer.length;
+    let buf = new Int16Array(l / 3);
+  
+    while (l--) {
+      if (l % 3 == 0) {
+        buf[l / 3] = buffer[l] * 0xFFFF;
+      }
     }
-    return pcm16bit;
+    return buf.buffer
   }
+  */
 
   downsampleBuffer = (buffer, sampleRate, outSampleRate) => {
     if (outSampleRate == sampleRate) {
@@ -161,7 +168,7 @@ class SpeechDismantler extends Component {
 
 
 
-  render() {
+  render (){
 
 
 

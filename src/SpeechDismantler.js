@@ -3,15 +3,28 @@ import { Button, Dropdown, Navbar } from 'react-bootstrap';
 import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client';
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioContext = new AudioContext();
+let bufferSize = 2048,
+  AudioContext,
+  context,
+  processor,
+  input,
+  globalStream,
+  streamStreaming = false;
 //const socket = new WebSocket("ws://localhost:8000");
-const socket = openSocket('http://localhost:5000');
+const socket = openSocket('http://localhost:3001');
 
-socket.on('analysis',(data)=>{
-  console.log(data)
-})
+socket.on('connect', function (data) {
+  socket.emit('join', 'Server Connected to Client');
+});
 
+
+socket.on('messages', function (data) {
+  console.log(data);
+});
+
+window.onbeforeunload = function () {
+  if (streamStreaming) { socket.emit('endGoogleCloudStream', ''); }
+};
 
 class SpeechDismantler extends Component {
 
@@ -25,7 +38,7 @@ class SpeechDismantler extends Component {
 
     this.toggleRecord = this.toggleRecord.bind(this)
     this.startAnalyze = this.startAnalyze.bind(this)
-    this.handleListen = this.handleListen.bind(this)
+    //this.handleListen = this.handleListen.bind(this)
     this.streamAudioData = this.streamAudioData.bind(this)
     this.float32To16BitPCM = this.float32To16BitPCM.bind(this)
   }
@@ -39,70 +52,109 @@ class SpeechDismantler extends Component {
   }
 
   startAnalyze() {
-    console.log("p")
     this.setState(state => ({
       isAnalyzing: !state.isAnalyzing
     }));
   }
 
-  handleListen(stream, callback) {
-    if (!audioContext) {
-      console.log("Oh no!")
-      return;
-    }
-    /*
-    socket.emit('init', JSON.stringify({
-      rate: audioContext.sampleRate,
-      language: "en-US",
-      format: "LINEAR16"
-    }));
-    */
-
-    navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then((stream) => {
-      /*
-      socket.send(JSON.stringify({
-        rate: audioContext.sampleRate,
-        language: "en-US",
-        format: "LINEAR16"
-      }));
-      */
-
-      const inputPoint = audioContext.createGain();
-      //console.log (value)
-      const microphone = audioContext.createMediaStreamSource(stream);
-      const analyzer = audioContext.createAnalyser();
-      var scriptProcessor = inputPoint.context.createScriptProcessor(this.bufferSize, 1, 1);
-
-      microphone.connect(inputPoint);
-      inputPoint.connect(analyzer);
-      inputPoint.connect(scriptProcessor);
-      scriptProcessor.connect(inputPoint.context.destination);
-      scriptProcessor.addEventListener('audioprocess', this.streamAudioData);
-      console.log("init done")
-    });
+  streamAudioData = (e) => {
+    //debugger
+    var left = e.inputBuffer.getChannelData(0);
+    // var left16 = convertFloat32ToInt16(left); // old 32 to 16 function
+    var left16 = this.downsampleBuffer(left, 44100, 16000)
+    socket.emit('binaryData', left16);
   }
 
-   float32To16BitPCM(float32Arr){
+  handleListen = () => {
+    socket.emit('startGoogleCloudStream', ''); //init socket Google Speech Connection
+    streamStreaming = true;
+    AudioContext = window.AudioContext || window.webkitAudioContext;
+    context = new AudioContext();
+    processor = context.createScriptProcessor(bufferSize, 1, 1);
+    processor.connect(context.destination);
+    context.resume();
+
+    const handleSuccess = (stream) => {
+      console.log(this)
+      globalStream = stream;
+      input = context.createMediaStreamSource(stream);
+      input.connect(processor);
+      processor.onaudioprocess = (e) => {
+        this.streamAudioData(e)
+      };
+      console.log("init done")
+    }
+
+    navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+      .then(handleSuccess)
+  }
+
+  stopRecording() {
+    // waited for FinalWord
+    /*
+    startButton.disabled = false;
+    endButton.disabled = true;
+    recordingStatus.style.visibility = "hidden";
+    */
+    streamStreaming = false;
+    socket.emit('endGoogleCloudStream', '');
+
+
+    let track = globalStream.getTracks()[0];
+    track.stop();
+
+    input.disconnect(processor);
+    processor.disconnect(context.destination);
+    context.close().then(function () {
+      input = null;
+      processor = null;
+      context = null;
+      AudioContext = null;
+      //startButton.disabled = false;
+    })
+  }
+
+  float32To16BitPCM(float32Arr) {
     var pcm16bit = new Int16Array(float32Arr.length);
-    for(var i = 0; i< float32Arr.length; ++i){
+    for (var i = 0; i < float32Arr.length; ++i) {
       var s = Math.max(-1, Math.min(1, float32Arr[i]));
       /**
            * convert 32 bit float to 16 bit int pcm audio
            * 0x8000 = minimum int16 value, 0x7fff = maximum int16 value
            */
-      pcm16bit[i] = s < 0 ? s*0x800: s* 0x7FFF;
+      pcm16bit[i] = s < 0 ? s * 0x800 : s * 0x7FFF;
     }
     return pcm16bit;
   }
 
-  streamAudioData(e) {
-    debugger
-    console.log(e);
-    const floatSamples = e.inputBuffer.getChannelData(0);
-    var pcm16Audio = this.float32To16BitPCM(floatSamples);
-    socket.emit('audio', pcm16Audio.buffer);
-    
-  }
+  downsampleBuffer = (buffer, sampleRate, outSampleRate) => {
+    if (outSampleRate == sampleRate) {
+        return buffer;
+    }
+    if (outSampleRate > sampleRate) {
+        throw "downsampling rate show be smaller than original sample rate";
+    }
+    var sampleRateRatio = sampleRate / outSampleRate;
+    var newLength = Math.round(buffer.length / sampleRateRatio);
+    var result = new Int16Array(newLength);
+    var offsetResult = 0;
+    var offsetBuffer = 0;
+    while (offsetResult < result.length) {
+        var nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);
+        var accum = 0, count = 0;
+        for (var i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
+            accum += buffer[i];
+            count++;
+        }
+
+        result[offsetResult] = Math.min(1, accum / count)*0x7FFF;
+        offsetResult++;
+        offsetBuffer = nextOffsetBuffer;
+    }
+    return result.buffer;
+}
+
+
 
 
 

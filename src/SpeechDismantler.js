@@ -10,6 +10,9 @@ let processor
 let input
 let globalStream
 
+
+//This is a test comment for Travis builds
+
 const Transcript = ({ transcript }) => {
 	const final = {
 		color: 'black',

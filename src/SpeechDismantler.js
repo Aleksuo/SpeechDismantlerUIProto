@@ -154,9 +154,11 @@ class SpeechDismantler extends Component {
 		if (outSampleRate === sampleRate) {
 			return buffer
 		}
+		/*
 		if (outSampleRate > sampleRate) {
 			throw 'downsampling rate show be smaller than original sample rate'
 		}
+		*/
 		const sampleRateRatio = sampleRate / outSampleRate
 		const newLength = Math.round(buffer.length / sampleRateRatio)
 		const result = new Int16Array(newLength)
@@ -204,7 +206,7 @@ class SpeechDismantler extends Component {
 			<div style={parentContainerStyles}>
 				<div style={subContainerStyles}>
 					<div className="center-block text-center">
-						<img src="https://image.flaticon.com/icons/svg/149/149046.svg" width="100" className="center-block text-center" />
+						<img src="https://image.flaticon.com/icons/svg/149/149046.svg" alt="" width="100" className="center-block text-center" />
 					</div>
 					<div className="center-block text-center">
 						<div style={container}>

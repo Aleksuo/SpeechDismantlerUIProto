@@ -1,4 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/8d0059ccd8f764fb71e3/maintainability)](https://codeclimate.com/github/speech-dismantler-5000/SpeechDismantlerFront/maintainability)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Available Scripts
 

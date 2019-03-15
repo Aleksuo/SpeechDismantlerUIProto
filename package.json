@@ -2,6 +2,7 @@
   "name": "speech",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://speech-dismantler-5000.github.io/SpeechDismantlerFront/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "jquery": "^3.3.1",

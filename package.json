@@ -2,6 +2,7 @@
   "name": "speech",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://speech-dismantler-5000.github.io/SpeechDismantlerFront/",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "jquery": "^3.3.1",
@@ -9,15 +10,16 @@
     "react": "^16.8.3",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5",
-    "react-speech-recognition": "^1.0.7",
+    "react-scripts": "^2.1.8",
+    "socket.io-client": "^2.2.0",
     "victory": "^32.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "npx eslint"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +29,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "ws": "3.3.2"
+  },
+  "proxy": "http://localhost:3001/"
 }

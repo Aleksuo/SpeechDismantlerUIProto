@@ -1,7 +1,11 @@
 language: node_js
-deploy:
-  provider: heroku
-  api_key:
-    secure: "YOUR ENCRYPTED API KEY"
-  on:
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules
+script:
+  - npm test
+- npm run build
+on:
     branch: master

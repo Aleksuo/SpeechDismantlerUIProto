@@ -1,5 +1,7 @@
 
-
+function three(){
+    return 3
+}
 it('numbers', () => {
-  expect((3).toEqual(3));
+  expect(three()).toEqual(3);
 });

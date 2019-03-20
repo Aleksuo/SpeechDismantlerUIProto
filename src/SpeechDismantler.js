@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Paper, Typography, Grid, Fab, Icon } from '@material-ui/core'
+import MicIcon from '@material-ui/icons/Mic'
+import PauseIcon from '@material-ui/icons/Pause'
+
 // import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
@@ -14,15 +17,13 @@ let globalStream
 //This is a test comment for Travis builds
 
 const Transcript = ({ transcript }) => {
-	const final = {
-		color: 'black',
-		border: '#ccc 1px solid',
-		padding: '1em',
-		margin: '1em',
-		width: '500px',
-	}
+	
 	return (
-		<div id="final" style={final}>{transcript}</div>
+		<div>
+			<Paper elevation={1}>		
+				{transcript}
+			</Paper>
+		</div>
 	)
 }
 
@@ -31,15 +32,12 @@ Transcript.propTypes = {
 }
 
 const Interim = ({ interim }) => {
-	const interimStyle = {
-		color: 'gray',
-		border: '#ccc 1px solid',
-		padding: '1em',
-		margin: '1em',
-		width: '500px',
-	}
 	return (
-		<div id="interim" style={interimStyle}>{interim}</div>
+		<div>
+			<Paper elevation={2} style={{color:"gray"}}>		
+				{interim}
+			</Paper>
+		</div>
 	)
 }
 
@@ -58,6 +56,7 @@ class SpeechDismantler extends Component {
 		super(props)
 		this.bufferSize = 2048
 		this.socket = openSocket('http://localhost:3001')
+		//this.socket = openSocket('https://protected-oasis-47231.herokuapp.com:3001')
 		this.state = initialState
 
 		this.socket.on('connect', () => {
@@ -181,47 +180,45 @@ class SpeechDismantler extends Component {
 	}
 
 	render() {
-		const parentContainerStyles = {
-			position: 'absolute',
-			height: '100%',
-			width: '100%',
-			display: 'table',
-		}
-
-		const subContainerStyles = {
-			position: 'relative',
-			height: '100%',
-			width: '100%',
-			display: 'table-cell',
-			verticalAlign: 'middle',
-		}
-
-		const container = {
-			display: 'flex',
-			flexDirection: 'column',
-			alignItems: 'center',
-			textAlign: 'center',
-		}
 		return (
+			<div>
+				<Grid container
+					spacing={24}
+					direction="column"
+					alignItems="center"
+					justify="space-evenly">
+					<Grid item xs={12} md={12}>
+						<Fab aria-label="mic" color={this.state.isRecording ? 'secondary' : 'primary'} onClick={this.toggleRecord}>
+							{this.state.isRecording ? <PauseIcon/> : <MicIcon/>}
+						</Fab>
+					</Grid>
+					<Grid item xs={6} md={3} style={{ width: "100%", height: "100%" }}>
+						<Interim interim={this.state.interim} />
+					</Grid>
+					<Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
+						<Transcript transcript={this.state.transcript} />
+					</Grid>
+					<Grid item xs={12}>
+						<Button variant="contained" onClick={this.reset}>Reset</Button>
+					</Grid>
+				</Grid>
+			</div>
+			/*
 			<div style={parentContainerStyles}>
 				<div style={subContainerStyles}>
 					<div className="center-block text-center">
-						<img src="https://image.flaticon.com/icons/svg/149/149046.svg" alt="" width="100" className="center-block text-center" />
+
 					</div>
 					<div className="center-block text-center">
 						<div style={container}>
-							<Button variant={this.state.isRecording ? 'danger' : 'primary'} onClick={this.toggleRecord}>{this.state.isRecording ? 'Stop' : 'Start'}</Button>
-							<Interim interim={this.state.interim} />
-							<Transcript transcript={this.state.transcript} />
-						</div>
 
-						<br />
-						<br />
-						<Button variant="warning" onClick={this.reset}>Reset</Button>
+						</div>
+						
 					</div>
 
+
 				</div>
-			</div>
+				*/
 		)
 	}
 }

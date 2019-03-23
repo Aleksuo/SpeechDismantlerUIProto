@@ -210,12 +210,12 @@ class SpeechDismantler extends Component {
 		const sideListSwipeable = (
 			<div>
 			  <List>
-				{['TEST HEADER SWIPE 1'].map((text, index) => (
+				{['TEST HEADER 1 SWIPE 1'].map((text, index) => (
 				  <ListItem button key={text}>
 					<ListItemText primary={text} />
 				  </ListItem>
 				))}
-				{['TEST HEADER SWIPE 2'].map((text, index) => (
+				{['TEST HEADER 1 SWIPE 2'].map((text, index) => (
 				  <ListItem button key={text}>
 					<ListItemText primary={text} />
 				  </ListItem>
@@ -322,12 +322,12 @@ class SpeechDismantler extends Component {
 					</Grid>	
 				</div>>
 				<List>
-					{['TEST HEADER MINI 1'].map((text, index) => (
+					{['TEST HEADER 2 MINI 1'].map((text, index) => (
 					<ListItem button key={text}>
 						<ListItemText primary={text} />
 					</ListItem>
 					))}
-					{['TEST HEADER MINI 2'].map((text, index) => (
+					{['TEST HEADER 2 MINI 2'].map((text, index) => (
 					<ListItem button key={text}>
 						<ListItemText primary={text} />
 					</ListItem>

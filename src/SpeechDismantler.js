@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Paper, Typography, Grid, Fab, Icon } from '@material-ui/core'
+import { Button, Paper, Typography, Grid, Fab, Icon, Drawer, SwipeableDrawer, List, ListItem, ListItemText, Hidden } from '@material-ui/core'
 import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 
@@ -54,6 +54,8 @@ const initialState = {
 	isRecording: false,
 	transcript: [],
 	interim: "",
+	left: false,
+	open: false
 }
 
 class SpeechDismantler extends Component {
@@ -185,8 +187,66 @@ class SpeechDismantler extends Component {
 		return result.buffer
 	}
 
+	/*	TOGGLE SWIPEABLE DRAWER (SLIDER SIDE NAV)*/
+
+	toggleDrawer = (side, open) => () => {
+		this.setState({
+		  [side]: open,
+		})
+	}
+
+	/*TOGGLE MINI DRAWER FOR BIGGER RESOLUTIONS*/
+
+	handleDrawerOpen = () => {
+		this.setState({ open: true });
+	  }
+	
+	  handleDrawerClose = () => {
+		this.setState({ open: false });
+	}
+
+	/*UI CODE STARTS HERE*/
+
+	
 	render() {
+
+		const { classes } = this.props;
+
+		const sideListSwipeable = (
+			<div>
+			  <List>
+				{['TEST HEADER 1 SWIPE 1'].map((text, index) => (
+				  <ListItem button key={text}>
+					<ListItemText primary={text} />
+				  </ListItem>
+				))}
+				{['TEST HEADER 1 SWIPE 2'].map((text, index) => (
+				  <ListItem button key={text}>
+					<ListItemText primary={text} />
+				  </ListItem>
+				))}
+			  </List>
+			</div>
+		)
+
 		return (
+		<div>
+
+			<div>
+				<Grid container
+					spacing={24}
+					direction="column"
+					alignItems="left"
+					justify="space-evenly">
+					<Hidden ndUp>
+					<Grid item xs={12} md={12}>
+						<Button onClick={this.toggleDrawer('left', true)}>OPEN SWIPE</Button>
+					</Grid>
+					</Hidden>					
+				</Grid>	
+			</div>			
+			
+
 			<div>
 				<Grid container
 					spacing={24}
@@ -209,7 +269,81 @@ class SpeechDismantler extends Component {
 						<Button variant="contained" onClick={this.reset}>Reset</Button>
 					</Grid>
 				</Grid>
+			</div>		
+
+			
+			<div>
+	
+			<Hidden mdUp>
+			<SwipeableDrawer
+          		open={this.state.left}
+          		onClose={this.toggleDrawer('left', false)}
+          		onOpen={this.toggleDrawer('left', true)}
+        	>	
+          		<div
+            		tabIndex={0}
+            		role="button"
+            		onClick={this.toggleDrawer('left', false)}
+            		onKeyDown={this.toggleDrawer('left', false)}
+          		>
+            		{sideListSwipeable}
+          		</div>
+			</SwipeableDrawer>
+			</Hidden>
+
 			</div>
+
+
+			<Hidden smDown>
+			<Drawer
+				open={this.state.open}
+				variant="permanent"
+				/*className={classNames(classes.drawer, {
+					[classes.drawerOpen]: this.state.open,
+					[classes.drawerClose]: !this.state.open,
+				})}
+				classes={{
+					paper: classNames({
+					[classes.drawerOpen]: this.state.open,
+					[classes.drawerClose]: !this.state.open,
+					}),
+				}}*/
+				
+				>
+				<div>
+					<Grid container
+						spacing={24}
+						direction="column"
+						alignItems="left"
+						justify="space-evenly">
+						<Hidden smDown>
+							<Grid item xs={12} md={12}>
+								<Button onClick={this.handleDrawerOpen}>OPEN MINI</Button>
+							</Grid>
+							<Grid item xs={12} md={12}>
+								<Button onClick={this.handleDrawerCloses}>CLOSE MINI</Button>
+							</Grid>
+						</Hidden>
+						
+					</Grid>	
+				</div>>
+				<List>
+					{['TEST HEADER 2 MINI 1'].map((text, index) => (
+					<ListItem button key={text}>
+						<ListItemText primary={text} />
+					</ListItem>
+					))}
+					{['TEST HEADER 2 MINI 2'].map((text, index) => (
+					<ListItem button key={text}>
+						<ListItemText primary={text} />
+					</ListItem>
+					))}
+				</List>
+				</Drawer>
+				</Hidden>
+
+		</div>
+
 		)
 	}
 }

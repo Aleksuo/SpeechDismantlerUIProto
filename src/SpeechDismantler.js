@@ -6,6 +6,7 @@ import PauseIcon from '@material-ui/icons/Pause'
 // import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
+import { relative } from 'path';
 
 let AudioContext
 let context
@@ -17,46 +18,50 @@ let globalStream
 //This is a test comment for Travis builds
 
 const Transcript = ({ transcript }) => {
-	
+	const items = transcript.map((word) => {return <span>{word.word} </span>})
 	return (
 		<div>
-			<Paper elevation={1}>		
-				{transcript}
+			<Paper elevation={3} style={{maxHeight: "30vh", height: "30vh", overflow: "auto"}}>		
+				{items}
 			</Paper>
 		</div>
 	)
 }
 
+
 Transcript.propTypes = {
-	transcript: PropTypes.string
+	transcript: PropTypes.array
 }
 
 const Interim = ({ interim }) => {
 	return (
 		<div>
-			<Paper elevation={2} style={{color:"gray"}}>		
+			<Paper elevation={2} style={{color:"gray", height: "5vh", textAlign: 'center',}}>		
 				{interim}
 			</Paper>
 		</div>
 	)
 }
 
+
+
 Interim.propTypes = {
 	interim: PropTypes.string
 }
 
+
 const initialState = {
 	isRecording: false,
-	transcript: '',
-	interim: '',
+	transcript: [],
+	interim: "",
 }
 
 class SpeechDismantler extends Component {
 	constructor(props) {
 		super(props)
 		this.bufferSize = 2048
-		//this.socket = openSocket('http://localhost:3001')
-		this.socket = openSocket('https://speech-dismantler.herokuapp.com/')
+		this.socket = openSocket('http://localhost:3001')
+		//this.socket = openSocket('https://speech-dismantler.herokuapp.com/')
 		this.state = initialState
 
 		this.socket.on('connect', () => {
@@ -68,14 +73,15 @@ class SpeechDismantler extends Component {
 
 		this.socket.on('speechData', (data) => {
 			const final = undefined || data.results[0].isFinal
-			const result = data.results[0].alternatives[0].transcript
+			const result = data.results[0].alternatives[0].words
+			const transcript = data.results[0].alternatives[0].transcript
 			if (final === false) {
-				// The returned transcript is not finished
 				this.setState({
-					interim: result,
+					interim: transcript,
 				})
 			} else {
-				const newTranscript = `${this.state.transcript} ${result}`
+				var newTranscript = this.state.transcript.slice(0)
+				Array.prototype.push.apply(newTranscript,result)
 				this.setState({
 					transcript: newTranscript,
 				})
@@ -91,7 +97,7 @@ class SpeechDismantler extends Component {
 		if (this.state.isRecording) {
 			this.stopRecording()
 		}
-		this.setState(initialState)
+		this.setState(initialState, ()=>{console.log(this.state)})
 	}
 
 
@@ -186,8 +192,9 @@ class SpeechDismantler extends Component {
 					spacing={24}
 					direction="column"
 					alignItems="center"
-					justify="space-evenly">
-					<Grid item xs={12} md={12}>
+					justify="flex-end"
+					>
+					<Grid item xs={12}>
 						<Fab aria-label="mic" color={this.state.isRecording ? 'secondary' : 'primary'} onClick={this.toggleRecord}>
 							{this.state.isRecording ? <PauseIcon/> : <MicIcon/>}
 						</Fab>
@@ -203,22 +210,6 @@ class SpeechDismantler extends Component {
 					</Grid>
 				</Grid>
 			</div>
-			/*
-			<div style={parentContainerStyles}>
-				<div style={subContainerStyles}>
-					<div className="center-block text-center">
-
-					</div>
-					<div className="center-block text-center">
-						<div style={container}>
-
-						</div>
-						
-					</div>
-
-
-				</div>
-				*/
 		)
 	}
 }

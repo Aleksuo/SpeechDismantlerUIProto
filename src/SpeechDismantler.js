@@ -59,7 +59,7 @@ class SpeechDismantler extends Component {
 		super(props)
 		this.bufferSize = 2048
 		//this.socket = openSocket('http://localhost:3001')
-		this.socket = openSocket('https://protected-oasis-47231.herokuapp.com')
+		this.socket = openSocket('https://speech-dismantler.herokuapp.com/')
 		this.state = initialState
 
 		this.socket.on('connect', () => {

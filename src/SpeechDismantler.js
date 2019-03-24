@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Button, Paper, Grid, Fab, Drawer, SwipeableDrawer, List, ListItem, ListItemText, Hidden } from '@material-ui/core'
+import { Button, Paper, Grid, Fab, SwipeableDrawer, List, ListItem, ListItemText, Hidden } from '@material-ui/core'
 import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 import MiniDrawer from "./MiniDrawer"
 
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import InfoIcon from '@material-ui/icons/Info';
-import HomeIcon from '@material-ui/icons/Home';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import BuildIcon from '@material-ui/icons/Build';
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import InfoIcon from '@material-ui/icons/Info'
+import HomeIcon from '@material-ui/icons/Home'
+import BarChartIcon from '@material-ui/icons/BarChart'
+import BuildIcon from '@material-ui/icons/Build'
 
 // import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'
@@ -22,7 +22,7 @@ let globalStream
 
 
 const Transcript = ({ transcript }) => {
-	const items = transcript.map((word) => { return <span>{word.word} </span> })
+	const items = transcript.map((word, idx) => { return <span key={idx}>{word.word} </span> })
 	return (
 		<div>
 			<Paper elevation={3} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>
@@ -104,7 +104,7 @@ class SpeechDismantler extends Component {
 		if (this.state.isRecording) {
 			this.stopRecording()
 		}
-		this.setState(initialState, () => { console.log(this.state) })
+		this.setState(initialState)
 	}
 
 
@@ -200,14 +200,14 @@ class SpeechDismantler extends Component {
 		})
 	}
 
-	
+
 	/*UI CODE STARTS HERE*/
 
 
 	render() {
 
-		
-		const { classes } = this.props;
+
+		//const { classes } = this.props
 
 
 		const sideListSwipeable = (
@@ -233,10 +233,10 @@ class SpeechDismantler extends Component {
 						<ListItemIcon></ListItemIcon>
 						<ListItemText primary={'About'} />
 					</ListItem>
-          		</List>
+				</List>
 			</div>
 		)
-		
+
 
 		return (
 
@@ -309,6 +309,10 @@ class SpeechDismantler extends Component {
 
 		)
 	}
+}
+
+SpeechDismantler.propTypes = {
+	server_address: PropTypes.string
 }
 
 export default SpeechDismantler

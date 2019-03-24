@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Paper, Grid, Fab, SwipeableDrawer, List, ListItem, ListItemText, Hidden } from '@material-ui/core'
+import MicIcon from '@material-ui/icons/Mic'
+import PauseIcon from '@material-ui/icons/Pause'
+import MiniDrawer from "./MiniDrawer"
+
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import InfoIcon from '@material-ui/icons/Info'
+import HomeIcon from '@material-ui/icons/Home'
+import BarChartIcon from '@material-ui/icons/BarChart'
+import BuildIcon from '@material-ui/icons/Build'
+
 // import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
@@ -11,53 +21,54 @@ let input
 let globalStream
 
 
-//This is a test comment for Travis builds
-
 const Transcript = ({ transcript }) => {
-	const final = {
-		color: 'black',
-		border: '#ccc 1px solid',
-		padding: '1em',
-		margin: '1em',
-		width: '500px',
-	}
+	const items = transcript.map((word, idx) => { return <span key={idx}>{word.word} </span> })
 	return (
-		<div id="final" style={final}>{transcript}</div>
+		<div>
+			<Paper elevation={3} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>
+				{items}
+			</Paper>
+		</div>
 	)
 }
 
+
 Transcript.propTypes = {
-	transcript: PropTypes.string
+	transcript: PropTypes.array
 }
 
 const Interim = ({ interim }) => {
-	const interimStyle = {
-		color: 'gray',
-		border: '#ccc 1px solid',
-		padding: '1em',
-		margin: '1em',
-		width: '500px',
-	}
 	return (
-		<div id="interim" style={interimStyle}>{interim}</div>
+		<div>
+			<Paper elevation={2} style={{ color: "gray", height: "5vh", textAlign: 'center', }}>
+				{interim}
+			</Paper>
+		</div>
 	)
 }
+
+
 
 Interim.propTypes = {
 	interim: PropTypes.string
 }
 
+
 const initialState = {
 	isRecording: false,
-	transcript: '',
-	interim: '',
+	transcript: [],
+	interim: "",
+	left: false,
+	open: false
 }
 
 class SpeechDismantler extends Component {
 	constructor(props) {
 		super(props)
+		let { server_address } = props
 		this.bufferSize = 2048
-		this.socket = openSocket('https://protected-oasis-47231.herokuapp.com')
+		this.socket = openSocket(server_address)
+		//this.socket = openSocket('https://speech-dismantler.herokuapp.com/')
 		this.state = initialState
 
 		this.socket.on('connect', () => {
@@ -69,14 +80,15 @@ class SpeechDismantler extends Component {
 
 		this.socket.on('speechData', (data) => {
 			const final = undefined || data.results[0].isFinal
-			const result = data.results[0].alternatives[0].transcript
+			const result = data.results[0].alternatives[0].words
+			const transcript = data.results[0].alternatives[0].transcript
 			if (final === false) {
-				// The returned transcript is not finished
 				this.setState({
-					interim: result,
+					interim: transcript,
 				})
 			} else {
-				const newTranscript = `${this.state.transcript} ${result}`
+				var newTranscript = this.state.transcript.slice(0)
+				Array.prototype.push.apply(newTranscript, result)
 				this.setState({
 					transcript: newTranscript,
 				})
@@ -180,50 +192,127 @@ class SpeechDismantler extends Component {
 		return result.buffer
 	}
 
+	/*	TOGGLE SWIPEABLE DRAWER (SLIDER SIDE NAV)*/
+
+	toggleDrawer = (side, open) => () => {
+		this.setState({
+			[side]: open,
+		})
+	}
+
+
+	/*UI CODE STARTS HERE*/
+
+
 	render() {
-		const parentContainerStyles = {
-			position: 'absolute',
-			height: '100%',
-			width: '100%',
-			display: 'table',
-		}
 
-		const subContainerStyles = {
-			position: 'relative',
-			height: '100%',
-			width: '100%',
-			display: 'table-cell',
-			verticalAlign: 'middle',
-		}
 
-		const container = {
-			display: 'flex',
-			flexDirection: 'column',
-			alignItems: 'center',
-			textAlign: 'center',
-		}
-		return (
-			<div style={parentContainerStyles}>
-				<div style={subContainerStyles}>
-					<div className="center-block text-center">
-						<img src="https://image.flaticon.com/icons/svg/149/149046.svg" alt="" width="100" className="center-block text-center" />
-					</div>
-					<div className="center-block text-center">
-						<div style={container}>
-							<Button variant={this.state.isRecording ? 'danger' : 'primary'} onClick={this.toggleRecord}>{this.state.isRecording ? 'Stop' : 'Start'}</Button>
-							<Interim interim={this.state.interim} />
-							<Transcript transcript={this.state.transcript} />
-						</div>
+		//const { classes } = this.props
 
-						<br />
-						<br />
-						<Button variant="warning" onClick={this.reset}>Reset</Button>
-					</div>
 
-				</div>
+		const sideListSwipeable = (
+			<div>
+				<List>
+					<ListItem button key={'Home'}>
+						<ListItemIcon><HomeIcon /></ListItemIcon>
+						<ListItemIcon></ListItemIcon>
+						<ListItemText primary={'Home'} />
+					</ListItem>
+					<ListItem button key={'Statistics'}>
+						<ListItemIcon><BarChartIcon /></ListItemIcon>
+						<ListItemIcon></ListItemIcon>
+						<ListItemText primary={'Statistics'} />
+					</ListItem>
+					<ListItem button key={'Settings'}>
+						<ListItemIcon><BuildIcon /></ListItemIcon>
+						<ListItemIcon></ListItemIcon>
+						<ListItemText primary={'Settings'} />
+					</ListItem>
+					<ListItem button key={'About'}>
+						<ListItemIcon><InfoIcon /></ListItemIcon>
+						<ListItemIcon></ListItemIcon>
+						<ListItemText primary={'About'} />
+					</ListItem>
+				</List>
 			</div>
 		)
+
+
+		return (
+
+			<div>
+				{/*
+				<div>
+					<Grid container
+						spacing={24}
+						direction="column"
+						alignItems="left"
+						justify="space-evenly">
+						<Hidden ndUp>
+							<Grid item xs={12} md={12}>
+								<Button onClick={this.toggleDrawer('left', true)}>OPEN SWIPE</Button>
+							</Grid>
+						</Hidden>
+					</Grid>
+				</div>
+				*/}
+
+				<Hidden smDown>
+					<MiniDrawer />
+				</Hidden>
+
+				<div>
+					<Hidden mdUp>
+						<SwipeableDrawer
+							open={this.state.left}
+							onClose={this.toggleDrawer('left', false)}
+							onOpen={this.toggleDrawer('left', true)}
+						>
+							<div
+								tabIndex={0}
+								role="button"
+								onClick={this.toggleDrawer('left', false)}
+								onKeyDown={this.toggleDrawer('left', false)}
+							>
+								{sideListSwipeable}
+							</div>
+						</SwipeableDrawer>
+					</Hidden>
+
+				</div>
+
+				<div>
+					<Grid container
+						spacing={24}
+						direction="column"
+						alignItems="center"
+						justify="flex-end"
+					>
+						<Grid item xs={12}>
+							<Fab aria-label="mic" color={this.state.isRecording ? 'secondary' : 'primary'} onClick={this.toggleRecord}>
+								{this.state.isRecording ? <PauseIcon /> : <MicIcon />}
+							</Fab>
+						</Grid>
+						<Grid item xs={6} md={3} style={{ width: "100%", height: "100%" }}>
+							<Interim interim={this.state.interim} />
+						</Grid>
+						<Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
+							<Transcript transcript={this.state.transcript} />
+						</Grid>
+						<Grid item xs={12}>
+							<Button variant="contained" onClick={this.reset}>Reset</Button>
+						</Grid>
+					</Grid>
+				</div>
+
+			</div >
+
+		)
 	}
+}
+
+SpeechDismantler.propTypes = {
+	server_address: PropTypes.string
 }
 
 export default SpeechDismantler

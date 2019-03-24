@@ -5,8 +5,11 @@ cache:
   directories:
     - node_modules
 script:
+  - npm run lint src
   - npm test
   - npm run build
+env:
+  - SERVER_ADDRESS=https://speech-dismantler.herokuapp.com/
 deploy:
   provider: pages
   skip_cleanup: true

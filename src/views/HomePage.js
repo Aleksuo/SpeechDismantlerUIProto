@@ -15,6 +15,10 @@ const Timer = ({elapsed}) =>{
 	)
 }
 
+Timer.propTypes = {
+    elapsed: PropTypes.number
+}
+
 
 const Transcript = ({ transcript }) => {
 	const items = transcript.map((word, idx) => { return <span key={idx}>{word.word} </span> })
@@ -80,6 +84,12 @@ const HomePage = (props) =>{
 						</Grid>
 					</Grid>
 				</div>)
+}
+
+HomePage.propTypes = {
+    state: PropTypes.object,
+    toggleRecord: PropTypes.func,
+    reset: PropTypes.func
 }
 
 export default HomePage

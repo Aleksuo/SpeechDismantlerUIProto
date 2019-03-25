@@ -21,6 +21,20 @@ let input
 let globalStream
 
 
+
+const Timer = ({elapsed}) =>{
+	console.log(elapsed)
+	const elapsedSec = Math.round(elapsed/1000)
+	const min = Math.floor(elapsedSec/60)
+	const sec = elapsedSec-(min*60)
+	return(
+		<div>
+			<h2>{min}:{sec}</h2>
+		</div>
+	)
+}
+
+
 const Transcript = ({ transcript }) => {
 	const items = transcript.map((word, idx) => { return <span key={idx}>{word.word} </span> })
 	return (
@@ -56,6 +70,7 @@ Interim.propTypes = {
 
 const initialState = {
 	isRecording: false,
+	elapsed: 0,
 	transcript: [],
 	interim: "",
 	left: false,
@@ -100,6 +115,12 @@ class SpeechDismantler extends Component {
 		}
 	}
 
+	tick = () =>{
+		const newElapsed = this.state.elapsed + (new Date - this.last)
+		this.setState({elapsed: newElapsed})
+		this.last = new Date()
+	}
+
 	reset = () => {
 		if (this.state.isRecording) {
 			this.stopRecording()
@@ -114,8 +135,16 @@ class SpeechDismantler extends Component {
 			isRecording: newIsRecording,
 		},
 			newIsRecording
-				? this.handleListen
-				: this.stopRecording)
+				? () =>{
+					this.last = new Date()
+					this.timer = setInterval(this.tick, 100)	
+					console.log("on")
+					return this.handleListen}
+				: () =>{
+					clearInterval(this.timer);
+					console.log("off")
+					return this.stopRecording})
+		
 	}
 
 	streamAudioData = (e) => {
@@ -292,6 +321,9 @@ class SpeechDismantler extends Component {
 							<Fab aria-label="mic" color={this.state.isRecording ? 'secondary' : 'primary'} onClick={this.toggleRecord}>
 								{this.state.isRecording ? <PauseIcon /> : <MicIcon />}
 							</Fab>
+						</Grid>
+						<Grid item xs={12}>
+							<Timer elapsed={this.state.elapsed}/>
 						</Grid>
 						<Grid item xs={6} md={3} style={{ width: "100%", height: "100%" }}>
 							<Interim interim={this.state.interim} />

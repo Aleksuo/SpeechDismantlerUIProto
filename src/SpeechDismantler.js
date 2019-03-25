@@ -61,7 +61,7 @@ class SpeechDismantler extends Component {
 	}
 
 	tick = () => {
-		const newElapsed = this.state.elapsed + (new Date - this.last)
+		const newElapsed = this.state.elapsed + (new Date() - this.last)
 		this.setState({ elapsed: newElapsed })
 		this.last = new Date()
 	}

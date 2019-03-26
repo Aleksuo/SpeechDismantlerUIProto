@@ -5,6 +5,7 @@ import MobileDrawer from "./components/MobileDrawer"
 
 //import views
 import HomePage from "./views/HomePage"
+import AnalysePage from "./views/AnalysePage"
 
 // import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'
@@ -149,7 +150,8 @@ class SpeechDismantler extends Component {
 					</Hidden>
 				</div>
 				<div>
-					<HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+				{/*	<HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} /> */}
+					<AnalysePage state={this.state0} />
 				</div>
 			</div >
 		)

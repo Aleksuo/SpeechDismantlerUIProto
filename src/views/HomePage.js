@@ -4,13 +4,20 @@ import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 import PropTypes from 'prop-types'
 
+const millisecondsToTimeString = (milliseconds) =>{
+    const elapsedSec = Math.round(milliseconds/1000)
+    const min = Math.floor(elapsedSec/60)
+    const sec = elapsedSec-(min*60)
+    const min_s = min<10 ? "0"+min.toString() : min.toString()
+    const sec_s = sec<10 ? "0"+sec.toString() : sec.toString()
+    return min_s+":"+sec_s
+}
+
 const Timer = ({elapsed}) =>{
-	const elapsedSec = Math.round(elapsed/1000)
-	const min = Math.floor(elapsedSec/60)
-	const sec = elapsedSec-(min*60)
+    const time = millisecondsToTimeString(elapsed)
 	return(
 		<div>
-			<h2>{min}:{sec}</h2>
+			<h2>{time}</h2>
 		</div>
 	)
 }

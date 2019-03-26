@@ -12,6 +12,7 @@ import PropTypes from 'prop-types'
 
 import { downsampleBuffer } from './utils/AudioUtils.js'
 
+
 let AudioContext
 let context
 let processor
@@ -48,7 +49,13 @@ class SpeechDismantler extends Component {
 				})
 			} else {
 				var newTranscript = this.state.transcript.slice(0)
-				Array.prototype.push.apply(newTranscript, result)
+				var sentence = {
+					time: this.state.elapsed,
+					words: result
+				}
+				console.log(sentence)
+				newTranscript.push(sentence)
+				console.log(this.state.transcript)
 				this.setState({
 					transcript: newTranscript,
 				})

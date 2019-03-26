@@ -3,19 +3,9 @@ import { Button, Paper, Grid, Fab } from '@material-ui/core'
 import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 import PropTypes from 'prop-types'
+import { CSSTransitionGroup } from 'react-transition-group'
 
 import { millisecondsToTimeString } from '../utils/GeneralUtils.js'
-
-/*
-const millisecondsToTimeString = (milliseconds) =>{
-    const elapsedSec = Math.round(milliseconds/1000)
-    const min = Math.floor(elapsedSec/60)
-    const sec = elapsedSec-(min*60)
-    const min_s = min<10 ? "0"+min.toString() : min.toString()
-    const sec_s = sec<10 ? "0"+sec.toString() : sec.toString()
-    return min_s+":"+sec_s
-}
-*/
 
 const Timer = ({ elapsed }) => {
     const time = millisecondsToTimeString(elapsed)
@@ -28,6 +18,11 @@ const Timer = ({ elapsed }) => {
 
 Timer.propTypes = {
     elapsed: PropTypes.number
+}
+
+const fadein = {
+    transition: "opacity 0.5s",
+    opacity: "1",
 }
 
 const Sentence = ({ sentence }) => {
@@ -45,29 +40,34 @@ class Transcript extends Component {
 
     componentDidMount = () => {
         this.scrollToBottom()
-      }
+    }
 
     componentDidUpdate = () => {
         this.scrollToBottom()
-      }
-    scrollToBottom= () => {
+    }
+    scrollToBottom = () => {
         this.transcriptEnd.current.scrollIntoView({ behavior: 'smooth' })
     }
 
     render() {
-        const {transcript} = this.props
-        const items = transcript.map((sentence) => <Sentence sentence={sentence} />)
+        const { transcript } = this.props
+        const items = transcript.map((sentence,idx) => <Sentence key={idx} sentence={sentence} />)
         return (
             <div>
                 <Paper elevation={1} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>
-                    {items}
-                    <div ref={this.transcriptEnd} />
+                    <CSSTransitionGroup
+                        transitionName="example"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={300}>
+                        {items}
+                        <div ref={this.transcriptEnd} />
+                    </CSSTransitionGroup>
                 </Paper>
             </div>
         )
 
     }
-    
+
 }
 
 

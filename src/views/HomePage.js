@@ -20,11 +20,6 @@ Timer.propTypes = {
     elapsed: PropTypes.number
 }
 
-const fadein = {
-    transition: "opacity 0.5s",
-    opacity: "1",
-}
-
 const Sentence = ({ sentence }) => {
     console.log(sentence)
     const items = sentence.words.map((word, idx) => { return <span key={idx}>{word.word} </span> })

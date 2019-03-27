@@ -58,8 +58,11 @@ class Transcript extends Component {
                         transitionName="example"
                         transitionEnterTimeout={500}
                         transitionLeaveTimeout={300}>
-                        {items}
-                        <div ref={this.transcriptEnd} /> {/*Dummy div to mark the end of transcript*/}
+                        <div>
+                            <span>{items}</span>
+                            <div ref={this.transcriptEnd} /> {/*Dummy div to mark the end of transcript*/}
+                        </div>
+
                     </CSSTransitionGroup>
                 </Paper>
             </div>

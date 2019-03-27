@@ -15,4 +15,5 @@ html, body {margin: 0; height: 100%; overflow: hidden; flexGrow: 1}
   
   .example-leave.example-leave-active {
     opacity: 0.01;
-    transition: opacity 
+    transition: opacity;
+  }

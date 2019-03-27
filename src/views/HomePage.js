@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Paper, Grid, Fab } from '@material-ui/core'
+import { Button, Paper, Grid, Fab, Typography, Divider } from '@material-ui/core'
 import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 import PropTypes from 'prop-types'
@@ -11,7 +11,7 @@ const Timer = ({ elapsed }) => {
     const time = millisecondsToTimeString(elapsed)
     return (
         <div>
-            <h2>{time}</h2>
+            <Typography color="primary">{time}</Typography>
         </div>
     )
 }
@@ -21,16 +21,20 @@ Timer.propTypes = {
 }
 
 const Sentence = ({ sentence }) => {
-    console.log(sentence)
     const items = sentence.words.map((word, idx) => { return <span key={idx}>{word.word} </span> })
-    console.log(items)
     return (<div>
-        <h3>{millisecondsToTimeString(sentence.time)}:</h3>
-        <p>{items}</p>
+        <Typography align="center" color="primary">{millisecondsToTimeString(sentence.time)}</Typography>
+        <Typography paragraph="true" align="center">{items}</Typography>
+        <Divider variant="middle" light={true} />
     </div>)
 }
 
+Sentence.propTypes = {
+    sentence: PropTypes.object
+}
+
 class Transcript extends Component {
+    //The reference is used to make transcript automatically scroll to the newest sentence
     transcriptEnd = React.createRef()
 
     componentDidMount = () => {
@@ -46,7 +50,7 @@ class Transcript extends Component {
 
     render() {
         const { transcript } = this.props
-        const items = transcript.map((sentence,idx) => <Sentence key={idx} sentence={sentence} />)
+        const items = transcript.map((sentence, idx) => <Sentence key={idx} sentence={sentence} />)
         return (
             <div>
                 <Paper elevation={1} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>
@@ -55,7 +59,7 @@ class Transcript extends Component {
                         transitionEnterTimeout={500}
                         transitionLeaveTimeout={300}>
                         {items}
-                        <div ref={this.transcriptEnd} />
+                        <div ref={this.transcriptEnd} /> {/*Dummy div to mark the end of transcript*/}
                     </CSSTransitionGroup>
                 </Paper>
             </div>
@@ -73,8 +77,8 @@ Transcript.propTypes = {
 const Interim = ({ interim }) => {
     return (
         <div>
-            <Paper elevation={2} style={{ color: "gray", height: "5vh", textAlign: 'center', }}>
-                {interim}
+            <Paper elevation={2} style={{ color: "gray", height: "5vh", textAlign: 'center', overflow: "auto" }}>
+                <Typography color="inherit">{interim}</Typography>
             </Paper>
         </div>
     )

@@ -51,6 +51,10 @@ const styles = theme => ({
     flexShrink: 0,
     whiteSpace: 'nowrap',
   },
+  paper: {
+    background: "#2196f3",
+    '& *': { color: 'rgba(255, 255, 255, 1)' },
+  },
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -114,6 +118,7 @@ class MiniDrawer extends React.Component {
             paper: classNames({
               [classes.drawerOpen]: this.state.open,
               [classes.drawerClose]: !this.state.open,
+              [classes.paper]: classes.paper
             }),
           }}
           open={this.state.open}

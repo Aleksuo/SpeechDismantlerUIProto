@@ -53,9 +53,7 @@ class SpeechDismantler extends Component {
 					time: this.state.elapsed,
 					words: result
 				}
-				console.log(sentence)
 				newTranscript.push(sentence)
-				console.log(this.state.transcript)
 				this.setState({
 					transcript: newTranscript,
 				})

@@ -1,0 +1,1143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileDrawer component renders 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <MobileDrawer />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <WithTheme(SwipeableDrawer)
+        onClose={[Function]}
+        onOpen={[Function]}
+        open={false}
+      >
+        <div
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <div>
+            <WithStyles(List)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(HomeIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Home"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BarChartIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Statistics"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BuildIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Settings"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(InfoIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="About"
+                />
+              </WithStyles(ListItem)>
+            </WithStyles(List)>
+          </div>
+        </div>
+      </WithTheme(SwipeableDrawer)>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": <div
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <div>
+            <WithStyles(List)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(HomeIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Home"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BarChartIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Statistics"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BuildIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Settings"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(InfoIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="About"
+                />
+              </WithStyles(ListItem)>
+            </WithStyles(List)>
+          </div>
+        </div>,
+        "onClose": [Function],
+        "onOpen": [Function],
+        "open": false,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div>
+            <WithStyles(List)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(HomeIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Home"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BarChartIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Statistics"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BuildIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Settings"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(InfoIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="About"
+                />
+              </WithStyles(ListItem)>
+            </WithStyles(List)>
+          </div>,
+          "onClick": [Function],
+          "onKeyDown": [Function],
+          "role": "button",
+          "tabIndex": 0,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <WithStyles(List)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(HomeIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Home"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BarChartIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Statistics"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(BuildIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="Settings"
+                />
+              </WithStyles(ListItem)>
+              <WithStyles(ListItem)
+                button={true}
+              >
+                <WithStyles(ListItemIcon)>
+                  <pure(InfoIcon) />
+                </WithStyles(ListItemIcon)>
+                <WithStyles(ListItemIcon) />
+                <WithStyles(ListItemText)
+                  primary="About"
+                />
+              </WithStyles(ListItem)>
+            </WithStyles(List)>,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(HomeIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Home"
+                  />
+                </WithStyles(ListItem)>,
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BarChartIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Statistics"
+                  />
+                </WithStyles(ListItem)>,
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BuildIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Settings"
+                  />
+                </WithStyles(ListItem)>,
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(InfoIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="About"
+                  />
+                </WithStyles(ListItem)>,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": "Home",
+                "nodeType": "class",
+                "props": Object {
+                  "button": true,
+                  "children": Array [
+                    <WithStyles(ListItemIcon)>
+                      <pure(HomeIcon) />
+                    </WithStyles(ListItemIcon)>,
+                    <WithStyles(ListItemIcon) />,
+                    <WithStyles(ListItemText)
+                      primary="Home"
+                    />,
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <pure(HomeIcon) />,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {},
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "primary": "Home",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "Statistics",
+                "nodeType": "class",
+                "props": Object {
+                  "button": true,
+                  "children": Array [
+                    <WithStyles(ListItemIcon)>
+                      <pure(BarChartIcon) />
+                    </WithStyles(ListItemIcon)>,
+                    <WithStyles(ListItemIcon) />,
+                    <WithStyles(ListItemText)
+                      primary="Statistics"
+                    />,
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <pure(BarChartIcon) />,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {},
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "primary": "Statistics",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "Settings",
+                "nodeType": "class",
+                "props": Object {
+                  "button": true,
+                  "children": Array [
+                    <WithStyles(ListItemIcon)>
+                      <pure(BuildIcon) />
+                    </WithStyles(ListItemIcon)>,
+                    <WithStyles(ListItemIcon) />,
+                    <WithStyles(ListItemText)
+                      primary="Settings"
+                    />,
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <pure(BuildIcon) />,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {},
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "primary": "Settings",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": "About",
+                "nodeType": "class",
+                "props": Object {
+                  "button": true,
+                  "children": Array [
+                    <WithStyles(ListItemIcon)>
+                      <pure(InfoIcon) />
+                    </WithStyles(ListItemIcon)>,
+                    <WithStyles(ListItemIcon) />,
+                    <WithStyles(ListItemText)
+                      primary="About"
+                    />,
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "children": <pure(InfoIcon) />,
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {},
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "primary": "About",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": [Function],
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <WithTheme(SwipeableDrawer)
+          onClose={[Function]}
+          onOpen={[Function]}
+          open={false}
+        >
+          <div
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <div>
+              <WithStyles(List)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(HomeIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Home"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BarChartIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Statistics"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BuildIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Settings"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(InfoIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="About"
+                  />
+                </WithStyles(ListItem)>
+              </WithStyles(List)>
+            </div>
+          </div>
+        </WithTheme(SwipeableDrawer)>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": <div
+            onClick={[Function]}
+            onKeyDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <div>
+              <WithStyles(List)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(HomeIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Home"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BarChartIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Statistics"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BuildIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Settings"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(InfoIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="About"
+                  />
+                </WithStyles(ListItem)>
+              </WithStyles(List)>
+            </div>
+          </div>,
+          "onClose": [Function],
+          "onOpen": [Function],
+          "open": false,
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div>
+              <WithStyles(List)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(HomeIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Home"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BarChartIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Statistics"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BuildIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Settings"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(InfoIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="About"
+                  />
+                </WithStyles(ListItem)>
+              </WithStyles(List)>
+            </div>,
+            "onClick": [Function],
+            "onKeyDown": [Function],
+            "role": "button",
+            "tabIndex": 0,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <WithStyles(List)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(HomeIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Home"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BarChartIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Statistics"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(BuildIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="Settings"
+                  />
+                </WithStyles(ListItem)>
+                <WithStyles(ListItem)
+                  button={true}
+                >
+                  <WithStyles(ListItemIcon)>
+                    <pure(InfoIcon) />
+                  </WithStyles(ListItemIcon)>
+                  <WithStyles(ListItemIcon) />
+                  <WithStyles(ListItemText)
+                    primary="About"
+                  />
+                </WithStyles(ListItem)>
+              </WithStyles(List)>,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <WithStyles(ListItem)
+                    button={true}
+                  >
+                    <WithStyles(ListItemIcon)>
+                      <pure(HomeIcon) />
+                    </WithStyles(ListItemIcon)>
+                    <WithStyles(ListItemIcon) />
+                    <WithStyles(ListItemText)
+                      primary="Home"
+                    />
+                  </WithStyles(ListItem)>,
+                  <WithStyles(ListItem)
+                    button={true}
+                  >
+                    <WithStyles(ListItemIcon)>
+                      <pure(BarChartIcon) />
+                    </WithStyles(ListItemIcon)>
+                    <WithStyles(ListItemIcon) />
+                    <WithStyles(ListItemText)
+                      primary="Statistics"
+                    />
+                  </WithStyles(ListItem)>,
+                  <WithStyles(ListItem)
+                    button={true}
+                  >
+                    <WithStyles(ListItemIcon)>
+                      <pure(BuildIcon) />
+                    </WithStyles(ListItemIcon)>
+                    <WithStyles(ListItemIcon) />
+                    <WithStyles(ListItemText)
+                      primary="Settings"
+                    />
+                  </WithStyles(ListItem)>,
+                  <WithStyles(ListItem)
+                    button={true}
+                  >
+                    <WithStyles(ListItemIcon)>
+                      <pure(InfoIcon) />
+                    </WithStyles(ListItemIcon)>
+                    <WithStyles(ListItemIcon) />
+                    <WithStyles(ListItemText)
+                      primary="About"
+                    />
+                  </WithStyles(ListItem)>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": "Home",
+                  "nodeType": "class",
+                  "props": Object {
+                    "button": true,
+                    "children": Array [
+                      <WithStyles(ListItemIcon)>
+                        <pure(HomeIcon) />
+                      </WithStyles(ListItemIcon)>,
+                      <WithStyles(ListItemIcon) />,
+                      <WithStyles(ListItemText)
+                        primary="Home"
+                      />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": <pure(HomeIcon) />,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "primary": "Home",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "Statistics",
+                  "nodeType": "class",
+                  "props": Object {
+                    "button": true,
+                    "children": Array [
+                      <WithStyles(ListItemIcon)>
+                        <pure(BarChartIcon) />
+                      </WithStyles(ListItemIcon)>,
+                      <WithStyles(ListItemIcon) />,
+                      <WithStyles(ListItemText)
+                        primary="Statistics"
+                      />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": <pure(BarChartIcon) />,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "primary": "Statistics",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "Settings",
+                  "nodeType": "class",
+                  "props": Object {
+                    "button": true,
+                    "children": Array [
+                      <WithStyles(ListItemIcon)>
+                        <pure(BuildIcon) />
+                      </WithStyles(ListItemIcon)>,
+                      <WithStyles(ListItemIcon) />,
+                      <WithStyles(ListItemText)
+                        primary="Settings"
+                      />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": <pure(BuildIcon) />,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "primary": "Settings",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": "About",
+                  "nodeType": "class",
+                  "props": Object {
+                    "button": true,
+                    "children": Array [
+                      <WithStyles(ListItemIcon)>
+                        <pure(InfoIcon) />
+                      </WithStyles(ListItemIcon)>,
+                      <WithStyles(ListItemIcon) />,
+                      <WithStyles(ListItemText)
+                        primary="About"
+                      />,
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "children": <pure(InfoIcon) />,
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "class",
+                        "props": Object {},
+                        "ref": null,
+                        "rendered": null,
+                        "type": [Function],
+                      },
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "primary": "About",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        "type": [Function],
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__childContext__): null,
+}
+`;

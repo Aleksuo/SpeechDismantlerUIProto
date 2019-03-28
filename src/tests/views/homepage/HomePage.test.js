@@ -1,11 +1,12 @@
+/* eslint-disable */
 import React from "react"
 import Enzyme, {shallow, mount} from "enzyme"
-import HomePage from "../views/HomePage"
+import HomePage from "../../../views/HomePage/HomePage"
 import Adapter from "enzyme-adapter-react-16"
 
 Enzyme.configure({adapter: new Adapter()})
 
-const mockState = {
+const defaultState = {
 	isRecording: false,
 	elapsed: 0,
 	transcript: [],
@@ -15,7 +16,7 @@ const mockState = {
 
 describe("HomePage component", () =>{
     test("renders", () =>{
-        const wrapper = shallow(<HomePage state={mockState}/>)
-        expect(wrapper.exists()).toBe(true)
+        const wrapper = shallow(<HomePage state={defaultState}/>)
+        expect(wrapper).toMatchSnapshot()
     })
 })

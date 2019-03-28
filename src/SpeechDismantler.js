@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {Hidden } from '@material-ui/core'
-import MiniDrawer from "./components/MiniDrawer"
-import MobileDrawer from "./components/MobileDrawer"
+import MiniDrawer from "./common/MiniDrawer"
+import MobileDrawer from "./common/MobileDrawer"
 
 //import views
-import HomePage from "./views/HomePage"
+import HomePage from "./views/homepage/HomePage"
 
 // import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import {Hidden } from '@material-ui/core'
+import { Hidden } from '@material-ui/core'
 import MiniDrawer from "./components/MiniDrawer"
 import MobileDrawer from "./components/MobileDrawer"
-
+import hark from 'hark'
 //import views
 import HomePage from "./views/HomePage"
 
@@ -113,6 +113,11 @@ class SpeechDismantler extends Component {
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
 			}
+			var options = {};
+			var speechEvents = hark(stream, options);
+			speechEvents.on('volume_change', function (volume) {
+				console.log('current volume', volume);
+			});
 		}
 
 		navigator.mediaDevices.getUserMedia({ audio: true, video: false })

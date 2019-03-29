@@ -25,6 +25,7 @@ const initialState = {
 	transcript: [],
 	interim: "",
 	left: false,
+	view: 0
 }
 
 class SpeechDismantler extends Component {
@@ -72,6 +73,12 @@ class SpeechDismantler extends Component {
 			this.stopRecording()
 		}
 		this.setState(initialState, clearInterval(this.timer))
+	}
+
+	setView = (id) => {
+		console.log("ID " + this.state.view)
+		this.setState({view: id})
+		console.log("Current ID " + this.state.view)
 	}
 
 
@@ -139,19 +146,30 @@ class SpeechDismantler extends Component {
 
 	//UI CODE STARTS HERE*/
 	render() {
+
+	const pageView = this.state.view
+	let page;
+	
+	if (pageView == 0) {
+		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>;
+	} else {
+		page = <AnalysePage state={this.state}/>;
+	}
+
+	{/*const page = this.state.view == 0 ? */}	
+
 		return (
 			<div>
 				<div>
 					<Hidden smDown>
-						<MiniDrawer />
+						<MiniDrawer setView={this.setView}/>
 					</Hidden>
 					<Hidden mdUp>
-						<MobileDrawer />
+						<MobileDrawer setView={this.setView}/>
 					</Hidden>
 				</div>
 				<div>
-				{/*	<HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} /> */}
-					<AnalysePage state={this.state0} />
+					{page}
 				</div>
 			</div >
 		)

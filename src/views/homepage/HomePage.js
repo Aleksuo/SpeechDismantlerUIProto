@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button, Paper, Grid, Fab, Typography, Divider } from '@material-ui/core'
+import React from 'react'
+import { Button, Grid, Fab} from '@material-ui/core'
 import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 import PropTypes from 'prop-types'
@@ -7,12 +7,6 @@ import PropTypes from 'prop-types'
 import Interim from './Interim'
 import Transcript from './Transcript'
 import Timer from './Timer'
-
-
-
-
-
-
 
 const HomePage = (props) => {
     const { state, toggleRecord, reset } = props

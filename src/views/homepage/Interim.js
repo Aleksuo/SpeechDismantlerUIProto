@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Button, Paper, Grid, Fab, Typography, Divider } from '@material-ui/core'
+import React from 'react'
+import {Paper, Typography} from '@material-ui/core'
 import PropTypes from 'prop-types'
 
 const Interim = ({ interim }) => {

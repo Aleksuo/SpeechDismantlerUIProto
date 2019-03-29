@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {Typography, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 

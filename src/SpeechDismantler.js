@@ -17,6 +17,7 @@ let context
 let processor
 let input
 let globalStream
+let analyser
 
 const initialState = {
 	isRecording: false,
@@ -103,22 +104,44 @@ class SpeechDismantler extends Component {
 		AudioContext = window.AudioContext || window.webkitAudioContext
 		context = new AudioContext()
 		processor = context.createScriptProcessor(this.bufferSize, 1, 1)
-		processor.connect(context.destination)
-		context.resume()
+		context.resume();
+
 
 		const handleSuccess = (stream) => {
 			globalStream = stream
 			input = context.createMediaStreamSource(stream)
 			input.connect(processor)
+			processor.connect(context.destination)
+			//audioContext=new AudioContext();
+			analyser = context.createAnalyser();
+			//javascriptNode=audioContext.createScriptProcessor(2048,1,1);
+			analyser.smoothingTimeConstant = 0.8;
+			analyser.fftSize = 1024;
+			input.connect(analyser);
+			analyser.connect(processor);
+			processor.connect(context.destination);
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
+				var array = new Uint8Array(analyser.frequencyBinCount);
+				analyser.getByteFrequencyData(array);
+				var values = 0;
+				var length = array.length;
+				for (var i = 0; i < length; i++) {
+					values += (array[i]);
+				}
+				var average = values / length;
+				console.log(Math.round(average));
 			}
-			var options = {};
-			var speechEvents = hark(stream, options);
-			speechEvents.on('volume_change', function (volume) {
-				console.log('current volume', volume);
-			});
+
 		}
+
+
+		//var options = {};
+		//var speechEvents = hark(stream, options);
+		//speechEvents.on('volume_change', function (volume) {
+		//console.log('current volume', volume);
+		//});
+
 
 		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 			.then(handleSuccess)

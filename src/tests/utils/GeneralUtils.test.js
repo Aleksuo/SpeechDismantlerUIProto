@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { millisecondsToTimeString, estimateStartTime, secondsToMilliseconds, nanosecondsToMilliseconds } from '../../utils/GeneralUtils'
 
 describe("millisecondsToTimeString", () => {

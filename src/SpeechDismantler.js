@@ -11,7 +11,7 @@ import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
 
 import { downsampleBuffer } from './utils/AudioUtils.js'
-import { estimateStartTime } from './utils/GeneralUtils';
+import { estimateStartTime } from './utils/GeneralUtils'
 
 
 let AudioContext

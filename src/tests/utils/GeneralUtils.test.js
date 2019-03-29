@@ -1,4 +1,4 @@
-import { millisecondsToTimeString, estimateStartTime } from '../../utils/GeneralUtils'
+import { millisecondsToTimeString, estimateStartTime, secondsToMilliseconds, nanosecondsToMilliseconds } from '../../utils/GeneralUtils'
 
 describe("millisecondsToTimeString", () => {
     it('Converts milliseconds to a readable string', () => {
@@ -16,6 +16,21 @@ describe("millisecondsToTimeString", () => {
         expect(millisecondsToTimeString(60000)).toEqual("01:00")
         expect(millisecondsToTimeString(600000)).toEqual("10:00")
         expect(millisecondsToTimeString(660000)).toEqual("11:00")
+    })
+})
+
+describe("secondsToMilliseconds", () =>{
+    it('Converts seconds to milliseconds correctly', () => {
+        expect(secondsToMilliseconds(0)).toEqual(0)
+        expect(secondsToMilliseconds(50)).toEqual(50000)
+    })
+})
+
+describe("nanosecondsToMilliseconds", () => {
+    it('Converts nanoseconds to milliseconds correctly', () => {
+        expect(nanosecondsToMilliseconds(0)).toEqual(0)
+        expect(nanosecondsToMilliseconds(1000000)).toEqual(1)
+        expect(nanosecondsToMilliseconds(100000000)).toEqual(100)
     })
 })
 

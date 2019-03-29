@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react"
 import Enzyme, {shallow, mount,render} from "enzyme"
-import Transcript from "../../../views/HomePage/Transcript"
+import Transcript from "../../../views/homepage/Transcript"
 import Adapter from "enzyme-adapter-react-16"
 
 Enzyme.configure({adapter: new Adapter()})

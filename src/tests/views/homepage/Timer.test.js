@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react"
 import Enzyme, {shallow, mount,render} from "enzyme"
-import Timer from "../../../views/HomePage/Timer"
+import Timer from "../../../views/homepage/Timer"
 import Adapter from "enzyme-adapter-react-16"
 
 Enzyme.configure({adapter: new Adapter()})

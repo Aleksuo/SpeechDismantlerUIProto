@@ -6,7 +6,7 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <Sentence
     sentence={
       Object {
-        "time": 0,
+        "startTime": 0,
         "words": Array [],
       }
     }

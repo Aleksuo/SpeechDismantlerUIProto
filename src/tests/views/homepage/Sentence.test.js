@@ -7,7 +7,7 @@ import Adapter from "enzyme-adapter-react-16"
 Enzyme.configure({adapter: new Adapter()})
 
 const emptySentence = {
-    time: 0,
+    startTime: 0,
     words: []
 }
 describe("Sentence component", () =>{

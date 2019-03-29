@@ -11,6 +11,7 @@ import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
 
 import { downsampleBuffer } from './utils/AudioUtils.js'
+import { estimateStartTime } from './utils/GeneralUtils';
 
 
 let AudioContext
@@ -50,9 +51,13 @@ class SpeechDismantler extends Component {
 			} else {
 				var newTranscript = this.state.transcript.slice(0)
 				var sentence = {
-					time: this.state.elapsed,
+					startTime: 0,
+					endTime: this.state.elapsed,
 					words: result
 				}
+				const startTime = estimateStartTime(sentence)
+				//console.log(startTime)
+				sentence.startTime = startTime
 				newTranscript.push(sentence)
 				this.setState({
 					transcript: newTranscript,

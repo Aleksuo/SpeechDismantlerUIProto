@@ -156,14 +156,11 @@ class SpeechDismantler extends Component {
 	const pageView = this.state.view
 	let page
 	
-	if (pageView == 0) {
+	if (pageView === 0) {
 		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>
 	} else {
 		page = <AnalysePage state={this.state}/>
 	}
-
-	{/*const page = this.state.view == 0 ? */}	
-
 		return (
 			<div>
 				<div>

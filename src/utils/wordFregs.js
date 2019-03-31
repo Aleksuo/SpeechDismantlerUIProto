@@ -52,7 +52,7 @@ export const WordCounter = (transcript) => {
 
         var i
         for(i=0;i<len;i++){
-            var dataPoint = new Object()
+            var dataPoint = {}
             dataPoint.x = array[i][0]
             dataPoint.y = array[i][1]
             data[i]= dataPoint

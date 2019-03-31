@@ -2,14 +2,7 @@ import React from 'react'
 import { Button, Paper, Grid, Fab} from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { VictoryTheme, VictoryPie, VictoryChart, VictoryBar, VictoryAxis, VictoryScatter } from 'victory'
-
-const sampleData =
-    [
-        { x: "Cosmic Garfield", y: 50 },
-        { x: "Dogs", y: 35 },
-        { x: "Birds", y: 20 },
-        { x: "Birds", y: 40 }
-    ]
+import { WordCounter } from './../utils/wordFregs.js'
 
 const otherSample = [
         {quarter: 1, earnings: 13000},
@@ -20,6 +13,8 @@ const otherSample = [
 
 const AnalysePage = (props) =>{ 
     const {state} = props
+    
+    //const sampleData = WordCounter(this.state.transcript);
 
     return(
             <div>
@@ -34,7 +29,8 @@ const AnalysePage = (props) =>{
                             <VictoryPie
                                 innerRadius={100}
                                 colorScale={["tomato", "orange", "gold", "red"]}
-                                data={sampleData}
+                                //data={sampleData}
+                                data={WordCounter(state.transcript)}
                             />
                         </Grid>
 

@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import {Hidden } from '@material-ui/core'
-import MiniDrawer from "./components/MiniDrawer"
-import MobileDrawer from "./components/MobileDrawer"
+import MiniDrawer from "./common/MiniDrawer"
+import MobileDrawer from "./common/MobileDrawer"
 
 //import views
-import HomePage from "./views/HomePage"
-import AnalysePage from "./views/AnalysePage"
+import HomePage from "./views/homepage/HomePage"
+import AnalysePage from "./views/analysepage/AnalysePage"
 
-// import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
 
 import { downsampleBuffer } from './utils/AudioUtils.js'
+import { estimateStartTime } from './utils/GeneralUtils'
+
 
 let AudioContext
 let context
@@ -50,7 +51,14 @@ class SpeechDismantler extends Component {
 				})
 			} else {
 				var newTranscript = this.state.transcript.slice(0)
-				Array.prototype.push.apply(newTranscript, result)
+				var sentence = {
+					startTime: 0,
+					endTime: this.state.elapsed,
+					words: result
+				}
+				const startTime = estimateStartTime(sentence)
+				sentence.startTime = startTime
+				newTranscript.push(sentence)
 				this.setState({
 					transcript: newTranscript,
 				})
@@ -76,9 +84,7 @@ class SpeechDismantler extends Component {
 	}
 
 	setView = (id) => {
-		console.log("ID " + this.state.view)
 		this.setState({view: id})
-		console.log("Current ID " + this.state.view)
 	}
 
 
@@ -148,16 +154,13 @@ class SpeechDismantler extends Component {
 	render() {
 
 	const pageView = this.state.view
-	let page;
+	let page
 	
-	if (pageView == 0) {
-		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>;
+	if (pageView === 0) {
+		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>
 	} else {
-		page = <AnalysePage state={this.state}/>;
+		page = <AnalysePage state={this.state}/>
 	}
-
-	{/*const page = this.state.view == 0 ? */}	
-
 		return (
 			<div>
 				<div>

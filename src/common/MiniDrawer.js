@@ -3,19 +3,11 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
-import InfoIcon from '@material-ui/icons/Info'
-import HomeIcon from '@material-ui/icons/Home'
-import BarChartIcon from '@material-ui/icons/BarChart'
-import BuildIcon from '@material-ui/icons/Build'
 import NavigationList from './NavigationList'
 
 
@@ -51,6 +43,10 @@ const styles = theme => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
+  },
+  paper: {
+    background: "#2196f3",
+    '& *': { color: 'rgba(255, 255, 255, 1)' },
   },
   drawerOpen: {
     width: drawerWidth,
@@ -115,6 +111,7 @@ class MiniDrawer extends React.Component {
             paper: classNames({
               [classes.drawerOpen]: this.state.open,
               [classes.drawerClose]: !this.state.open,
+              [classes.paper]: classes.paper
             }),
           }}
           open={this.state.open}
@@ -135,6 +132,7 @@ class MiniDrawer extends React.Component {
 MiniDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  setView: PropTypes.func
 }
 
 export default withStyles(styles, { withTheme: true })(MiniDrawer)

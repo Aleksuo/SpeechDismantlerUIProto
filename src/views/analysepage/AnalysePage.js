@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, Paper, Grid, Fab} from '@material-ui/core'
+import {Grid} from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { VictoryTheme, VictoryPie, VictoryChart, VictoryBar, VictoryAxis, VictoryScatter } from 'victory'
-import { WordCounter } from './../utils/wordFregs.js'
+import { VictoryTheme, VictoryPie, VictoryChart, VictoryBar, VictoryAxis} from 'victory'
+import { WordCounter } from '../../utils/wordFregs.js'
 
 const otherSample = [
         {quarter: 1, earnings: 13000},

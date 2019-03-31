@@ -1,10 +1,6 @@
 import React from 'react'
-import {SwipeableDrawer, List, ListItem, ListItemText} from '@material-ui/core'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import InfoIcon from '@material-ui/icons/Info'
-import HomeIcon from '@material-ui/icons/Home'
-import BarChartIcon from '@material-ui/icons/BarChart'
-import BuildIcon from '@material-ui/icons/Build'
+import PropTypes from 'prop-types'
+import {SwipeableDrawer} from '@material-ui/core'
 import NavigationList from './NavigationList'
 
 class MobileDrawer extends React.Component {
@@ -60,6 +56,10 @@ class MobileDrawer extends React.Component {
 
         )
     }
+}
+
+MobileDrawer.propTypes = {
+	setView: PropTypes.func
 }
 
 export default MobileDrawer

@@ -5,8 +5,8 @@ import MobileDrawer from "./common/MobileDrawer"
 
 //import views
 import HomePage from "./views/homepage/HomePage"
+import AnalysePage from "./views/analysepage/AnalysePage"
 
-// import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
 
@@ -26,6 +26,7 @@ const initialState = {
 	transcript: [],
 	interim: "",
 	left: false,
+	view: 0
 }
 
 class SpeechDismantler extends Component {
@@ -56,7 +57,6 @@ class SpeechDismantler extends Component {
 					words: result
 				}
 				const startTime = estimateStartTime(sentence)
-				//console.log(startTime)
 				sentence.startTime = startTime
 				newTranscript.push(sentence)
 				this.setState({
@@ -81,6 +81,10 @@ class SpeechDismantler extends Component {
 			this.stopRecording()
 		}
 		this.setState(initialState, clearInterval(this.timer))
+	}
+
+	setView = (id) => {
+		this.setState({view: id})
 	}
 
 
@@ -148,18 +152,30 @@ class SpeechDismantler extends Component {
 
 	//UI CODE STARTS HERE*/
 	render() {
+
+	const pageView = this.state.view
+	let page
+	
+	if (pageView == 0) {
+		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>
+	} else {
+		page = <AnalysePage state={this.state}/>
+	}
+
+	{/*const page = this.state.view == 0 ? */}	
+
 		return (
 			<div>
 				<div>
 					<Hidden smDown>
-						<MiniDrawer />
+						<MiniDrawer setView={this.setView}/>
 					</Hidden>
 					<Hidden mdUp>
-						<MobileDrawer />
+						<MobileDrawer setView={this.setView}/>
 					</Hidden>
 				</div>
 				<div>
-					<HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+					{page}
 				</div>
 			</div >
 		)

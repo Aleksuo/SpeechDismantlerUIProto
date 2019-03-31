@@ -1,10 +1,7 @@
 import React from 'react'
-import {SwipeableDrawer, List, ListItem, ListItemText} from '@material-ui/core'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import InfoIcon from '@material-ui/icons/Info'
-import HomeIcon from '@material-ui/icons/Home'
-import BarChartIcon from '@material-ui/icons/BarChart'
-import BuildIcon from '@material-ui/icons/Build'
+import PropTypes from 'prop-types'
+import {SwipeableDrawer} from '@material-ui/core'
+import NavigationList from './NavigationList'
 
 class MobileDrawer extends React.Component {
     state = {
@@ -18,30 +15,10 @@ class MobileDrawer extends React.Component {
     }
 
     render() {
+        const {setView} = this.props
         const sideListSwipeable = (
             <div>
-                <List>
-                    <ListItem button key={'Home'}>
-                        <ListItemIcon><HomeIcon /></ListItemIcon>
-                        <ListItemIcon></ListItemIcon>
-                        <ListItemText primary={'Home'} />
-                    </ListItem>
-                    <ListItem button key={'Statistics'}>
-                        <ListItemIcon><BarChartIcon /></ListItemIcon>
-                        <ListItemIcon></ListItemIcon>
-                        <ListItemText primary={'Statistics'} />
-                    </ListItem>
-                    <ListItem button key={'Settings'}>
-                        <ListItemIcon><BuildIcon /></ListItemIcon>
-                        <ListItemIcon></ListItemIcon>
-                        <ListItemText primary={'Settings'} />
-                    </ListItem>
-                    <ListItem button key={'About'}>
-                        <ListItemIcon><InfoIcon /></ListItemIcon>
-                        <ListItemIcon></ListItemIcon>
-                        <ListItemText primary={'About'} />
-                    </ListItem>
-                </List>
+                <NavigationList setView = {setView}/>
             </div>
         )
         return (
@@ -79,6 +56,10 @@ class MobileDrawer extends React.Component {
 
         )
     }
+}
+
+MobileDrawer.propTypes = {
+	setView: PropTypes.func
 }
 
 export default MobileDrawer

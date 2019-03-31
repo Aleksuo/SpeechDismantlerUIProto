@@ -35,7 +35,9 @@ ShallowWrapper {
             xsDown={false}
             xsUp={false}
           >
-            <WithStyles(MiniDrawer) />
+            <WithStyles(MiniDrawer)
+              setView={[Function]}
+            />
           </Hidden>
           <Hidden
             implementation="js"
@@ -50,7 +52,9 @@ ShallowWrapper {
             xsDown={false}
             xsUp={false}
           >
-            <MobileDrawer />
+            <MobileDrawer
+              setView={[Function]}
+            />
           </Hidden>
         </div>,
         <div>
@@ -63,6 +67,7 @@ ShallowWrapper {
                 "isRecording": false,
                 "left": false,
                 "transcript": Array [],
+                "view": 0,
               }
             }
             toggleRecord={[Function]}
@@ -91,7 +96,9 @@ ShallowWrapper {
               xsDown={false}
               xsUp={false}
             >
-              <WithStyles(MiniDrawer) />
+              <WithStyles(MiniDrawer)
+                setView={[Function]}
+              />
             </Hidden>,
             <Hidden
               implementation="js"
@@ -106,7 +113,9 @@ ShallowWrapper {
               xsDown={false}
               xsUp={false}
             >
-              <MobileDrawer />
+              <MobileDrawer
+                setView={[Function]}
+              />
             </Hidden>,
           ],
         },
@@ -117,7 +126,9 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "children": <WithStyles(MiniDrawer) />,
+              "children": <WithStyles(MiniDrawer)
+                setView={[Function]}
+              />,
               "implementation": "js",
               "lgDown": false,
               "lgUp": false,
@@ -135,7 +146,9 @@ ShallowWrapper {
               "instance": null,
               "key": undefined,
               "nodeType": "class",
-              "props": Object {},
+              "props": Object {
+                "setView": [Function],
+              },
               "ref": null,
               "rendered": null,
               "type": [Function],
@@ -147,7 +160,9 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "function",
             "props": Object {
-              "children": <MobileDrawer />,
+              "children": <MobileDrawer
+                setView={[Function]}
+              />,
               "implementation": "js",
               "lgDown": false,
               "lgUp": false,
@@ -165,7 +180,9 @@ ShallowWrapper {
               "instance": null,
               "key": undefined,
               "nodeType": "class",
-              "props": Object {},
+              "props": Object {
+                "setView": [Function],
+              },
               "ref": null,
               "rendered": null,
               "type": [Function],
@@ -189,6 +206,7 @@ ShallowWrapper {
                 "isRecording": false,
                 "left": false,
                 "transcript": Array [],
+                "view": 0,
               }
             }
             toggleRecord={[Function]}
@@ -207,6 +225,7 @@ ShallowWrapper {
               "isRecording": false,
               "left": false,
               "transcript": Array [],
+              "view": 0,
             },
             "toggleRecord": [Function],
           },
@@ -240,7 +259,9 @@ ShallowWrapper {
               xsDown={false}
               xsUp={false}
             >
-              <WithStyles(MiniDrawer) />
+              <WithStyles(MiniDrawer)
+                setView={[Function]}
+              />
             </Hidden>
             <Hidden
               implementation="js"
@@ -255,7 +276,9 @@ ShallowWrapper {
               xsDown={false}
               xsUp={false}
             >
-              <MobileDrawer />
+              <MobileDrawer
+                setView={[Function]}
+              />
             </Hidden>
           </div>,
           <div>
@@ -268,6 +291,7 @@ ShallowWrapper {
                   "isRecording": false,
                   "left": false,
                   "transcript": Array [],
+                  "view": 0,
                 }
               }
               toggleRecord={[Function]}
@@ -296,7 +320,9 @@ ShallowWrapper {
                 xsDown={false}
                 xsUp={false}
               >
-                <WithStyles(MiniDrawer) />
+                <WithStyles(MiniDrawer)
+                  setView={[Function]}
+                />
               </Hidden>,
               <Hidden
                 implementation="js"
@@ -311,7 +337,9 @@ ShallowWrapper {
                 xsDown={false}
                 xsUp={false}
               >
-                <MobileDrawer />
+                <MobileDrawer
+                  setView={[Function]}
+                />
               </Hidden>,
             ],
           },
@@ -322,7 +350,9 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "children": <WithStyles(MiniDrawer) />,
+                "children": <WithStyles(MiniDrawer)
+                  setView={[Function]}
+                />,
                 "implementation": "js",
                 "lgDown": false,
                 "lgUp": false,
@@ -340,7 +370,9 @@ ShallowWrapper {
                 "instance": null,
                 "key": undefined,
                 "nodeType": "class",
-                "props": Object {},
+                "props": Object {
+                  "setView": [Function],
+                },
                 "ref": null,
                 "rendered": null,
                 "type": [Function],
@@ -352,7 +384,9 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "function",
               "props": Object {
-                "children": <MobileDrawer />,
+                "children": <MobileDrawer
+                  setView={[Function]}
+                />,
                 "implementation": "js",
                 "lgDown": false,
                 "lgUp": false,
@@ -370,7 +404,9 @@ ShallowWrapper {
                 "instance": null,
                 "key": undefined,
                 "nodeType": "class",
-                "props": Object {},
+                "props": Object {
+                  "setView": [Function],
+                },
                 "ref": null,
                 "rendered": null,
                 "type": [Function],
@@ -394,6 +430,7 @@ ShallowWrapper {
                   "isRecording": false,
                   "left": false,
                   "transcript": Array [],
+                  "view": 0,
                 }
               }
               toggleRecord={[Function]}
@@ -412,6 +449,7 @@ ShallowWrapper {
                 "isRecording": false,
                 "left": false,
                 "transcript": Array [],
+                "view": 0,
               },
               "toggleRecord": [Function],
             },

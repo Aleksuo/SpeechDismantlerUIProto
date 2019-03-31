@@ -34,7 +34,7 @@ ShallowWrapper {
         </WithStyles(Typography)>,
         <WithStyles(Typography)
           align="center"
-          paragraph="true"
+          paragraph={true}
         />,
         <WithStyles(Divider)
           light={true}
@@ -64,7 +64,7 @@ ShallowWrapper {
         "props": Object {
           "align": "center",
           "children": Array [],
-          "paragraph": "true",
+          "paragraph": true,
         },
         "ref": null,
         "rendered": Array [],
@@ -100,7 +100,7 @@ ShallowWrapper {
           </WithStyles(Typography)>,
           <WithStyles(Typography)
             align="center"
-            paragraph="true"
+            paragraph={true}
           />,
           <WithStyles(Divider)
             light={true}
@@ -130,7 +130,7 @@ ShallowWrapper {
           "props": Object {
             "align": "center",
             "children": Array [],
-            "paragraph": "true",
+            "paragraph": true,
           },
           "ref": null,
           "rendered": Array [],

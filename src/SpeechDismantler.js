@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Hidden } from '@material-ui/core'
 import MiniDrawer from "./components/MiniDrawer"
 import MobileDrawer from "./components/MobileDrawer"
-import hark from 'hark'
 //import views
 import HomePage from "./views/HomePage"
 
@@ -23,6 +22,7 @@ const initialState = {
 	isRecording: false,
 	elapsed: 0,
 	transcript: [],
+	volumes: [],
 	interim: "",
 	left: false,
 }
@@ -105,6 +105,7 @@ class SpeechDismantler extends Component {
 		context = new AudioContext()
 		processor = context.createScriptProcessor(this.bufferSize, 1, 1)
 		context.resume();
+		//createCanvas(200,200);
 
 
 		const handleSuccess = (stream) => {
@@ -129,20 +130,15 @@ class SpeechDismantler extends Component {
 				for (var i = 0; i < length; i++) {
 					values += (array[i]);
 				}
-				var average = values / length;
-				console.log(Math.round(average));
-			}
-
+				var average = Math.round(values / length);
+				var newVolumes = this.state.volumes.slice()
+				newVolumes.push(average)
+				this.setState({
+					volumes: newVolumes,
+				})
+				//console.log(this.state.volumes)
+			}	
 		}
-
-
-		//var options = {};
-		//var speechEvents = hark(stream, options);
-		//speechEvents.on('volume_change', function (volume) {
-		//console.log('current volume', volume);
-		//});
-
-
 		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 			.then(handleSuccess)
 	}

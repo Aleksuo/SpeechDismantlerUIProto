@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-import { Hidden } from '@material-ui/core'
-import MiniDrawer from "./components/MiniDrawer"
-import MobileDrawer from "./components/MobileDrawer"
-//import views
-import HomePage from "./views/HomePage"
+import {Hidden } from '@material-ui/core'
+import MiniDrawer from "./common/MiniDrawer"
+import MobileDrawer from "./common/MobileDrawer"
 
-// import { VictoryBar, VictoryTheme, VictoryChart, VictoryPie } from 'victory';
+//import views
+import HomePage from "./views/homepage/HomePage"
+import AnalysePage from "./views/analysepage/AnalysePage"
+
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
 
 import { downsampleBuffer } from './utils/AudioUtils.js'
+import { estimateStartTime } from './utils/GeneralUtils'
+
 
 let AudioContext
 let context
@@ -25,6 +28,7 @@ const initialState = {
 	volumes: [],
 	interim: "",
 	left: false,
+	view: 0
 }
 
 class SpeechDismantler extends Component {
@@ -49,7 +53,14 @@ class SpeechDismantler extends Component {
 				})
 			} else {
 				var newTranscript = this.state.transcript.slice(0)
-				Array.prototype.push.apply(newTranscript, result)
+				var sentence = {
+					startTime: 0,
+					endTime: this.state.elapsed,
+					words: result
+				}
+				const startTime = estimateStartTime(sentence)
+				sentence.startTime = startTime
+				newTranscript.push(sentence)
 				this.setState({
 					transcript: newTranscript,
 				})
@@ -72,6 +83,10 @@ class SpeechDismantler extends Component {
 			this.stopRecording()
 		}
 		this.setState(initialState, clearInterval(this.timer))
+	}
+
+	setView = (id) => {
+		this.setState({view: id})
 	}
 
 
@@ -132,10 +147,13 @@ class SpeechDismantler extends Component {
 				}
 				var average = Math.round(values / length);
 				var newVolumes = this.state.volumes.slice()
-				newVolumes.push(average)
+				var volumesObject={time:this.state.elapsed, volume:average}
+				newVolumes.push(volumesObject)
+				//console.log(this.state.volumes)
 				this.setState({
 					volumes: newVolumes,
 				})
+			
 				//console.log(this.state.volumes)
 			}	
 		}
@@ -162,18 +180,27 @@ class SpeechDismantler extends Component {
 
 	//UI CODE STARTS HERE*/
 	render() {
+
+	const pageView = this.state.view
+	let page
+	
+	if (pageView === 0) {
+		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>
+	} else {
+		page = <AnalysePage state={this.state}/>
+	}
 		return (
 			<div>
 				<div>
 					<Hidden smDown>
-						<MiniDrawer />
+						<MiniDrawer setView={this.setView}/>
 					</Hidden>
 					<Hidden mdUp>
-						<MobileDrawer />
+						<MobileDrawer setView={this.setView}/>
 					</Hidden>
 				</div>
 				<div>
-					<HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+					{page}
 				</div>
 			</div >
 		)

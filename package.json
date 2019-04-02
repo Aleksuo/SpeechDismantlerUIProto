@@ -10,6 +10,7 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-scripts": "^2.1.8",
+    "react-transition-group": "^1.2.1",
     "socket.io-client": "^2.2.0",
     "victory": "^32.0.0"
   },
@@ -30,7 +31,16 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "ws": "3.3.2"
   },
-  "proxy": "http://localhost:3001/"
+  "proxy": "http://localhost:3001/",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/src/index.js"
+    ]
+  }
 }

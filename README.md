@@ -1,6 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/8d0059ccd8f764fb71e3/maintainability)](https://codeclimate.com/github/speech-dismantler-5000/SpeechDismantlerFront/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/8d0059ccd8f764fb71e3/test_coverage)](https://codeclimate.com/github/speech-dismantler-5000/SpeechDismantlerFront/test_coverage)
 [![Build Status](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront.svg?branch=master)](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

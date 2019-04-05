@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Hidden } from '@material-ui/core'
+import { Hidden } from '@material-ui/core'
 import MiniDrawer from "./common/MiniDrawer"
 import MobileDrawer from "./common/MobileDrawer"
 
@@ -25,6 +25,7 @@ const initialState = {
 	elapsed: 0,
 	transcript: [],
 	interim: "",
+	audioChunks: [],
 	left: false,
 	view: 0
 }
@@ -84,7 +85,17 @@ class SpeechDismantler extends Component {
 	}
 
 	setView = (id) => {
-		this.setState({view: id})
+		this.setState({ view: id })
+	}
+
+	Float32Concat = (first, second) => {
+		var firstLength = first.length,
+			result = new Float32Array(firstLength + second.length);
+
+		result.set(first);
+		result.set(second, firstLength);
+
+		return result;
 	}
 
 
@@ -108,6 +119,14 @@ class SpeechDismantler extends Component {
 
 	streamAudioData = (e) => {
 		const left = e.inputBuffer.getChannelData(0)
+		console.log(left)
+		var newChunks = [].concat.apply(this.state.audioChunks.slice(), left)
+		//console.log(left)
+
+		this.setState({
+			audioChunks: newChunks
+		})
+		console.log(this.state.audioChunks)
 		const left16 = downsampleBuffer(left, 44100, 16000)
 		this.socket.emit('binaryData', left16)
 	}
@@ -153,22 +172,22 @@ class SpeechDismantler extends Component {
 	//UI CODE STARTS HERE*/
 	render() {
 
-	const pageView = this.state.view
-	let page
-	
-	if (pageView === 0) {
-		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>
-	} else {
-		page = <AnalysePage state={this.state}/>
-	}
+		const pageView = this.state.view
+		let page
+
+		if (pageView === 0) {
+			page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+		} else {
+			page = <AnalysePage state={this.state} />
+		}
 		return (
 			<div>
 				<div>
 					<Hidden smDown>
-						<MiniDrawer setView={this.setView}/>
+						<MiniDrawer setView={this.setView} />
 					</Hidden>
 					<Hidden mdUp>
-						<MobileDrawer setView={this.setView}/>
+						<MobileDrawer setView={this.setView} />
 					</Hidden>
 				</div>
 				<div>

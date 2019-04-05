@@ -8,6 +8,24 @@ import Interim from './Interim'
 import Transcript from './Transcript'
 import Timer from './Timer'
 
+const Playback = ({audioChunks}) =>{
+    return(
+        <div>
+            <Button onClick={() => {
+                var arr = new Uint8Array(audioChunks)
+                console.log(audioChunks.buffer)
+                var blob = new Blob([audioChunks], {type : 'audio/wav'})
+                console.log(blob)
+                var audioUrl = URL.createObjectURL(blob)
+                console.log(audioUrl)
+                var audio = new Audio(audioUrl)
+                console.log(audio)
+                setTimeout(audio.play(), 500)
+            }}>Play</Button>
+        </div>
+    )
+}
+
 const HomePage = (props) => {
     const { state, toggleRecord, reset } = props
 
@@ -23,6 +41,9 @@ const HomePage = (props) => {
                     <Fab aria-label="mic" color={state.isRecording ? 'secondary' : 'primary'} onClick={toggleRecord}>
                         {state.isRecording ? <PauseIcon /> : <MicIcon />}
                     </Fab>
+                </Grid>
+                <Grid>
+                    <Playback audioChunks={state.audioChunks.slice()}/>
                 </Grid>
                 <Grid item xs={12}>
                     <Timer elapsed={state.elapsed} />

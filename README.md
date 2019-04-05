@@ -36,5 +36,5 @@ Runs EsLint for the specified file or folder. Lint errors will fail the build, s
 
 
 
-### Address for the built software
+### Address for the app
 ### https://speech-dismantler-5000.github.io/SpeechDismantlerFront/

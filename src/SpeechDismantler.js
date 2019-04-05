@@ -19,6 +19,7 @@ let context
 let processor
 let input
 let globalStream
+let recorder
 
 const initialState = {
 	isRecording: false,
@@ -119,14 +120,6 @@ class SpeechDismantler extends Component {
 
 	streamAudioData = (e) => {
 		const left = e.inputBuffer.getChannelData(0)
-		console.log(left)
-		var newChunks = [].concat.apply(this.state.audioChunks.slice(), left)
-		//console.log(left)
-
-		this.setState({
-			audioChunks: newChunks
-		})
-		console.log(this.state.audioChunks)
 		const left16 = downsampleBuffer(left, 44100, 16000)
 		this.socket.emit('binaryData', left16)
 	}
@@ -141,11 +134,24 @@ class SpeechDismantler extends Component {
 
 		const handleSuccess = (stream) => {
 			globalStream = stream
+			recorder = new MediaRecorder(stream)
+			
+			console.log(recorder.state)
 			input = context.createMediaStreamSource(stream)
 			input.connect(processor)
+
+			recorder.ondataavailable = (e) => {
+				var newChunks = this.state.audioChunks.slice()
+				newChunks.push(e.data)
+				this.setState({
+					audioChunks: newChunks
+				})
+				console.log(newChunks)
+			}
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
 			}
+			recorder.start()
 		}
 
 		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
@@ -155,10 +161,9 @@ class SpeechDismantler extends Component {
 	stopRecording = () => {
 		this.socket.emit('endGoogleCloudStream', '')
 
-
 		const track = globalStream.getTracks()[0]
+		recorder.stop()
 		track.stop()
-
 		input.disconnect(processor)
 		processor.disconnect(context.destination)
 		context.close().then(() => {
@@ -166,6 +171,7 @@ class SpeechDismantler extends Component {
 			processor = null
 			context = null
 			AudioContext = null
+			recorder = null
 		})
 	}
 

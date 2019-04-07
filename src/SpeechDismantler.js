@@ -67,7 +67,6 @@ class SpeechDismantler extends Component {
 					transcript: newTranscript,
 				})
 				this.state.wordCounter.CalculateFrequencies(newTranscript)
-				console.log('dismantlerhello: '+this.state.wordCounter.GetFrequency('hello'))
 			}
 		})
 

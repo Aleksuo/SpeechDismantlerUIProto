@@ -10,7 +10,6 @@ import Timer from './Timer'
 
 const HomePage = (props) => {
     const { state, toggleRecord, reset } = props
-
     return (
         <div>
             <Grid container
@@ -31,7 +30,7 @@ const HomePage = (props) => {
                     <Interim interim={state.interim} />
                 </Grid>
                 <Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
-                    <Transcript transcript={state.transcript} />
+                    <Transcript transcript={state.transcript} wordCounter = {state.wordCounter}/>
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant="contained" onClick={reset}>Reset</Button>

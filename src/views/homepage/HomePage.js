@@ -10,7 +10,7 @@ import Timer from './Timer'
 
 const Playback = ({ audioChunks }) => {
     console.log(audioChunks)
-    var blob = new Blob([audioChunks], { 'type': 'audio/ogg; codecs=opus' })
+    var blob = new Blob(audioChunks, { 'type': 'audio/ogg; codecs=opus' })
     console.log(blob)
     var audioUrl = window.URL.createObjectURL(blob)
     console.log(audioUrl)
@@ -41,9 +41,6 @@ const HomePage = (props) => {
                             {state.isRecording ? <PauseIcon /> : <MicIcon />}
                         </Fab>
                     </Grid>
-                    <Grid>
-                        <Playback audioChunks={state.audioChunks.slice()} />
-                    </Grid>
                     <Grid item xs={12}>
                         <Timer elapsed={state.elapsed} />
                     </Grid>
@@ -52,6 +49,9 @@ const HomePage = (props) => {
                     </Grid>
                     <Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
                         <Transcript transcript={state.transcript} />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Playback audioChunks={state.audioChunks.slice()} />
                     </Grid>
                     <Grid item xs={12}>
                         <Button variant="contained" onClick={reset}>Reset</Button>

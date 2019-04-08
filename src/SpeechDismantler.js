@@ -27,6 +27,7 @@ const initialState = {
 	transcript: [],
 	interim: "",
 	audioChunks: [],
+	blobUrl: "",
 	left: false,
 	view: 0
 }
@@ -148,6 +149,19 @@ class SpeechDismantler extends Component {
 				})
 				console.log(newChunks)
 			}
+
+			recorder.onstop = () =>{
+				const audioBlob = new Blob(this.state.audioChunks)
+				const audioUrl = URL.createObjectURL(audioBlob)
+				const audio = new Audio(audioUrl)
+				this.setState({
+					blobUrl: audioUrl
+				})
+				
+				//const audio = new Audio(audioUrl)
+				//audio.play()
+			}
+
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
 			}

@@ -11,12 +11,11 @@ import Timer from './Timer'
 class Playback extends React.Component {
     constructor(props) {
         super(props)
-        this.audio = new Audio(props.blobUrl)
     }
     render() {
         return (
             <div>
-                <audio src={this.audio} controls autoPlay></audio>
+                <audio src={this.props.blobUrl} controls type="audio/ogg"></audio>
             </div>
         )
     }
@@ -40,9 +39,6 @@ const HomePage = (props) => {
                         {state.isRecording ? <PauseIcon /> : <MicIcon />}
                     </Fab>
                 </Grid>
-                <Grid>
-                    <Playback audioChunks={state.blobUrl} />
-                </Grid>
                 <Grid item xs={12}>
                     <Timer elapsed={state.elapsed} />
                 </Grid>
@@ -51,6 +47,9 @@ const HomePage = (props) => {
                 </Grid>
                 <Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
                     <Transcript transcript={state.transcript} />
+                </Grid>
+                <Grid>
+                    <Playback blobUrl={state.blobUrl} />
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant="contained" onClick={reset}>Reset</Button>

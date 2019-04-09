@@ -153,7 +153,6 @@ class SpeechDismantler extends Component {
 			recorder.onstop = () =>{
 				const audioBlob = new Blob(this.state.audioChunks)
 				const audioUrl = URL.createObjectURL(audioBlob)
-				const audio = new Audio(audioUrl)
 				this.setState({
 					blobUrl: audioUrl
 				})
@@ -168,7 +167,7 @@ class SpeechDismantler extends Component {
 			recorder.start()
 		}
 
-		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		navigator.mediaDevices.getUserMedia({ audio: true})
 			.then(handleSuccess)
 	}
 

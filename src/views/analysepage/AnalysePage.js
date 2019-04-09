@@ -30,31 +30,10 @@ const AnalysePage = (props) =>{
                                 innerRadius={100}
                                 colorScale={["tomato", "orange", "gold", "red"]}
                                 //data={sampleData}
-                                data={WordCounter(state.transcript)}
+                                //data={WordCounter(state.transcript)}
+                                data = {[{a:1,b:2}]}
                             />
                         </Grid>
-
-                        <Grid item xs={12}>
-                        <VictoryChart
-                            domainPadding={20}
-                            theme={VictoryTheme.material}
-                        >
-                        <VictoryAxis
-                            tickValues={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
-                        />
-                        <VictoryAxis
-                            dependentAxis
-                            tickFormat={(x) => (`$${x / 1000}k`)}
-                        />
-                        <VictoryBar
-                           colorScale={"warm"}
-                            data={otherSample}
-                            x={"quarter"}
-                            y={"earnings"}
-                        />
-                        </VictoryChart>    
-                        </Grid>
-
 					</Grid>
 				</div>)
 }

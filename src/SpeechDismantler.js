@@ -13,6 +13,8 @@ import PropTypes from 'prop-types'
 import { downsampleBuffer } from './utils/AudioUtils.js'
 import { estimateStartTime } from './utils/GeneralUtils'
 
+import WordCounter from './utils/wordFregs.js'
+
 
 let AudioContext
 let context
@@ -28,7 +30,8 @@ const initialState = {
 	volumes: [],
 	interim: "",
 	left: false,
-	view: 0
+	view: 0,
+	wordCounter: new WordCounter()
 }
 
 class SpeechDismantler extends Component {
@@ -60,10 +63,12 @@ class SpeechDismantler extends Component {
 				}
 				const startTime = estimateStartTime(sentence)
 				sentence.startTime = startTime
+
 				newTranscript.push(sentence)
 				this.setState({
 					transcript: newTranscript,
 				})
+				this.state.wordCounter.CalculateFrequencies(newTranscript)
 			}
 		})
 

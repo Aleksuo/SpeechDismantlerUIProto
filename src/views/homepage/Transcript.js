@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Paper} from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { CSSTransitionGroup } from 'react-transition-group'
 
@@ -16,14 +16,15 @@ class Transcript extends Component {
     componentDidUpdate() {
         this.scrollToBottom()
     }
-    
+
     scrollToBottom() {
         this.transcriptEnd.current.scrollIntoView({ behavior: 'smooth' })
     }
 
     render() {
         const { transcript } = this.props
-        const items = transcript.map((sentence, idx) => <Sentence key={idx} sentence={sentence} />)
+        const { wordCounter } = this.props
+        const items = transcript.map((sentence, idx) => <Sentence key={idx} sentence={sentence} wordCounter={wordCounter} />)
         return (
             <div>
                 <Paper elevation={1} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>

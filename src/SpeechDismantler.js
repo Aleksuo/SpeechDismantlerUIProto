@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 import { downsampleBuffer } from './utils/AudioUtils.js'
 import { estimateStartTime } from './utils/GeneralUtils'
 
-import WordCounter from './utils/wordFregs.js'
+import WordColor from './utils/WordColor.js'
 
 
 let AudioContext
@@ -31,7 +31,7 @@ const initialState = {
 	interim: "",
 	left: false,
 	view: 0,
-	wordCounter: new WordCounter()
+	wordColor: new WordColor()
 }
 
 class SpeechDismantler extends Component {
@@ -68,7 +68,7 @@ class SpeechDismantler extends Component {
 				this.setState({
 					transcript: newTranscript,
 				})
-				this.state.wordCounter.CalculateFrequencies(newTranscript)
+				this.state.wordColor.CalculateFrequencies(newTranscript)
 			}
 		})
 
@@ -115,8 +115,8 @@ class SpeechDismantler extends Component {
 
 	streamAudioData = (e) => {
 		const left = e.inputBuffer.getChannelData(0)
-		const left16 = downsampleBuffer(left, 44100, 16000)
-		this.socket.emit('binaryData', left16)
+		const left16 = this.state.wordColor.downsampleBuffer(left, 44100, 16000)
+		//this.socket.emit('binaryData', left16)
 	}
 
 	handleListen = () => {

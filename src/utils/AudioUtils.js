@@ -1,11 +1,21 @@
 
 
-export const downsampleBuffer = (buffer, sampleRate, outSampleRate) => {
+class AudioUtils{
+
+constructor(){
+    this.averageVolumes = []
+    this.date = new Date()
+}
+
+
+
+downsampleBuffer = (buffer, sampleRate, outSampleRate) => {
+
     if (outSampleRate === sampleRate) {
         return buffer
     }
     /*
-    if (outSampleRate > sampleRate) {
+     if (outSampleRate > sampleRate) {
         throw 'downsampling rate show be smaller than original sample rate'
     }
     */
@@ -27,5 +37,12 @@ export const downsampleBuffer = (buffer, sampleRate, outSampleRate) => {
         offsetResult++
         offsetBuffer = nextOffsetBuffer
     }
-    return result.buffer
+    
+    var timeAndVolume = [] 
+    timeAndVolume[0]= this.date.getDate()
+    timeAndVolume[1]=result
+    console.log(timeAndVolume)
+    
 }
+}
+export default AudioUtils

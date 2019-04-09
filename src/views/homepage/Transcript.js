@@ -23,8 +23,8 @@ class Transcript extends Component {
 
     render() {
         const { transcript } = this.props
-        const { wordCounter } = this.props
-        const items = transcript.map((sentence, idx) => <Sentence key={idx} sentence={sentence} wordCounter={wordCounter} />)
+        const { wordColor } = this.props
+        const items = transcript.map((sentence, idx) => <Sentence key={idx} sentence={sentence} wordColor={wordColor} />)
         return (
             <div>
                 <Paper elevation={1} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>

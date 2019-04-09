@@ -4,10 +4,10 @@ import PropTypes from 'prop-types'
 
 import { millisecondsToTimeString } from '../../utils/GeneralUtils.js'
 
-const Sentence = ({ sentence, wordCounter}) => {
+const Sentence = ({ sentence, wordColor}) => {
     const items = sentence.words.map((word, idx) => {
     
-        var color = wordCounter.GetColor(word.word)
+        var color = wordColor.GetColor(word.word)
         return <span key={idx} style={{color:color}}>{word.word} </span>
 })
     

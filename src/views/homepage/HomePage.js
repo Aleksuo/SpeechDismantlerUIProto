@@ -30,7 +30,7 @@ const HomePage = (props) => {
                     <Interim interim={state.interim} />
                 </Grid>
                 <Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
-                    <Transcript transcript={state.transcript} wordCounter = {state.wordCounter}/>
+                    <Transcript transcript={state.transcript} wordColor = {state.wordColor}/>
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant="contained" onClick={reset}>Reset</Button>

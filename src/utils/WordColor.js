@@ -11,7 +11,7 @@ class WordColor {
     }
 
     downsampleBuffer(left, frequencies, volume){
-        this.AudioUtils.downsampleBuffer(left,frequencies,volume)
+        return this.AudioUtils.downsampleBuffer(left,frequencies,volume)
     }
 
     CalculateFrequencies = (transcript) =>{

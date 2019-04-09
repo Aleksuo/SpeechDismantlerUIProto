@@ -8,19 +8,6 @@ import Interim from './Interim'
 import Transcript from './Transcript'
 import Timer from './Timer'
 
-class Playback extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return (
-            <div>
-                <audio src={this.props.blobUrl} controls type="audio/ogg"></audio>
-            </div>
-        )
-    }
-
-}
 
 
 const HomePage = (props) => {
@@ -46,10 +33,7 @@ const HomePage = (props) => {
                     <Interim interim={state.interim} />
                 </Grid>
                 <Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
-                    <Transcript transcript={state.transcript} />
-                </Grid>
-                <Grid>
-                    <Playback blobUrl={state.blobUrl} />
+                    <Transcript transcript={state.transcript} blobUrl={state.blobUrl} />
                 </Grid>
                 <Grid item xs={12}>
                     <Button variant="contained" onClick={reset}>Reset</Button>

@@ -74,9 +74,10 @@ class SpeechDismantler extends Component {
 	}
 
 	tick = () => {
-		const newElapsed = this.state.elapsed + (new Date() - this.last)
+		console.log(context.currentTime)
+		const newElapsed = context.currentTime*1000
 		this.setState({ elapsed: newElapsed })
-		this.last = new Date()
+		//this.last = new Date()
 	}
 
 	reset = () => {
@@ -109,7 +110,7 @@ class SpeechDismantler extends Component {
 			newIsRecording
 				? () => {
 					this.last = new Date()
-					this.timer = setInterval(this.tick, 100)
+					this.timer = setInterval(this.tick, 10)
 					return this.handleListen()
 				}
 				: () => {
@@ -136,8 +137,8 @@ class SpeechDismantler extends Component {
 		const handleSuccess = (stream) => {
 			globalStream = stream
 			recorder = new MediaRecorder(stream)
-			
-			console.log(recorder.state)
+
+		
 			input = context.createMediaStreamSource(stream)
 			input.connect(processor)
 
@@ -147,16 +148,15 @@ class SpeechDismantler extends Component {
 				this.setState({
 					audioChunks: newChunks
 				})
-				console.log(newChunks)
 			}
 
-			recorder.onstop = () =>{
+			recorder.onstop = () => {
 				const audioBlob = new Blob(this.state.audioChunks)
 				const audioUrl = URL.createObjectURL(audioBlob)
 				this.setState({
 					blobUrl: audioUrl
 				})
-				
+
 				//const audio = new Audio(audioUrl)
 				//audio.play()
 			}
@@ -167,7 +167,7 @@ class SpeechDismantler extends Component {
 			recorder.start()
 		}
 
-		navigator.mediaDevices.getUserMedia({ audio: true})
+		navigator.mediaDevices.getUserMedia({ audio: true })
 			.then(handleSuccess)
 	}
 

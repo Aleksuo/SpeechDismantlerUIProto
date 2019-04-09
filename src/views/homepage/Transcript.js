@@ -5,12 +5,38 @@ import { CSSTransitionGroup } from 'react-transition-group'
 
 import Sentence from './Sentence'
 
+/*
+class Playback extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            
+        )
+    }
+
+}
+*/
+
 class Transcript extends Component {
     //The reference is used to make transcript automatically scroll to the newest sentence
     transcriptEnd = React.createRef()
+    audio = React.createRef()
+    
+    
+    constructor(props){
+        super(props)
+        this.state = {
+            currentPlayback: 0
+        }
+    }
 
     componentDidMount() {
         this.scrollToBottom()
+        this.audio.current.ontimeupdate = (e) =>{
+            this.setState({currentPlayback: this.audio.current.currentTime})
+        }
     }
 
     componentDidUpdate() {
@@ -21,9 +47,20 @@ class Transcript extends Component {
         this.transcriptEnd.current.scrollIntoView({ behavior: 'smooth' })
     }
 
-    render() {
-        const { transcript } = this.props
-        const items = transcript.map((sentence, idx) => <Sentence key={idx} sentence={sentence} />)
+    onSentenceClick = (e) =>{
+        //console.log(this.audio)
+        this.audio.current.currentTime = Math.floor((e-200)/1000)
+        this.audio.current.play()
+    }
+
+    render = () => {
+        const { transcript, blobUrl } = this.props
+        const cur = this.state.currentPlayback * 1000
+        console.log(cur)
+        const items = transcript.map((sentence, idx) => 
+        {return(
+            <Sentence key={idx} isCurrent={(sentence.startTime < cur) && (sentence.endTime > cur) } sentence={sentence} onClick={() => this.onSentenceClick(sentence.startTime)} />)
+        })
         return (
             <div>
                 <Paper elevation={1} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>
@@ -38,6 +75,9 @@ class Transcript extends Component {
 
                     </CSSTransitionGroup>
                 </Paper>
+                <div>
+                    <audio ref={this.audio} src={blobUrl} controls type="audio/ogg"></audio>
+                </div>
             </div>
         )
 

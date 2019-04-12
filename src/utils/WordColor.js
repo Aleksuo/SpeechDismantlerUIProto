@@ -6,24 +6,41 @@ class WordColor {
 
     constructor() {
         this.wordCounter = new WordCounter()
-        this.AudioUtils=new AudioUtils()
+        this.AudioUtils = new AudioUtils()
+        this.useWordCounter = true
 
     }
 
-    downsampleBuffer(left, frequencies, volume){
-        return this.AudioUtils.downsampleBuffer(left,frequencies,volume)
+    DownsampleBuffer = (left, frequencies, volume) => {
+        return this.AudioUtils.DownsampleBuffer(left, frequencies, volume)
     }
 
-    CalculateFrequencies = (transcript) =>{
+    CalculateFrequencies = (transcript) => {
         this.wordCounter.CalculateFrequencies(transcript)
 
     }
 
     GetColor = (word) => {
-        this.wordCounter.GetColor(word)
+        if (this.useWordCounter) {
+            return this.wordCounter.GetColor(word)
+
+        } else {
+            return this.AudioUtils.GetColor(word)
+        }
+
     }
 
-    
+    ColorUsingWordFrequencies = () => {
+        this.useWordCounter = true
+    }
+
+    ColorUsingVolumeLevel = () => {
+        this.useWordCounter = false
+    }
+
+    SetVolumes = (newVolumes) => {
+        this.AudioUtils.SetVolumes(newVolumes)
+    }
 }
 
 export default WordColor

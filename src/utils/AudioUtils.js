@@ -1,3 +1,5 @@
+//colors from light to dark
+const colors = ['#42e20d','#5be22f','#61e038','#68e041','#71e04c','#78e055','#80e060','#8ce070','#98e27f','#9ddd87']
 
 class AudioUtils {
 
@@ -6,7 +8,15 @@ class AudioUtils {
         this.second=0
     }
 
-    downsampleBuffer = (buffer, sampleRate, outSampleRate) => {
+    GetColor = (word) => {
+        var startTime = word.startTime.seconds +(word.startTime.nanos/1000000000)
+        var endTime = word.endTime.seconds + (word.endTime.nanos/1000000000)
+
+
+        return 'black'
+    }
+
+    DownsampleBuffer = (buffer, sampleRate, outSampleRate) => {
         
 
         if (outSampleRate === sampleRate) {
@@ -36,8 +46,11 @@ class AudioUtils {
             offsetBuffer = nextOffsetBuffer
         }
 
-        var timeAndVolume = []
+        return result.buffer
+    }
 
+    SetVolumes = (newVolumes) => {
+        var timeAndVolume = []
 
         var date = new Date()
         var currentTime = date
@@ -59,12 +72,12 @@ class AudioUtils {
             this.second=second
 
             timeAndVolume[0] = time
-            timeAndVolume[1] = result.buffer
+            timeAndVolume[1] = newVolumes
+
             console.log(timeAndVolume)
 
+            this.averageVolumes.push(timeAndVolume)
         }
-
-        return result.buffer
     }
 
 }

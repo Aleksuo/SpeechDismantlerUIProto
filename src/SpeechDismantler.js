@@ -68,6 +68,7 @@ class SpeechDismantler extends Component {
 				this.setState({
 					transcript: newTranscript,
 				})
+				console.log(newTranscript)
 				this.state.wordColor.CalculateFrequencies(newTranscript)
 			}
 		})
@@ -115,7 +116,7 @@ class SpeechDismantler extends Component {
 
 	streamAudioData = (e) => {
 		const left = e.inputBuffer.getChannelData(0)
-		const left16 = this.state.wordColor.downsampleBuffer(left, 44100, 16000)
+		const left16 = this.state.wordColor.DownsampleBuffer(left, 44100, 16000)
 		this.socket.emit('binaryData', left16)
 	}
 
@@ -158,6 +159,8 @@ class SpeechDismantler extends Component {
 				this.setState({
 					volumes: newVolumes,
 				})
+
+				this.state.wordColor.SetVolumes(newVolumes)
 			
 				//console.log(this.state.volumes)
 			}	

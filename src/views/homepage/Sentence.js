@@ -6,8 +6,7 @@ import { millisecondsToTimeString } from '../../utils/GeneralUtils.js'
 
 const Sentence = ({ sentence, wordColor}) => {
     const items = sentence.words.map((word, idx) => {
-    
-        var color = wordColor.GetColor(word.word)
+        var color = wordColor.GetColor(word)
         return <span key={idx} style={{color:color}}>{word.word} </span>
 })
     

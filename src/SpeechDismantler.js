@@ -74,7 +74,7 @@ class SpeechDismantler extends Component {
 	}
 
 	tick = () => {
-		console.log(context.currentTime)
+		//console.log(context.currentTime)
 		const newElapsed = context.currentTime*1000
 		this.setState({ elapsed: newElapsed })
 		//this.last = new Date()
@@ -109,7 +109,7 @@ class SpeechDismantler extends Component {
 		},
 			newIsRecording
 				? () => {
-					this.last = new Date()
+					this.start = new Date()
 					this.timer = setInterval(this.tick, 10)
 					return this.handleListen()
 				}
@@ -165,6 +165,7 @@ class SpeechDismantler extends Component {
 				this.streamAudioData(e)
 			}
 			recorder.start()
+			//console.log(new Date()-this.start)
 		}
 
 		navigator.mediaDevices.getUserMedia({ audio: true })

@@ -16,12 +16,15 @@ export const nanosecondsToMilliseconds = (nanos) => {
 }
 
 export const estimateStartTime = (sentence) =>{
+    const magicNumber = 1200
     const endTime = sentence.endTime
     const words = sentence.words
     const firstWord = words[0]
     const lastWord = words[words.length - 1]
     const firstTime = secondsToMilliseconds(firstWord.startTime.seconds) + nanosecondsToMilliseconds(firstWord.startTime.nanos)
     const lastTime = secondsToMilliseconds(parseInt(lastWord.endTime.seconds)) + nanosecondsToMilliseconds(lastWord.endTime.nanos)
-    const duration = lastTime-firstTime
-    return endTime-duration
+    const duration = lastTime-firstTime + magicNumber
+    var end = endTime - duration
+    end = end > 0 ? end : 0
+    return end
 }

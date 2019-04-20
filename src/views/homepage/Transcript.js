@@ -6,26 +6,13 @@ import { CSSTransitionGroup } from 'react-transition-group'
 
 import Sentence from './Sentence'
 
-/*
-class Playback extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-    render() {
-        return (
-            
-        )
-    }
-
-}
-*/
 
 class Transcript extends Component {
     //The reference is used to make transcript automatically scroll to the newest sentence
 
     transcriptEnd = React.createRef()
     currentlyPlaying = React.createRef()
-    audio = React.createRef()
+    
 
     constructor(props) {
         super(props)
@@ -33,11 +20,12 @@ class Transcript extends Component {
             currentPlayback: 0,
             isPlaying: false
         }
+        this.audio = React.createRef()
     }
 
     componentDidMount() {
         //this.scrollToBottom()
-        this.audio.current.ontimeupdate = (e) => {
+        this.audio.current.ontimeupdate = () => {
             this.setState({ currentPlayback: this.audio.current.currentTime })
         }
 
@@ -121,7 +109,8 @@ class Transcript extends Component {
 
 
 Transcript.propTypes = {
-    transcript: PropTypes.array
+    transcript: PropTypes.array,
+    blobUrl: PropTypes.string
 }
 
 export default Transcript

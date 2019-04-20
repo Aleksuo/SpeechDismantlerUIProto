@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 import { millisecondsToTimeString } from '../../utils/GeneralUtils.js'
 
 const Sentence = React.forwardRef((props, ref) => {
-    console.log(isCurrent)
     const { sentence, onClick, isCurrent} = props
     const style = isCurrent ? {borderColor: "#2196f3", borderStyle: "solid"} : {}
     const items = sentence.words.map((word, idx) => { return <span key={idx}>{word.word} </span>})
@@ -19,7 +18,9 @@ const Sentence = React.forwardRef((props, ref) => {
 })
 
 Sentence.propTypes = {
-    sentence: PropTypes.object
+    sentence: PropTypes.object,
+    onClick: PropTypes.func,
+    isCurrent: PropTypes.bool
 }
 
 export default Sentence

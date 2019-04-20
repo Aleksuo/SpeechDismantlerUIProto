@@ -62,10 +62,10 @@ describe("estimateStartTime", () => {
     }
 
     it('Returns correct estimate for one word sentence', () => {
-        expect(estimateStartTime(oneWordSentence)).toEqual(1400)
+        expect(estimateStartTime(oneWordSentence, 0)).toEqual(1400)
     })
 
     it('Returns correct estimate for multiple word sentence', () =>{
-        expect(estimateStartTime(MultipleWordSentence)).toEqual(1900)
+        expect(estimateStartTime(MultipleWordSentence, 0)).toEqual(1900)
     })
 })

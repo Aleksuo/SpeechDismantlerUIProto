@@ -3,7 +3,7 @@
 exports[`Sentence component renders 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Sentence
+  Symbol(enzyme.__unrendered__): <ForwardRef
     sentence={
       Object {
         "startTime": 0,
@@ -40,7 +40,10 @@ ShallowWrapper {
           light={true}
           variant="middle"
         />,
+        <div />,
       ],
+      "onClick": undefined,
+      "style": Object {},
     },
     "ref": null,
     "rendered": Array [
@@ -82,6 +85,15 @@ ShallowWrapper {
         "rendered": null,
         "type": [Function],
       },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": "div",
+      },
     ],
     "type": "div",
   },
@@ -106,7 +118,10 @@ ShallowWrapper {
             light={true}
             variant="middle"
           />,
+          <div />,
         ],
+        "onClick": undefined,
+        "style": Object {},
       },
       "ref": null,
       "rendered": Array [
@@ -148,6 +163,15 @@ ShallowWrapper {
           "rendered": null,
           "type": [Function],
         },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {},
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
       ],
       "type": "div",
     },
@@ -164,6 +188,7 @@ ShallowWrapper {
           "getChildContext": Object {
             "calledByRenderer": false,
           },
+          "getDerivedStateFromError": true,
           "getDerivedStateFromProps": Object {
             "hasShouldComponentUpdateBug": false,
           },

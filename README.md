@@ -3,6 +3,18 @@
 [![Build Status](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront.svg?branch=master)](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Installation
+
+#### Note: If you want to run the app locally you'll also need to have [the backend](https://github.com/speech-dismantler-5000/Google-Cloud-Speech-Node-Socket-Playground) running on your computer.
+
+First you'll need the lastest version of [node and npm](https://nodejs.org).
+
+Then the dependencies can be installed and the app can be run using:
+
+``` console
+npm install
+npm start
+```
 
 ## Available Scripts
 
@@ -12,9 +24,6 @@ In the project directory, you can run:
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
 ### `npm test`
 

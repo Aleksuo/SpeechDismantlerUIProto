@@ -5,48 +5,22 @@ class AudioUtils {
 
     constructor() {
         this.averageVolumes = []
-        this.second=0
+        this.second = 0
+        this.wordTimesAndVolumes = new Map()
     }
 
     GetColor = (word) => {
-        var startTime = word.startTime.seconds +(word.startTime.nanos/1000000000)
-        var endTime = word.endTime.seconds + (word.endTime.nanos/1000000000)
+        var wordTime = (word.startTime.seconds +(word.startTime.nanos/1000000000)+word.endTime.seconds + (word.endTime.nanos/1000000000))/2
 
+        //if matching time is not found, find best time match from "averageVolumes" and add corresponding
+        //value to map, wordTime as key
 
-        return 'black'
-    }
-
-    DownsampleBuffer = (buffer, sampleRate, outSampleRate) => {
-        
-
-        if (outSampleRate === sampleRate) {
-            return buffer
-        }
-        /*
-         if (outSampleRate > sampleRate) {
-            throw 'downsampling rate show be smaller than original sample rate'
-        }
-        */
-        const sampleRateRatio = sampleRate / outSampleRate
-        const newLength = Math.round(buffer.length / sampleRateRatio)
-        const result = new Int16Array(newLength)
-        let offsetResult = 0
-        let offsetBuffer = 0
-        while (offsetResult < result.length) {
-            const nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio)
-            let accum = 0; let
-                count = 0
-            for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
-                accum += buffer[i]
-                count++
-            }
-
-            result[offsetResult] = Math.min(1, accum / count) * 0x7FFF
-            offsetResult++
-            offsetBuffer = nextOffsetBuffer
+        if(!this.wordTimesAndVolumes.has(wordTime)){
+            var bestVolumeMatch = GetBestMatchingVolume(wordTime, this.averageVolumes)
+            this.wordTimesAndVolumes.set(wordTime, bestVolumeMatch)
         }
 
-        return result.buffer
+        return convertVolumeToColor(this.wordTimesAndVolumes.get(wordTime))
     }
 
     SetVolumes = (newVolumes) => {
@@ -81,4 +55,33 @@ class AudioUtils {
     }
 
 }
+
+const convertVolumeToColor = (volume) => {
+    return 'green'
+}
+
+const GetBestMatchingVolume = (number, array) => {
+    var startIndex= 0
+    var endIndex=array.length -1
+
+    var closestMatch = findInSubArray(number, startIndex, endIndex)
+
+    function findInSubArray(number, startIndex, endIndex){
+        var middleIndex = (startIndex+endIndex)/2
+        
+        if(endIndex-startIndex<4 || middleIndex+1 === endIndex){
+            return array[middleIndex]
+        }
+
+        if(number <= array[middleIndex]){
+            return findInSubArray(number, startIndex,middleIndex)
+        } else {
+            return findInSubArray(number, middleIndex+1, endIndex)
+        }
+    }
+
+    return closestMatch
+
+}
+
 export default AudioUtils

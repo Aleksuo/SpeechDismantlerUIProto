@@ -10,10 +10,10 @@ import AnalysePage from "./views/analysepage/AnalysePage"
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
 
-//import { downsampleBuffer } from './utils/AudioUtils.js'
 import { estimateStartTime } from './utils/GeneralUtils'
 
 import WordColor from './utils/WordColor.js'
+import { DownsampleBuffer } from './utils/DownsampleBuffer.js'
 
 
 let AudioContext
@@ -116,7 +116,7 @@ class SpeechDismantler extends Component {
 
 	streamAudioData = (e) => {
 		const left = e.inputBuffer.getChannelData(0)
-		const left16 = this.state.wordColor.DownsampleBuffer(left, 44100, 16000)
+		const left16 = DownsampleBuffer(left, 44100, 16000)
 		this.socket.emit('binaryData', left16)
 	}
 

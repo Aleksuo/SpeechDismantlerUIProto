@@ -7,7 +7,7 @@ class WordColor {
     constructor() {
         this.wordCounter = new WordCounter()
         this.AudioUtils = new AudioUtils()
-        this.useWordCounter = true
+        this.useWordCounter = false
 
     }
 

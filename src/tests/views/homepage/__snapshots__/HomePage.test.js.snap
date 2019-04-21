@@ -89,6 +89,8 @@ ShallowWrapper {
           xs={12}
         >
           <WithStyles(Button)
+            color="secondary"
+            onClick={[Function]}
             variant="contained"
           >
             Reset
@@ -158,6 +160,8 @@ ShallowWrapper {
             xs={12}
           >
             <WithStyles(Button)
+              color="secondary"
+              onClick={[Function]}
               variant="contained"
             >
               Reset
@@ -302,6 +306,8 @@ ShallowWrapper {
           "nodeType": "class",
           "props": Object {
             "children": <WithStyles(Button)
+              color="secondary"
+              onClick={[Function]}
               variant="contained"
             >
               Reset
@@ -316,7 +322,8 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": "Reset",
-              "onClick": undefined,
+              "color": "secondary",
+              "onClick": [Function],
               "variant": "contained",
             },
             "ref": null,
@@ -397,6 +404,8 @@ ShallowWrapper {
             xs={12}
           >
             <WithStyles(Button)
+              color="secondary"
+              onClick={[Function]}
               variant="contained"
             >
               Reset
@@ -466,6 +475,8 @@ ShallowWrapper {
               xs={12}
             >
               <WithStyles(Button)
+                color="secondary"
+                onClick={[Function]}
                 variant="contained"
               >
                 Reset
@@ -610,6 +621,8 @@ ShallowWrapper {
             "nodeType": "class",
             "props": Object {
               "children": <WithStyles(Button)
+                color="secondary"
+                onClick={[Function]}
                 variant="contained"
               >
                 Reset
@@ -624,7 +637,8 @@ ShallowWrapper {
               "nodeType": "class",
               "props": Object {
                 "children": "Reset",
-                "onClick": undefined,
+                "color": "secondary",
+                "onClick": [Function],
                 "variant": "contained",
               },
               "ref": null,

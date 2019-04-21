@@ -1,41 +1,50 @@
 
-import WordCounter from './wordFregs.js'
+import WordCounter from './WordFregs.js'
 import AudioUtils from './AudioUtils.js'
+import FillerWords from './FillerWords.js'
 
 class WordColor {
 
     constructor() {
-        this.wordCounter = new WordCounter()
+        this.WordCounter = new WordCounter()
         this.AudioUtils = new AudioUtils()
-        this.useWordCounter = false
+        this.FillerWords = new FillerWords()
 
-    }
-
-    DownsampleBuffer = (left, frequencies, volume) => {
-        return this.AudioUtils.DownsampleBuffer(left, frequencies, volume)
+        this.useFillerWords = false
+        this.useWordFrequencies = true
+        this.useVolumeLevel = false
     }
 
     CalculateFrequencies = (transcript) => {
-        this.wordCounter.CalculateFrequencies(transcript)
-
+        this.WordCounter.CalculateFrequencies(transcript)
     }
 
     GetColor = (word) => {
-        if (this.useWordCounter) {
-            return this.wordCounter.GetColor(word)
-
-        } else {
+        if (this.useFillerWords) {
+            return this.FillerWords.GetColor(word)
+        } else if (this.useVolumeLevel){
             return this.AudioUtils.GetColor(word)
+        } else {
+            return this.WordCounter.GetColor(word)
         }
+    }
 
+    ColorUsingFillerWords = () => {
+        this.useFillerWords = true
+        this.useWordFrequencies = false
+        this.useVolumeLevel = false
     }
 
     ColorUsingWordFrequencies = () => {
-        this.useWordCounter = true
+        this.useFillerWords = false
+        this.useWordFrequencies = true
+        this.useVolumeLevel = false
     }
 
     ColorUsingVolumeLevel = () => {
-        this.useWordCounter = false
+        this.useFillerWords = false
+        this.useWordFrequencies = false
+        this.useVolumeLevel = true
     }
 
     SetVolumes = (newVolumes) => {

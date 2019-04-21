@@ -36,7 +36,7 @@ const HomePage = (props) => {
                     <Transcript transcript={state.transcript} blobUrl={state.blobUrl} />
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" onClick={reset}>Reset</Button>
+                    <Button variant="contained" color="secondary" onClick={() => {if(window.confirm("Are you sure you want to reset the app?")){reset()}}}>Reset</Button>
                 </Grid>
             </Grid>
         </div>)

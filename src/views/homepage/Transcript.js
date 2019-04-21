@@ -69,11 +69,12 @@ class Transcript extends Component {
     render = () => {
         const { transcript, blobUrl } = this.props
         const cur = this.state.currentPlayback * 1000
-        const items = transcript.map((sentence, idx) => {
+        const items = transcript.map((sentence, idx, arr) => {
+            const next = arr[idx+1] ? arr[idx+1].startTime : Number.MAX_VALUE
             return (
                 <Sentence
                     key={idx}
-                    isCurrent={(sentence.startTime <= cur) && (sentence.endTime >= cur) && this.state.isPlaying}
+                    isCurrent={(sentence.startTime <= cur) && (next >= cur) && this.state.isPlaying}
                     sentence={sentence}
                     onClick={() => this.onSentenceClick(sentence.startTime)}
                     ref={this.currentlyPlaying}

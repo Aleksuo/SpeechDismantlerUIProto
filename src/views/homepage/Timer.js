@@ -5,6 +5,11 @@ import PropTypes from 'prop-types'
 
 import { millisecondsToTimeString } from '../../utils/GeneralUtils.js'
 
+/**
+ * A stateless component used for displaying the elapsed time.
+ * @author Aleksi Suoranta
+ * @param {number} elapsed
+ */
 const Timer = ({ elapsed }) => {
     const time = millisecondsToTimeString(elapsed)
     return (

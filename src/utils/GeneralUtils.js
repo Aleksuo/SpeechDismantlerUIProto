@@ -1,3 +1,8 @@
+/**
+ * Transforms milliseconds to string in mm:ss format
+ * @param {number} milliseconds 
+ * @author Aleksi Suoranta
+ */
 export const millisecondsToTimeString = (milliseconds) =>{
     const elapsedSec = Math.round(milliseconds/1000)
     const min = Math.floor(elapsedSec/60)
@@ -7,14 +12,29 @@ export const millisecondsToTimeString = (milliseconds) =>{
     return min_s+":"+sec_s
 }
 
-
+/**
+ * Transfroms seconds to milliseconds
+ * @param {number} seconds
+ * @author Aleksi Suoranta
+ */
 export const secondsToMilliseconds = (seconds) => {
     return seconds*1000
 }
+
+/**
+ * Transforms nanoseconds to milliseconds
+ * @param {number} nanos 
+ * @author Aleksi Suoranta
+ */
 export const nanosecondsToMilliseconds = (nanos) => {
     return nanos/1000000
 }
 
+/**
+ * Estimates the start time of a sentence using the timestamps from the google api and a delay estimation epsilon
+ * @param {object} sentence 
+ * @param {number} epsilon 
+ */
 export const estimateStartTime = (sentence, epsilon) =>{
     const endTime = sentence.endTime
     const words = sentence.words

@@ -4,6 +4,12 @@ import PropTypes from 'prop-types'
 
 import { millisecondsToTimeString } from '../../utils/GeneralUtils.js'
 
+/**
+ * A stateless component for displaying the recognized sentences in the transcript
+ * @param {*} props
+ * @param {} ref
+ * @author Aleksi Suoranta
+ */
 const Sentence = React.forwardRef((props, ref) => {
     const { sentence, onClick, isCurrent } = props
     const style = isCurrent ? { borderColor: "#2196f3", borderStyle: "solid" } : {}

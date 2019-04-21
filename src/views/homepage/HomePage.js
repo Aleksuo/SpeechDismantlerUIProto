@@ -9,10 +9,13 @@ import Transcript from './Transcript'
 import Timer from './Timer'
 
 
-
+/**
+ * A stateless component that contains they layout of the home page
+ * @author Aleksi Suoranta
+ * @param {*} props 
+ */
 const HomePage = (props) => {
     const { state, toggleRecord, reset } = props
-
     return (
         <div>
             <Grid container

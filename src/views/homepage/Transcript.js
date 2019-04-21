@@ -6,14 +6,11 @@ import { CSSTransitionGroup } from 'react-transition-group'
 
 import Sentence from './Sentence'
 
-
+/**
+ * A component that displays the transcript elements
+ * @author Aleksi Suoranta
+ */
 class Transcript extends Component {
-    //The reference is used to make transcript automatically scroll to the newest sentence
-
-    transcriptEnd = React.createRef()
-    currentlyPlaying = React.createRef()
-    
-
     constructor(props) {
         super(props)
         this.state = {
@@ -21,10 +18,17 @@ class Transcript extends Component {
             isPlaying: false
         }
         this.audio = React.createRef()
+        //scroll to these references
+        this.transcriptEnd = React.createRef()
+        this.currentlyPlaying = React.createRef()
     }
 
+    /**
+     * Binds event handlers to the html audio element here
+     * @this {Transcript}
+     * @author Aleksi Suoranta
+     */
     componentDidMount() {
-        //this.scrollToBottom()
         this.audio.current.ontimeupdate = () => {
             this.setState({ currentPlayback: this.audio.current.currentTime })
         }
@@ -43,6 +47,11 @@ class Transcript extends Component {
         }
     }
 
+    /**
+     * Scroll the transcript on updates when needed
+     * @this {Transcript}
+     * @author Aleksi Suoranta
+     */
     componentDidUpdate = () => {
         if (!this.audio.current.paused) {
             this.scrollToCurrentPlayback()
@@ -51,18 +60,34 @@ class Transcript extends Component {
         }
     }
 
+    /**
+     * Scrolls to the end of the transcript marked by reference div
+     * @this {Transcript}
+     * @author Aleksi Suoranta
+     */
     scrollToBottom = () => {
         this.transcriptEnd.current.scrollIntoView()
     }
 
+    /**
+     * Scrolls to the sentence that is currently played, marked by reference div.
+     * @this {Transcript}
+     * @author Aleksi Suoranta
+     */
     scrollToCurrentPlayback = () => {
         if(this.currentlyPlaying.current){
             this.currentlyPlaying.current.scrollIntoView({ behavior: 'smooth' })
         }
     }
 
-    onSentenceClick = (e) => {
-        this.audio.current.currentTime = (e) / 1000
+    /**
+     * Event handler for clicking sentences, starts playback on click.
+     * @this {Transcript}
+     * @author Aleksi Suoranta
+     * @param {number} time
+     */
+    onSentenceClick = (time) => {
+        this.audio.current.currentTime = (time) / 1000
         this.audio.current.play()
     }
 

@@ -79,7 +79,7 @@ class SpeechDismantler extends Component {
 	 * @author Aleksi Suoranta
 	 */
 	tick = () => {
-		const newElapsed = context.currentTime*1000
+		const newElapsed = context.currentTime * 1000
 		this.setState({ elapsed: newElapsed })
 	}
 
@@ -124,12 +124,12 @@ class SpeechDismantler extends Component {
 				? () => {
 					//this.start = new Date()
 					this.timer = setInterval(this.tick, 10)
-					if(context == null){
+					if (context == null) {
 						return this.handleListen()
-					}else{
+					} else {
 						recorder.resume()
 						return context.resume()
-					}			
+					}
 				}
 				: () => {
 					clearInterval(this.timer)
@@ -166,7 +166,7 @@ class SpeechDismantler extends Component {
 			globalStream = stream
 			recorder = new MediaRecorder(stream)
 			input = context.createMediaStreamSource(stream)
-			input.connect(processor)	
+			input.connect(processor)
 			recorder.ondataavailable = (e) => {
 				var newChunks = this.state.audioChunks.slice()
 				newChunks.push(e.data)
@@ -181,7 +181,7 @@ class SpeechDismantler extends Component {
 			}
 			recorder.onpause = () => {
 				recorder.requestData()
-				
+
 			}
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
@@ -203,28 +203,31 @@ class SpeechDismantler extends Component {
 	stopRecording = () => {
 		this.socket.emit('endGoogleCloudStream', '')
 		//var tracks = null
-		if(globalStream){
+		if (globalStream) {
 			var tracks = globalStream.getTracks()
-			for(var i = 0; i < tracks.length; i++){
+			for (var i = 0; i < tracks.length; i++) {
 				tracks[i].stop()
 			}
 		}
-		if(recorder){
+		if (recorder) {
 			recorder.stop()
-		}	
-		if(input){
+		}
+		if (input) {
 			input.disconnect(processor)
 		}
-		if(processor){
+		if (processor) {
 			processor.disconnect(context.destination)
 		}
-		context.close().then(() => {
-			input = null
-			processor = null
-			context = null
-			AudioContext = null
-			recorder = null
-		})
+		if (context) {
+			context.close().then(() => {
+				input = null
+				processor = null
+				context = null
+				AudioContext = null
+				recorder = null
+			})
+		}
+
 	}
 
 	/**

@@ -60,7 +60,8 @@ class AudioUtils {
             timeAndVolume[0] = newSecondsSinceStart
             timeAndVolume[1] = newVolume.volume
 
-            console.log('newTime: '+newSecondsSinceStart+'  volume: '+newVolume.volume)
+            console.log(this.averageVolumes.length)
+            //console.log('newTime: '+newSecondsSinceStart+'  volume: '+newVolume.volume)
 
             this.averageVolumes.push(timeAndVolume)
         }
@@ -72,9 +73,9 @@ const getTimeInSeconds = (time) => {
 }
 
 const convertVolumeToColor = (volume) => {
-    if (volume < 15) {
+    if (volume < 10) {
         return 'blue'
-    } else if (volume > 14 && volume < 60) {
+    } else if (volume > 9 && volume < 60) {
         return 'green'
     } else if (volume > 59) {
         return 'red'
@@ -83,8 +84,10 @@ const convertVolumeToColor = (volume) => {
     }
 }
 
-const GetBestMatchingVolume = (number, array) => {
+const GetBestMatchingVolume = (number, arr) => {
     var startIndex = 0
+    var array = []
+    array = arr
     var endIndex = array.length - 1
 
     var closestMatch = findInSubArray(number, startIndex, endIndex)

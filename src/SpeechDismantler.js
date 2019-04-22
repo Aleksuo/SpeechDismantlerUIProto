@@ -89,6 +89,7 @@ class SpeechDismantler extends Component {
 			this.stopRecording()
 		}
 		this.setState(initialState, clearInterval(this.timer))
+		this.setState({ wordColor: new WordColor() })
 	}
 
 	setView = (id) => {

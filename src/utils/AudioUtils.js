@@ -6,16 +6,16 @@ class AudioUtils {
 
     constructor() {
         this.averageVolumes = []
-        this.timeInSeconds = 0
         this.wordTimesAndVolumes = new Map()
 
-        const startTime = new Date()
-        this.startTimeInSeconds = getTimeInSeconds(startTime)
-        this.secondsSinceStart = 0
+        this.startTime = 0
+        this.startTimeNotSet = true
+        this.startVolume = 0
+        this.volumeCounter = 0
     }
 
     GetColor = (wordWithSentenceStartTime) => {
-        var sentenceStartTime = (+wordWithSentenceStartTime.sentenceStartTime / 1000)
+        var sentenceStartTime = (+wordWithSentenceStartTime.sentenceStartTime)
 
         var startTime = +wordWithSentenceStartTime.startTime.seconds + +sentenceStartTime
         var endTime = +wordWithSentenceStartTime.endTime.seconds + +sentenceStartTime
@@ -23,62 +23,46 @@ class AudioUtils {
 
         //if matching time is not found, find best time match from "averageVolumes" and add corresponding
         //value to map, wordTime as key
-
-        //here the later condition of if is to make sure some volume data exists
         if (!this.wordTimesAndVolumes.has(wordTime)) {
-            if(this.secondsSinceStart>4){
             var bestVolumeMatch = GetBestMatchingVolume(wordTime, this.averageVolumes)
-
-            //console.log('wordTime: '+wordTime+'seconds since start: '+ this.secondsSinceStart
-            //+'best found match: '+ bestVolumeMatch)
-
             this.wordTimesAndVolumes.set(wordTime, bestVolumeMatch)
-            }else{
-                return 'black'
-            }
+            console.log('time: '+wordTime+'  volume: '+bestVolumeMatch)
         }
         
-        //console.log('start time: ' + wordTime+ '  elapsed: ' + sentenceStartTime)
-
-        //console.log('word time: ' + wordTime
-        //    + 'volume match: ' + this.wordTimesAndVolumes.get(wordTime))
-
-        //console.log(bestVolumeMatch)
         return convertVolumeToColor(this.wordTimesAndVolumes.get(wordTime))
     }
 
     SetVolumes = (newVolume) => {
         var timeAndVolume = []
+        this.startVolume = this.startVolume + +newVolume.volume
+        if (this.startTimeNotSet) {
+            this.startTime = newVolume.time
+            this.startTimeNotSet = false
+        }
 
-        var currentTime = new Date()
-        var currentTimeInSeconds = getTimeInSeconds(currentTime)
-        var newSecondsSinceStart = +currentTimeInSeconds - +this.startTimeInSeconds
+        if (this.volumeCounter > 6) {
 
-        if (newSecondsSinceStart - 0.02 > this.secondsSinceStart) {
-            this.secondsSinceStart = newSecondsSinceStart
-
-            timeAndVolume[0] = newSecondsSinceStart
-            timeAndVolume[1] = newVolume.volume
-
-            console.log(this.averageVolumes.length)
-            //console.log('newTime: '+newSecondsSinceStart+'  volume: '+newVolume.volume)
+            timeAndVolume[0] = ((this.startTime + +newVolume.time) / 2)
+            timeAndVolume[1] = (+this.startVolume / 5)
 
             this.averageVolumes.push(timeAndVolume)
+            //console.log('av time: ' +timeAndVolume[0]+'  av volume: '+timeAndVolume[1])
+
+            this.startVolume = 0
+            this.volumeCounter = 0
+            this.startTime = 0
+
+            this.startTimeNotSet = true
         }
+        this.volumeCounter = +this.volumeCounter + 1
     }
 }
 
-const getTimeInSeconds = (time) => {
-    return (time.getHours() * 3600) + (time.getMinutes() * 60) + time.getSeconds() + (time.getMilliseconds() / 1000)
-}
-
 const convertVolumeToColor = (volume) => {
-    if (volume < 10) {
+    if (volume < 40) {
         return 'blue'
-    } else if (volume > 9 && volume < 60) {
+    } else if (volume > 39) {
         return 'green'
-    } else if (volume > 59) {
-        return 'red'
     } else {
         return 'black'
     }

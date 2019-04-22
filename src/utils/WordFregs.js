@@ -15,11 +15,11 @@ class WordCounter {
         var word = wordInformation.word
         var index = GetIndexInTopWords(word, this.topWords)
 
-        if(index === -1){
+        if (index === -1) {
             return 'black'
         } else {
             //if first in list has lover frequency than 2, all words are colored black
-            if(this.topWords[index][1] < 3){
+            if (this.topWords[index][1] < 3) {
                 return 'black'
             } else {
                 return colors[index]

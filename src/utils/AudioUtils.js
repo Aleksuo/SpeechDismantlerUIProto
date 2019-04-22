@@ -1,87 +1,108 @@
 //colors from light to dark
-const colors = ['#42e20d','#5be22f','#61e038','#68e041','#71e04c','#78e055','#80e060','#8ce070','#98e27f','#9ddd87']
+
+const colors = ['#42e20d', '#5be22f', '#61e038', '#68e041', '#71e04c', '#78e055', '#80e060', '#8ce070', '#98e27f', '#9ddd87']
 
 class AudioUtils {
 
     constructor() {
         this.averageVolumes = []
-        this.second = 0
+        this.timeInSeconds = 0
         this.wordTimesAndVolumes = new Map()
+
+        const startTime = new Date()
+        this.startTimeInSeconds = getTimeInSeconds(startTime)
+        this.secondsSinceStart = 0
     }
 
-    GetColor = (word) => {
-        var wordTime = (word.startTime.seconds +(word.startTime.nanos/1000000000)+word.endTime.seconds + (word.endTime.nanos/1000000000))/2
+    GetColor = (wordWithSentenceStartTime) => {
+        var sentenceStartTime = (+wordWithSentenceStartTime.sentenceStartTime / 1000)
+
+        var startTime = +wordWithSentenceStartTime.startTime.seconds + +sentenceStartTime
+        var endTime = +wordWithSentenceStartTime.endTime.seconds + +sentenceStartTime
+        var wordTime = (startTime + endTime) / 2
 
         //if matching time is not found, find best time match from "averageVolumes" and add corresponding
         //value to map, wordTime as key
 
-        if(!this.wordTimesAndVolumes.has(wordTime)){
+        //here the later condition of if is to make sure some volume data exists
+        if (!this.wordTimesAndVolumes.has(wordTime)) {
+            if(this.secondsSinceStart>4){
             var bestVolumeMatch = GetBestMatchingVolume(wordTime, this.averageVolumes)
-            this.wordTimesAndVolumes.set(wordTime, bestVolumeMatch)
-        }
 
+            //console.log('wordTime: '+wordTime+'seconds since start: '+ this.secondsSinceStart
+            //+'best found match: '+ bestVolumeMatch)
+
+            this.wordTimesAndVolumes.set(wordTime, bestVolumeMatch)
+            }else{
+                return 'black'
+            }
+        }
+        
+        //console.log('start time: ' + wordTime+ '  elapsed: ' + sentenceStartTime)
+
+        //console.log('word time: ' + wordTime
+        //    + 'volume match: ' + this.wordTimesAndVolumes.get(wordTime))
+
+        //console.log(bestVolumeMatch)
         return convertVolumeToColor(this.wordTimesAndVolumes.get(wordTime))
     }
 
-    SetVolumes = (newVolumes) => {
+    SetVolumes = (newVolume) => {
         var timeAndVolume = []
 
-        var date = new Date()
-        var currentTime = date
-        currentTime.setHours(0)
-        //setInterval(date, 1000)
+        var currentTime = new Date()
+        var currentTimeInSeconds = getTimeInSeconds(currentTime)
+        var newSecondsSinceStart = +currentTimeInSeconds - +this.startTimeInSeconds
 
-        //console.log('Current time: '+ currentTime)
-        //console.log('Date: '+date)
+        if (newSecondsSinceStart - 0.02 > this.secondsSinceStart) {
+            this.secondsSinceStart = newSecondsSinceStart
 
-        var time = []
-        time[0] = currentTime.getHours()
-        time[1] = currentTime.getMinutes()
-        time[2] = currentTime.getSeconds()
-        time[3] = currentTime.getMilliseconds()
+            timeAndVolume[0] = newSecondsSinceStart
+            timeAndVolume[1] = newVolume.volume
 
-        var second = currentTime.getSeconds()
-
-        if(second>this.second){
-            this.second=second
-
-            timeAndVolume[0] = time
-            timeAndVolume[1] = newVolumes
-
-            console.log(timeAndVolume)
+            console.log('newTime: '+newSecondsSinceStart+'  volume: '+newVolume.volume)
 
             this.averageVolumes.push(timeAndVolume)
         }
     }
+}
 
+const getTimeInSeconds = (time) => {
+    return (time.getHours() * 3600) + (time.getMinutes() * 60) + time.getSeconds() + (time.getMilliseconds() / 1000)
 }
 
 const convertVolumeToColor = (volume) => {
-    return 'green'
+    if (volume < 15) {
+        return 'blue'
+    } else if (volume > 14 && volume < 60) {
+        return 'green'
+    } else if (volume > 59) {
+        return 'red'
+    } else {
+        return 'black'
+    }
 }
 
 const GetBestMatchingVolume = (number, array) => {
-    var startIndex= 0
-    var endIndex=array.length -1
+    var startIndex = 0
+    var endIndex = array.length - 1
 
     var closestMatch = findInSubArray(number, startIndex, endIndex)
 
-    function findInSubArray(number, startIndex, endIndex){
-        var middleIndex = (startIndex+endIndex)/2
-        
-        if(endIndex-startIndex<4 || middleIndex+1 === endIndex){
-            return array[middleIndex]
+    function findInSubArray(number, startIndex, endIndex) {
+        var middleIndex = parseInt((startIndex + endIndex) / 2, 10)
+
+        if (endIndex - startIndex < 4 || middleIndex + 1 === endIndex) {
+            return array[middleIndex][1]
         }
 
-        if(number <= array[middleIndex]){
-            return findInSubArray(number, startIndex,middleIndex)
+        if (number <= array[middleIndex][0]) {
+            return findInSubArray(number, startIndex, middleIndex)
         } else {
-            return findInSubArray(number, middleIndex+1, endIndex)
+            return findInSubArray(number, middleIndex + 1, endIndex)
         }
     }
-
     return closestMatch
-
 }
 
 export default AudioUtils

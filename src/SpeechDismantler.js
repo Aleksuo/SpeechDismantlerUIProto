@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Hidden } from '@material-ui/core'
+import { Hidden } from '@material-ui/core'
 import MiniDrawer from "./common/MiniDrawer"
 import MobileDrawer from "./common/MobileDrawer"
 
@@ -92,7 +92,7 @@ class SpeechDismantler extends Component {
 	}
 
 	setView = (id) => {
-		this.setState({view: id})
+		this.setState({ view: id })
 	}
 
 
@@ -153,17 +153,16 @@ class SpeechDismantler extends Component {
 				}
 				var average = Math.round(values / length);
 				var newVolumes = this.state.volumes.slice()
-				var volumesObject={time:this.state.elapsed, volume:average}
+				var volumesObject = { time: this.state.elapsed, volume: average }
+
+				this.state.wordColor.SetVolumes(volumesObject)
+
 				newVolumes.push(volumesObject)
 				//console.log(this.state.volumes)
 				this.setState({
 					volumes: newVolumes,
 				})
-
-				this.state.wordColor.SetVolumes(newVolumes)
-			
-				//console.log(this.state.volumes)
-			}	
+			}
 		}
 		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
 			.then(handleSuccess)
@@ -189,22 +188,22 @@ class SpeechDismantler extends Component {
 	//UI CODE STARTS HERE*/
 	render() {
 
-	const pageView = this.state.view
-	let page
-	
-	if (pageView === 0) {
-		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>
-	} else {
-		page = <AnalysePage state={this.state}/>
-	}
+		const pageView = this.state.view
+		let page
+
+		if (pageView === 0) {
+			page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+		} else {
+			page = <AnalysePage state={this.state} />
+		}
 		return (
 			<div>
 				<div>
 					<Hidden smDown>
-						<MiniDrawer setView={this.setView}/>
+						<MiniDrawer setView={this.setView} />
 					</Hidden>
 					<Hidden mdUp>
-						<MobileDrawer setView={this.setView}/>
+						<MobileDrawer setView={this.setView} />
 					</Hidden>
 				</div>
 				<div>

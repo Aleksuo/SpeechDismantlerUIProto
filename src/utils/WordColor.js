@@ -11,8 +11,8 @@ class WordColor {
         this.FillerWords = new FillerWords()
 
         this.useFillerWords = false
-        this.useWordFrequencies = true
-        this.useVolumeLevel = false
+        this.useWordFrequencies = false
+        this.useVolumeLevel = true
     }
 
     CalculateFrequencies = (transcript) => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Hidden } from '@material-ui/core'
+import { Hidden } from '@material-ui/core'
 import MiniDrawer from "./common/MiniDrawer"
 import MobileDrawer from "./common/MobileDrawer"
 
@@ -19,12 +19,15 @@ let context
 let processor
 let input
 let globalStream
+let recorder
 
 const initialState = {
 	isRecording: false,
 	elapsed: 0,
 	transcript: [],
 	interim: "",
+	audioChunks: [],
+	blobUrl: "",
 	left: false,
 	view: 0
 }
@@ -56,7 +59,7 @@ class SpeechDismantler extends Component {
 					endTime: this.state.elapsed,
 					words: result
 				}
-				const startTime = estimateStartTime(sentence)
+				const startTime = estimateStartTime(sentence, 1000)
 				sentence.startTime = startTime
 				newTranscript.push(sentence)
 				this.setState({
@@ -70,24 +73,48 @@ class SpeechDismantler extends Component {
 		}
 	}
 
+	/**
+	 * Updates the elapsed time using AudioContext.currentTime
+	 * @this {SpeechDismantler}
+	 * @author Aleksi Suoranta
+	 */
 	tick = () => {
-		const newElapsed = this.state.elapsed + (new Date() - this.last)
+		const newElapsed = context.currentTime * 1000
 		this.setState({ elapsed: newElapsed })
-		this.last = new Date()
 	}
 
+	/**
+	 * Resets the state information of the application
+	 * @this {SpeechDismantler}
+	 * @author Aleksi Suoranta
+	 */
 	reset = () => {
-		if (this.state.isRecording) {
-			this.stopRecording()
-		}
+		this.stopRecording()
 		this.setState(initialState, clearInterval(this.timer))
 	}
 
 	setView = (id) => {
-		this.setState({view: id})
+		this.setState({ view: id })
 	}
 
+	/*
+	Float32Concat = (first, second) => {
+		var firstLength = first.length,
+			result = new Float32Array(firstLength + second.length)
 
+		result.set(first)
+		result.set(second, firstLength)
+
+		return result
+	}
+	*/
+
+
+	/**
+	 * Handles record toggling for the app
+	 * @this {SpeechDismantler}
+	 * @author Aleksi Suoranta
+	 */
 	toggleRecord = () => {
 		const newIsRecording = !this.state.isRecording // state might not be updated if it is read after setState
 		this.setState({
@@ -95,80 +122,136 @@ class SpeechDismantler extends Component {
 		},
 			newIsRecording
 				? () => {
-					this.last = new Date()
-					this.timer = setInterval(this.tick, 100)
-					return this.handleListen()
+					//this.start = new Date()
+					this.timer = setInterval(this.tick, 10)
+					if (context == null) {
+						return this.handleListen()
+					} else {
+						recorder.resume()
+						return context.resume()
+					}
 				}
 				: () => {
 					clearInterval(this.timer)
-					return this.stopRecording()
+					recorder.pause()
+					return context.suspend()
 				})
 
 	}
 
+	/**
+	 * Event handler for audio data, streams data through socket to the server
+	 * @this {SpeechDismantler}
+	 */
 	streamAudioData = (e) => {
 		const left = e.inputBuffer.getChannelData(0)
 		const left16 = downsampleBuffer(left, 44100, 16000)
 		this.socket.emit('binaryData', left16)
 	}
 
+	/**
+	 * Initializes webaudio components for recording
+	 * @this {SpeechDismantler}
+	 * @author Aleksi Suoranta
+	 */
 	handleListen = () => {
 		this.socket.emit('startGoogleCloudStream', '') // init socket Google Speech Connection
 		AudioContext = window.AudioContext || window.webkitAudioContext
 		context = new AudioContext()
+		context.suspend() //Stops the context timer here
 		processor = context.createScriptProcessor(this.bufferSize, 1, 1)
 		processor.connect(context.destination)
-		context.resume()
 
 		const handleSuccess = (stream) => {
 			globalStream = stream
+			recorder = new MediaRecorder(stream)
 			input = context.createMediaStreamSource(stream)
 			input.connect(processor)
+			recorder.ondataavailable = (e) => {
+				var newChunks = this.state.audioChunks.slice()
+				newChunks.push(e.data)
+				this.setState({
+					audioChunks: newChunks
+				})
+				const audioBlob = new Blob(newChunks)
+				const audioUrl = URL.createObjectURL(audioBlob)
+				this.setState({
+					blobUrl: audioUrl
+				})
+			}
+			recorder.onpause = () => {
+				recorder.requestData()
+
+			}
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
 			}
+			//Recording and context timer are almost synced with this
+			recorder.start()
+			context.resume()
 		}
 
-		navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+		navigator.mediaDevices.getUserMedia({ audio: true })
 			.then(handleSuccess)
 	}
 
+	/**
+	 * Resets the web audio components
+	 * @this {SpeechDismantler}
+	 * @author Aleksi Suoranta
+	 */
 	stopRecording = () => {
 		this.socket.emit('endGoogleCloudStream', '')
+		//var tracks = null
+		if (globalStream) {
+			var tracks = globalStream.getTracks()
+			for (var i = 0; i < tracks.length; i++) {
+				tracks[i].stop()
+			}
+		}
+		if (recorder) {
+			recorder.stop()
+		}
+		if (input) {
+			input.disconnect(processor)
+		}
+		if (processor) {
+			processor.disconnect(context.destination)
+		}
+		if (context) {
+			context.close().then(() => {
+				input = null
+				processor = null
+				context = null
+				AudioContext = null
+				recorder = null
+			})
+		}
 
-
-		const track = globalStream.getTracks()[0]
-		track.stop()
-
-		input.disconnect(processor)
-		processor.disconnect(context.destination)
-		context.close().then(() => {
-			input = null
-			processor = null
-			context = null
-			AudioContext = null
-		})
 	}
 
-	//UI CODE STARTS HERE*/
+	/**
+	 * Reacts render, this is the root render for the app
+	 * @this {SpeechDismantler}
+	 */
 	render() {
 
-	const pageView = this.state.view
-	let page
-	
-	if (pageView === 0) {
-		page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset}/>
-	} else {
-		page = <AnalysePage state={this.state}/>
-	}
+		const pageView = this.state.view
+		let page
+
+		if (pageView === 0) {
+			page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+		} else {
+			page = <AnalysePage state={this.state} />
+		}
 		return (
 			<div>
 				<div>
 					<Hidden smDown>
-						<MiniDrawer setView={this.setView}/>
+						<MiniDrawer setView={this.setView} />
 					</Hidden>
 					<Hidden mdUp>
-						<MobileDrawer setView={this.setView}/>
+						<MobileDrawer setView={this.setView} />
 					</Hidden>
 				</div>
 				<div>

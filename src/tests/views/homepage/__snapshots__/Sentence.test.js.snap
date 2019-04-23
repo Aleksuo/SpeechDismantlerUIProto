@@ -3,7 +3,7 @@
 exports[`Sentence component renders 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Sentence
+  Symbol(enzyme.__unrendered__): <ForwardRef
     sentence={
       Object {
         "startTime": 0,
@@ -26,20 +26,25 @@ ShallowWrapper {
     "nodeType": "host",
     "props": Object {
       "children": Array [
-        <WithStyles(Typography)
-          align="center"
-          color="primary"
+        <div />,
+        <div
+          style={Object {}}
         >
-          00:00
-        </WithStyles(Typography)>,
-        <WithStyles(Typography)
-          align="center"
-          paragraph={true}
-        />,
-        <WithStyles(Divider)
-          light={true}
-          variant="middle"
-        />,
+          <WithStyles(Typography)
+            align="center"
+            color="primary"
+          >
+            00:00
+          </WithStyles(Typography)>
+          <WithStyles(Typography)
+            align="center"
+            paragraph={true}
+          />
+          <WithStyles(Divider)
+            light={true}
+            variant="middle"
+          />
+        </div>,
       ],
     },
     "ref": null,
@@ -47,40 +52,78 @@ ShallowWrapper {
       Object {
         "instance": null,
         "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "align": "center",
-          "children": "00:00",
-          "color": "primary",
-        },
-        "ref": null,
-        "rendered": "00:00",
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "align": "center",
-          "children": Array [],
-          "paragraph": true,
-        },
-        "ref": null,
-        "rendered": Array [],
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "light": true,
-          "variant": "middle",
-        },
+        "nodeType": "host",
+        "props": Object {},
         "ref": null,
         "rendered": null,
-        "type": [Function],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <WithStyles(Typography)
+              align="center"
+              color="primary"
+            >
+              00:00
+            </WithStyles(Typography)>,
+            <WithStyles(Typography)
+              align="center"
+              paragraph={true}
+            />,
+            <WithStyles(Divider)
+              light={true}
+              variant="middle"
+            />,
+          ],
+          "onClick": undefined,
+          "style": Object {},
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "center",
+              "children": "00:00",
+              "color": "primary",
+            },
+            "ref": null,
+            "rendered": "00:00",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "align": "center",
+              "children": Array [],
+              "paragraph": true,
+            },
+            "ref": null,
+            "rendered": Array [],
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "light": true,
+              "variant": "middle",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+        ],
+        "type": "div",
       },
     ],
     "type": "div",
@@ -92,20 +135,25 @@ ShallowWrapper {
       "nodeType": "host",
       "props": Object {
         "children": Array [
-          <WithStyles(Typography)
-            align="center"
-            color="primary"
+          <div />,
+          <div
+            style={Object {}}
           >
-            00:00
-          </WithStyles(Typography)>,
-          <WithStyles(Typography)
-            align="center"
-            paragraph={true}
-          />,
-          <WithStyles(Divider)
-            light={true}
-            variant="middle"
-          />,
+            <WithStyles(Typography)
+              align="center"
+              color="primary"
+            >
+              00:00
+            </WithStyles(Typography)>
+            <WithStyles(Typography)
+              align="center"
+              paragraph={true}
+            />
+            <WithStyles(Divider)
+              light={true}
+              variant="middle"
+            />
+          </div>,
         ],
       },
       "ref": null,
@@ -113,40 +161,78 @@ ShallowWrapper {
         Object {
           "instance": null,
           "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "align": "center",
-            "children": "00:00",
-            "color": "primary",
-          },
-          "ref": null,
-          "rendered": "00:00",
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "align": "center",
-            "children": Array [],
-            "paragraph": true,
-          },
-          "ref": null,
-          "rendered": Array [],
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "light": true,
-            "variant": "middle",
-          },
+          "nodeType": "host",
+          "props": Object {},
           "ref": null,
           "rendered": null,
-          "type": [Function],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <WithStyles(Typography)
+                align="center"
+                color="primary"
+              >
+                00:00
+              </WithStyles(Typography)>,
+              <WithStyles(Typography)
+                align="center"
+                paragraph={true}
+              />,
+              <WithStyles(Divider)
+                light={true}
+                variant="middle"
+              />,
+            ],
+            "onClick": undefined,
+            "style": Object {},
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "center",
+                "children": "00:00",
+                "color": "primary",
+              },
+              "ref": null,
+              "rendered": "00:00",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "align": "center",
+                "children": Array [],
+                "paragraph": true,
+              },
+              "ref": null,
+              "rendered": Array [],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "light": true,
+                "variant": "middle",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": "div",
         },
       ],
       "type": "div",

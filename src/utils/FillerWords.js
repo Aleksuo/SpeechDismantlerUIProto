@@ -10,21 +10,15 @@ class FillerWords {
         this.fillerWords = new Map()
 
         const fillers = fillerWordsJson.fillerWords
-        console.log('fillerwordsJson: '+fillerWordsJson.fillerWords)
-
         for (var i = 0; i < fillers.length; i++) {
             this.fillerWords.set(fillers[i].fillerWord, 1)
         }
-        console.log('filler Word map: ' + this.fillerWords)
-
     }
 
     GetColor = (wordInformation) => {
         var word = RemovePunctToLowerCase(wordInformation.word)
 
-        console.log('found in map: ' + this.fillerWords.has(word) + ' '+word)
         if (this.fillerWords.has(word)) {
-            console.log('setting color')
             return 'red'
         } else {
             return 'black'

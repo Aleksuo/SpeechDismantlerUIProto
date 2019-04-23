@@ -15,7 +15,7 @@ import Timer from './Timer'
  * @param {*} props 
  */
 const HomePage = (props) => {
-    const { state, toggleRecord, reset } = props
+    const { state, toggleRecord, reset, setHighLight } = props
     return (
         <div>
             <Grid container
@@ -34,6 +34,11 @@ const HomePage = (props) => {
                 </Grid>
                 <Grid item xs={6} md={3} style={{ width: "100%", height: "100%" }}>
                     <Interim interim={state.interim} />
+                </Grid>
+                <Grid item xs={12}>
+                    <Button onClick={() => {setHighLight(1)}}>Fillers</Button>
+                    <Button onClick={() => {setHighLight(2)}}>Frequency</Button>
+                    <Button onClick={() => {setHighLight(3)}}>Volumes</Button>
                 </Grid>
                 <Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
 

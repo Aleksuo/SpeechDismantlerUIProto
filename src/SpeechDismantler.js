@@ -34,7 +34,8 @@ const initialState = {
 	blobUrl: "",
 	left: false,
 	view: 0,
-	wordColor: new WordColor()
+	wordColor: new WordColor(),
+	highlight: 0
 }
 
 class SpeechDismantler extends Component {
@@ -104,6 +105,22 @@ class SpeechDismantler extends Component {
 
 	setView = (id) => {
 		this.setState({ view: id })
+	}
+
+	setHighLight = (id) => {
+		if (id === this.state.highlight) {
+			this.state.wordColor.ResetColor()
+			this.setState({ highlight: 0 })
+		} else if (id === 1) {
+			this.state.wordColor.ColorUsingFillerWords()
+			this.setState({ highlight: 1 })
+		} else if (id === 2) {
+			this.state.wordColor.ColorUsingWordFrequencies()
+			this.setState({ highlight: 2 })
+		} else if (id === 3) {
+			this.state.wordColor.ColorUsingVolumeLevel()
+			this.setState({ highlight: 3 })
+		}
 	}
 
 	/**
@@ -261,7 +278,7 @@ class SpeechDismantler extends Component {
 		let page
 
 		if (pageView === 0) {
-			page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+			page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} setHighLight={this.setHighLight} />
 		} else {
 			page = <AnalysePage state={this.state} />
 		}

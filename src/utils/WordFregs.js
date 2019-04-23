@@ -11,7 +11,6 @@ class WordCounter {
     }
 
     GetColor = (wordInformation) => {
-        console.log(this.topWords)
         var word = wordInformation.word
         var index = GetIndexInTopWords(word, this.topWords)
 
@@ -47,8 +46,6 @@ class WordCounter {
     }
 
     CalculateFrequencies = (transcript) => {
-        //var st = JSON.stringify(transcript)
-        //console.log('transcript: '+st)
         var numberOfTopWords = 10
 
         this.wordsAndFreqs = CountOccurences(transcript)

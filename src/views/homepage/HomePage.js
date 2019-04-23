@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid, Fab} from '@material-ui/core'
+import { Button, Grid, Fab } from '@material-ui/core'
 import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 import PropTypes from 'prop-types'
@@ -8,6 +8,12 @@ import Interim from './Interim'
 import Transcript from './Transcript'
 import Timer from './Timer'
 
+
+/**
+ * A stateless component that contains they layout of the home page
+ * @author Aleksi Suoranta
+ * @param {*} props 
+ */
 const HomePage = (props) => {
     const { state, toggleRecord, reset } = props
     return (
@@ -30,10 +36,11 @@ const HomePage = (props) => {
                     <Interim interim={state.interim} />
                 </Grid>
                 <Grid item xs={12} md={6} style={{ width: "100%", height: "100%" }}>
-                    <Transcript transcript={state.transcript} wordColor = {state.wordColor}/>
+
+                    <Transcript transcript={state.transcript} blobUrl={state.blobUrl} wordColor = {state.wordColor}/>
                 </Grid>
                 <Grid item xs={12}>
-                    <Button variant="contained" onClick={reset}>Reset</Button>
+                    <Button variant="contained" color="secondary" onClick={() => {if(window.confirm("Are you sure you want to reset the app?")){reset()}}}>Reset</Button>
                 </Grid>
             </Grid>
         </div>)

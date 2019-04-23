@@ -1,9 +1,17 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/8d0059ccd8f764fb71e3/maintainability)](https://codeclimate.com/github/speech-dismantler-5000/SpeechDismantlerFront/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8d0059ccd8f764fb71e3/test_coverage)](https://codeclimate.com/github/speech-dismantler-5000/SpeechDismantlerFront/test_coverage)
-[![Build Status](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront.svg?branch=master)](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront)
+# [SpeechDismantler](https://speech-dismantler-5000.github.io/SpeechDismantlerFront/) &middot; [![Maintainability](https://api.codeclimate.com/v1/badges/8d0059ccd8f764fb71e3/maintainability)](https://codeclimate.com/github/speech-dismantler-5000/SpeechDismantlerFront/maintainability)[![Test Coverage](https://api.codeclimate.com/v1/badges/8d0059ccd8f764fb71e3/test_coverage)](https://codeclimate.com/github/speech-dismantler-5000/SpeechDismantlerFront/test_coverage)[![Build Status](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront.svg?branch=master)](https://travis-ci.org/speech-dismantler-5000/SpeechDismantlerFront)[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation
 
+#### Note: If you want to run the app locally you'll also need to have [the backend](https://github.com/speech-dismantler-5000/Google-Cloud-Speech-Node-Socket-Playground) running on your computer.
+
+First you'll need the lastest version of [node and npm](https://nodejs.org).
+
+Then the dependencies can be installed and the app can be run using:
+
+``` console
+npm install
+npm start
+```
 
 ## Available Scripts
 
@@ -13,9 +21,6 @@ In the project directory, you can run:
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
 
 ### `npm test`
 
@@ -28,50 +33,14 @@ Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `npm run lint <filename/folder>`
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Runs EsLint for the specified file or folder. Lint errors will fail the build, so make sure they are fixed before pushing your changes.
 
 
-### Address for the built software
+
+
+
+### Address for the app
 ### https://speech-dismantler-5000.github.io/SpeechDismantlerFront/

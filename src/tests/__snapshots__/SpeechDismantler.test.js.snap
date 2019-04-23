@@ -62,6 +62,8 @@ ShallowWrapper {
             reset={[Function]}
             state={
               Object {
+                "audioChunks": Array [],
+                "blobUrl": "",
                 "elapsed": 0,
                 "interim": "",
                 "isRecording": false,
@@ -202,6 +204,8 @@ ShallowWrapper {
             reset={[Function]}
             state={
               Object {
+                "audioChunks": Array [],
+                "blobUrl": "",
                 "elapsed": 0,
                 "interim": "",
                 "isRecording": false,
@@ -222,6 +226,8 @@ ShallowWrapper {
           "props": Object {
             "reset": [Function],
             "state": Object {
+              "audioChunks": Array [],
+              "blobUrl": "",
               "elapsed": 0,
               "interim": "",
               "isRecording": false,
@@ -289,6 +295,8 @@ ShallowWrapper {
               reset={[Function]}
               state={
                 Object {
+                  "audioChunks": Array [],
+                  "blobUrl": "",
                   "elapsed": 0,
                   "interim": "",
                   "isRecording": false,
@@ -429,6 +437,8 @@ ShallowWrapper {
               reset={[Function]}
               state={
                 Object {
+                  "audioChunks": Array [],
+                  "blobUrl": "",
                   "elapsed": 0,
                   "interim": "",
                   "isRecording": false,
@@ -449,6 +459,8 @@ ShallowWrapper {
             "props": Object {
               "reset": [Function],
               "state": Object {
+                "audioChunks": Array [],
+                "blobUrl": "",
                 "elapsed": 0,
                 "interim": "",
                 "isRecording": false,

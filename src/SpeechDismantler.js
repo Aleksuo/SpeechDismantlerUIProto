@@ -166,6 +166,7 @@ class SpeechDismantler extends Component {
 			//javascriptNode=audioContext.createScriptProcessor(2048,1,1);
 			analyser.smoothingTimeConstant = 0.8;
 			analyser.fftSize = 1024;
+			input.connect(analyser)
 			analyser.connect(processor);
 			processor.connect(context.destination)
 

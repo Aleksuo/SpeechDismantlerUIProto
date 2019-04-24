@@ -11,9 +11,9 @@ import { millisecondsToTimeString } from './../../utils/GeneralUtils.js'
  * @author Aleksi Suoranta
  */
 const Sentence = React.forwardRef((props, ref) => {
-    const { sentence, onClick, isCurrent, wordColor } = props
+    const { sentence, onClick, isCurrent, wordColor, isRecording } = props
     const startTime = sentence.startTime
-    const style = isCurrent ? { borderColor: "#2196f3", borderStyle: "solid" } : {}
+    const style = (isCurrent && !isRecording) ? { borderColor: "#2196f3", borderStyle: "solid" } : {}
     const items = sentence.words.map((word, idx) => {
 
         var wordWithElapsedTime = {

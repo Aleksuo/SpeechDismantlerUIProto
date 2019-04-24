@@ -55,7 +55,7 @@ class Transcript extends Component {
     componentDidUpdate = () => {
         if (!this.audio.current.paused) {
             this.scrollToCurrentPlayback()
-        } else {
+        } else if(this.props.isRecording) {
             this.scrollToBottom()
         }
     }
@@ -92,7 +92,7 @@ class Transcript extends Component {
     }
 
     render = () => {
-        const { transcript, blobUrl, wordColor } = this.props
+        const { transcript, blobUrl, wordColor, isRecording} = this.props
         const cur = this.state.currentPlayback * 1000
         const items = transcript.map((sentence, idx, arr) => {
             const next = arr[idx+1] ? arr[idx+1].startTime : Number.MAX_VALUE
@@ -104,14 +104,14 @@ class Transcript extends Component {
                     sentence={sentence}
                     onClick={() => this.onSentenceClick(sentence.startTime)}
                     ref={this.currentlyPlaying}
-
+                    isRecording={isRecording}
                 />)
         })
 
         return (
 
             <div>
-                <Paper elevation={1} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>
+                <Paper elevation={1} style={{ maxHeight: "35vh", height: "40vh", overflow: "auto" }}>
                     <CSSTransitionGroup
                         transitionName="example"
                         transitionEnterTimeout={500}

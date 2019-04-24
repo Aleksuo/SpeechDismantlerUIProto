@@ -13,7 +13,9 @@ import { millisecondsToTimeString } from './../../utils/GeneralUtils.js'
 const Sentence = React.forwardRef((props, ref) => {
     const { sentence, onClick, isCurrent, wordColor, isRecording } = props
     const startTime = sentence.startTime
-    const style = (isCurrent && !isRecording) ? { borderColor: "#2196f3", borderStyle: "solid" } : {}
+    var style = (isCurrent && !isRecording) ? { borderColor: "#2196f3", borderStyle: "solid",} : {}
+    
+    
     const items = sentence.words.map((word, idx) => {
 
         var wordWithElapsedTime = {
@@ -30,7 +32,7 @@ const Sentence = React.forwardRef((props, ref) => {
     return (
         <div>
             {refElement}
-            <div onClick={onClick} style={style}>
+            <div onClick={!isRecording ? onClick : ()=>{} } style={style}>
                 <Typography align="center" color="primary">{millisecondsToTimeString(sentence.startTime)}</Typography>
                 <Typography paragraph={true} align="center">{items}</Typography>
                 <Divider variant="middle" light={true} />

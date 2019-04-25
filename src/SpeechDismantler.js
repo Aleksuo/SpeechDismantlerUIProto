@@ -10,8 +10,10 @@ import AnalysePage from "./views/analysepage/AnalysePage"
 import openSocket from 'socket.io-client'
 import PropTypes from 'prop-types'
 
-import { downsampleBuffer } from './utils/AudioUtils.js'
 import { estimateStartTime } from './utils/GeneralUtils'
+
+import WordColor from './utils/WordColor.js'
+import { DownsampleBuffer } from './utils/DownsampleBuffer.js'
 
 
 let AudioContext
@@ -19,17 +21,21 @@ let context
 let processor
 let input
 let globalStream
+let analyser
 let recorder
 
 const initialState = {
 	isRecording: false,
 	elapsed: 0,
 	transcript: [],
+	volumes: [],
 	interim: "",
 	audioChunks: [],
 	blobUrl: "",
 	left: false,
-	view: 0
+	view: 0,
+	wordColor: new WordColor(),
+	highlight: 0
 }
 
 class SpeechDismantler extends Component {
@@ -61,10 +67,12 @@ class SpeechDismantler extends Component {
 				}
 				const startTime = estimateStartTime(sentence, 1000)
 				sentence.startTime = startTime
+
 				newTranscript.push(sentence)
 				this.setState({
 					transcript: newTranscript,
 				})
+				this.state.wordColor.CalculateFrequencies(newTranscript)
 			}
 		})
 
@@ -91,24 +99,28 @@ class SpeechDismantler extends Component {
 	reset = () => {
 		this.stopRecording()
 		this.setState(initialState, clearInterval(this.timer))
+		this.setState({ wordColor: new WordColor() })
 	}
 
 	setView = (id) => {
 		this.setState({ view: id })
 	}
 
-	/*
-	Float32Concat = (first, second) => {
-		var firstLength = first.length,
-			result = new Float32Array(firstLength + second.length)
-
-		result.set(first)
-		result.set(second, firstLength)
-
-		return result
+	setHighLight = (id) => {
+		if (id === this.state.highlight) {
+			this.state.wordColor.ResetColor()
+			this.setState({ highlight: 0 })
+		} else if (id === 1) {
+			this.state.wordColor.ColorUsingFillerWords()
+			this.setState({ highlight: 1 })
+		} else if (id === 2) {
+			this.state.wordColor.ColorUsingWordFrequencies()
+			this.setState({ highlight: 2 })
+		} else if (id === 3) {
+			this.state.wordColor.ColorUsingVolumeLevel()
+			this.setState({ highlight: 3 })
+		}
 	}
-	*/
-
 
 	/**
 	 * Handles record toggling for the app
@@ -145,7 +157,7 @@ class SpeechDismantler extends Component {
 	 */
 	streamAudioData = (e) => {
 		const left = e.inputBuffer.getChannelData(0)
-		const left16 = downsampleBuffer(left, 44100, 16000)
+		const left16 = DownsampleBuffer(left, 44100, 16000)
 		this.socket.emit('binaryData', left16)
 	}
 
@@ -160,13 +172,20 @@ class SpeechDismantler extends Component {
 		context = new AudioContext()
 		context.suspend() //Stops the context timer here
 		processor = context.createScriptProcessor(this.bufferSize, 1, 1)
-		processor.connect(context.destination)
 
 		const handleSuccess = (stream) => {
 			globalStream = stream
 			recorder = new MediaRecorder(stream)
 			input = context.createMediaStreamSource(stream)
 			input.connect(processor)
+			analyser = context.createAnalyser()
+			//javascriptNode=audioContext.createScriptProcessor(2048,1,1);
+			analyser.smoothingTimeConstant = 0.8
+			analyser.fftSize = 1024
+			input.connect(analyser)
+			analyser.connect(processor)
+			processor.connect(context.destination)
+
 			recorder.ondataavailable = (e) => {
 				var newChunks = this.state.audioChunks.slice()
 				newChunks.push(e.data)
@@ -185,6 +204,24 @@ class SpeechDismantler extends Component {
 			}
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
+				var array = new Uint8Array(analyser.frequencyBinCount)
+				analyser.getByteFrequencyData(array)
+				var values = 0
+				var length = array.length
+				for (var i = 0; i < length; i++) {
+					values += (array[i])
+				}
+				var average = Math.round(values / length)
+				var newVolumes = this.state.volumes.slice()
+				var volumesObject = { time: this.state.elapsed, volume: average }
+
+				this.state.wordColor.SetVolumes(volumesObject)
+
+				newVolumes.push(volumesObject)
+				//console.log(this.state.volumes)
+				this.setState({
+					volumes: newVolumes,
+				})
 			}
 			//Recording and context timer are almost synced with this
 			recorder.start()
@@ -240,7 +277,7 @@ class SpeechDismantler extends Component {
 		let page
 
 		if (pageView === 0) {
-			page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} />
+			page = <HomePage state={this.state} toggleRecord={this.toggleRecord} reset={this.reset} setHighLight={this.setHighLight} />
 		} else {
 			page = <AnalysePage state={this.state} />
 		}

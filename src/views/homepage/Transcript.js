@@ -55,7 +55,7 @@ class Transcript extends Component {
     componentDidUpdate = () => {
         if (!this.audio.current.paused) {
             this.scrollToCurrentPlayback()
-        } else {
+        } else if(this.props.isRecording) {
             this.scrollToBottom()
         }
     }
@@ -92,24 +92,26 @@ class Transcript extends Component {
     }
 
     render = () => {
-        const { transcript, blobUrl } = this.props
+        const { transcript, blobUrl, wordColor, isRecording} = this.props
         const cur = this.state.currentPlayback * 1000
         const items = transcript.map((sentence, idx, arr) => {
-            const next = arr[idx+1] ? arr[idx+1].startTime : Number.MAX_VALUE
+            const next = arr[idx+1] ? arr[idx+1].startTime-1 : Number.MAX_VALUE
             return (
                 <Sentence
+                    wordColor={wordColor}
                     key={idx}
-                    isCurrent={(sentence.startTime <= cur) && (next >= cur) && this.state.isPlaying}
+                    isCurrent={(sentence.startTime < cur) && (next > cur) && this.state.isPlaying}
                     sentence={sentence}
                     onClick={() => this.onSentenceClick(sentence.startTime)}
                     ref={this.currentlyPlaying}
-
+                    isRecording={isRecording}
                 />)
         })
+
         return (
 
             <div>
-                <Paper elevation={1} style={{ maxHeight: "30vh", height: "30vh", overflow: "auto" }}>
+                <Paper elevation={1} style={{ maxHeight: "35vh", height: "40vh", overflow: "auto" }}>
                     <CSSTransitionGroup
                         transitionName="example"
                         transitionEnterTimeout={500}
@@ -136,7 +138,9 @@ class Transcript extends Component {
 
 Transcript.propTypes = {
     transcript: PropTypes.array,
-    blobUrl: PropTypes.string
+    blobUrl: PropTypes.string,
+    isRecording: PropTypes.bool,
+    wordColor: PropTypes.object
 }
 
 export default Transcript

@@ -8,7 +8,7 @@ initialize {
       Object {
         "attribs": Object {
           "class": "MuiPaper-root-1 MuiPaper-elevation1-4 MuiPaper-rounded-2",
-          "style": "max-height:30vh;height:30vh;overflow:auto",
+          "style": "max-height:35vh;height:40vh;overflow:auto",
         },
         "children": Array [
           Object {
@@ -178,7 +178,7 @@ initialize {
         "prev": Object {
           "attribs": Object {
             "class": "MuiPaper-root-1 MuiPaper-elevation1-4 MuiPaper-rounded-2",
-            "style": "max-height:30vh;height:30vh;overflow:auto",
+            "style": "max-height:35vh;height:40vh;overflow:auto",
           },
           "children": Array [
             Object {

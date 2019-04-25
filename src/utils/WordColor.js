@@ -35,17 +35,12 @@ class WordColor {
         this.useFillerWords = true
         this.useWordFrequencies = false
         this.useVolumeLevel = false
-
-        console.log('fillers: '+this.useFillerWords+' freq: '+this.useWordFrequencies+' volume: '+this.useVolumeLevel)
     }
 
     ColorUsingWordFrequencies = () => {
         this.useFillerWords = false
         this.useWordFrequencies = true
         this.useVolumeLevel = false
-
-        console.log('fillers: '+this.useFillerWords+' freq: '+this.useWordFrequencies+' volume: '+this.useVolumeLevel)
-
     }
 
     ColorUsingVolumeLevel = () => {
@@ -53,17 +48,12 @@ class WordColor {
         this.useWordFrequencies = false
         this.useVolumeLevel = true
 
-        console.log('fillers: '+this.useFillerWords+' freq: '+this.useWordFrequencies+' volume: '+this.useVolumeLevel)
-
     }
 
     ResetColor = () => {
         this.useFillerWords = false
         this.useWordFrequencies = false
         this.useVolumeLevel = false
-
-        console.log('fillers: '+this.useFillerWords+' freq: '+this.useWordFrequencies+' volume: '+this.useVolumeLevel)
-
     }
 
     SetVolumes = (newVolumes) => {

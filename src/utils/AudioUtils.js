@@ -1,5 +1,3 @@
-const colors = ['#42e20d', '#5be22f', '#61e038', '#68e041', '#71e04c', '#78e055', '#80e060', '#8ce070', '#98e27f', '#9ddd87']
-
 class AudioUtils {
 
     constructor() {
@@ -27,7 +25,7 @@ class AudioUtils {
             var bestVolumeMatch = GetBestMatchingVolume(wordTime, this.averageVolumes)
             this.wordTimesAndVolumes.set(wordTime, bestVolumeMatch)
         }
-        console.log('time: ' + wordTime + '  volume: ' + this.wordTimesAndVolumes.get(wordTime))
+        //console.log('time: ' + wordTime + '  volume: ' + this.wordTimesAndVolumes.get(wordTime))
         return convertVolumeToColor(this.wordTimesAndVolumes.get(wordTime))
     }
 

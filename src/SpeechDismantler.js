@@ -72,7 +72,6 @@ class SpeechDismantler extends Component {
 				this.setState({
 					transcript: newTranscript,
 				})
-				console.log(newTranscript)
 				this.state.wordColor.CalculateFrequencies(newTranscript)
 			}
 		})
@@ -179,12 +178,12 @@ class SpeechDismantler extends Component {
 			recorder = new MediaRecorder(stream)
 			input = context.createMediaStreamSource(stream)
 			input.connect(processor)
-			analyser = context.createAnalyser();
+			analyser = context.createAnalyser()
 			//javascriptNode=audioContext.createScriptProcessor(2048,1,1);
-			analyser.smoothingTimeConstant = 0.8;
-			analyser.fftSize = 1024;
+			analyser.smoothingTimeConstant = 0.8
+			analyser.fftSize = 1024
 			input.connect(analyser)
-			analyser.connect(processor);
+			analyser.connect(processor)
 			processor.connect(context.destination)
 
 			recorder.ondataavailable = (e) => {
@@ -205,14 +204,14 @@ class SpeechDismantler extends Component {
 			}
 			processor.onaudioprocess = (e) => {
 				this.streamAudioData(e)
-				var array = new Uint8Array(analyser.frequencyBinCount);
-				analyser.getByteFrequencyData(array);
-				var values = 0;
-				var length = array.length;
+				var array = new Uint8Array(analyser.frequencyBinCount)
+				analyser.getByteFrequencyData(array)
+				var values = 0
+				var length = array.length
 				for (var i = 0; i < length; i++) {
-					values += (array[i]);
+					values += (array[i])
 				}
-				var average = Math.round(values / length);
+				var average = Math.round(values / length)
 				var newVolumes = this.state.volumes.slice()
 				var volumesObject = { time: this.state.elapsed, volume: average }
 

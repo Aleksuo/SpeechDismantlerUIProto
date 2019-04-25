@@ -1,18 +1,19 @@
 import React from 'react'
 import {Grid} from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { VictoryTheme, VictoryPie, VictoryChart, VictoryBar, VictoryAxis} from 'victory'
-import { WordCounter } from '../../utils/WordFregs.js'
+import { VictoryPie} from 'victory'
+//import { WordCounter } from '../../utils/WordFregs.js'
 
+/*
 const otherSample = [
         {quarter: 1, earnings: 13000},
         {quarter: 2, earnings: 16500},
         {quarter: 3, earnings: 14250},
         {quarter: 4, earnings: 19000}
       ]
-
-const AnalysePage = (props) =>{ 
-    const {state} = props
+*/
+const AnalysePage = () =>{ 
+    //const {state} = props
     
     //const sampleData = WordCounter(this.state.transcript);
 

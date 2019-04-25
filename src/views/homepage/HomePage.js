@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, Grid, Fab, Toolbar, AppBar, Tabs, Tab, Tooltip } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles';
-import grey from '@material-ui/core/colors/grey'
+import { Button, Grid, Fab, AppBar, Tabs, Tab, Tooltip } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import MicIcon from '@material-ui/icons/Mic'
 import PauseIcon from '@material-ui/icons/Pause'
 import PropTypes from 'prop-types'
@@ -24,7 +23,7 @@ const styles = theme => ({
         height: "4px",
         color: 'rgba(0, 0, 0, 0.87)'
     },
-});
+})
 
 /**
  * A stateless component that contains they layout of the home page
@@ -95,6 +94,8 @@ const HomePage = (props) => {
 HomePage.propTypes = {
     state: PropTypes.object,
     toggleRecord: PropTypes.func,
-    reset: PropTypes.func
+    reset: PropTypes.func,
+    setHighLight: PropTypes.func,
+    classes: PropTypes.object
 }
 export default withStyles(styles, { withTheme: true })(HomePage)

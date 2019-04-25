@@ -1,8 +1,8 @@
 
-const fillerWordsJson = require('./../config/fillerWords.json')
+import fillerWordsJson from './../config/fillerWords.json'
 
 //colors from light to dark
-const colors = ['#42e20d', '#5be22f', '#61e038', '#68e041', '#71e04c', '#78e055', '#80e060', '#8ce070', '#98e27f', '#9ddd87']
+//const colors = ['#42e20d', '#5be22f', '#61e038', '#68e041', '#71e04c', '#78e055', '#80e060', '#8ce070', '#98e27f', '#9ddd87']
 
 class FillerWords {
 

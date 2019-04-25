@@ -3,6 +3,7 @@ import { Typography, Divider } from '@material-ui/core'
 import PropTypes from 'prop-types'
 
 import { millisecondsToTimeString } from './../../utils/GeneralUtils.js'
+//import { parentPort } from 'worker_threads'
 
 /**
  * A stateless component for displaying the recognized sentences in the transcript
@@ -43,7 +44,9 @@ const Sentence = React.forwardRef((props, ref) => {
 Sentence.propTypes = {
     sentence: PropTypes.object,
     onClick: PropTypes.func,
-    isCurrent: PropTypes.bool
+    isCurrent: PropTypes.bool,
+    wordColor: PropTypes.object,
+    isRecording: PropTypes.bool,
 }
 
 export default Sentence

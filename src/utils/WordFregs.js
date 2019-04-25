@@ -1,8 +1,8 @@
 /* WordCounter counts frequensies of occurences of "word" -strings in transcript */
 
 //colors from light to dark
-const colors = ['#42e20d', '#5be22f', '#61e038', '#68e041', '#71e04c', '#78e055', '#80e060', '#8ce070', '#98e27f', '#9ddd87']
-
+var colors = ['#08306b','#08519c','#2171b5','#4292c6','#6baed6','#fc8d59', '#ef6548', '#d7301f', '#b30000', '#7f0000']
+colors = colors.reverse()
 class WordCounter {
 
     constructor() {
@@ -130,7 +130,7 @@ const GetIndexInTopWords = (string, array) => {
     //returns integer telling strings index in top words, if not found returns -1
     var stringListForm = RemovePunctToLowerCase(string)
 
-    if (array === undefined || array.length == 0) {
+    if (array === undefined || array.length === 0) {
         return -1
     }
 

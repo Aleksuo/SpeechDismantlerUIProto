@@ -138,7 +138,9 @@ class Transcript extends Component {
 
 Transcript.propTypes = {
     transcript: PropTypes.array,
-    blobUrl: PropTypes.string
+    blobUrl: PropTypes.string,
+    isRecording: PropTypes.bool,
+    wordColor: PropTypes.object
 }
 
 export default Transcript
